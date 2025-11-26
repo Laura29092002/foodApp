@@ -1,0 +1,18 @@
+.recette{
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2{
+        font-size: 30px;
+    }
+    .info{
+        text-align: center;
+    }
+    .sous-info{
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+    }
+}

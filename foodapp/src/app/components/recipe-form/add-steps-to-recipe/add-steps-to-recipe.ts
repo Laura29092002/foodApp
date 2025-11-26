@@ -58,10 +58,6 @@ else if(this.textareaFields.length == 0){
       })
       
       
-      
-          
-
-      
       this.updateStore();
     }
   }

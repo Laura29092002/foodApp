@@ -4,3 +4,60 @@ form{
     gap: 16px;
     margin: 16px;
 }
+input{
+    max-width: 60%;
+    margin-left: 50px;
+    border-radius: 30px;
+    border-color: rgb(119, 75, 46, 0.3);
+    padding: 10px 30px;
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: #774b2e;
+}
+
+input:focus{
+    outline: none;
+    border-color: #774b2e;
+}
+
+input::placeholder{
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: rgb(119, 75, 46,0.5);
+}
+
+.file-button{
+    margin: 0px 50px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: #774b2e;
+    font-family: 'Gluten', cursive;
+    font-size: 12px;
+    font-weight: 300;
+    color: white;
+    cursor: pointer;
+}
+
+.form-group{
+    max-width: 800px;
+    margin: 10px;
+}
+.form-group.image{
+    display: flex;
+    flex-direction: column;
+}
+
+small{
+    font-size: 12px;
+    color: rgb(119, 75, 46, 0.5);
+}
+
+.imagePreview{
+    margin-top: 50px;
+    .image{
+        width: 50%;
+        margin-right: 50px;
+    }
+    
+}

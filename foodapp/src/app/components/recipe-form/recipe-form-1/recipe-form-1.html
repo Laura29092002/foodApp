@@ -5,31 +5,37 @@
       type="text" 
       id="name" 
       formControlName="name"
-      placeholder="Ex: Tarte aux pommes"
+      placeholder="Tarte aux pommes"
     />
-    <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="error">
-      Le nom est requis
-    </div>
+    @if(form.get('name')?.invalid && form.get('name')?.touched){
+        <p>Le nom est requis</p>
+    }
   </div>
 
-  <div class="form-group">
+  <div class="form-group image">
+    <div>
     <label for="image">Image de la recette</label>
-    
-    <!-- Prévisualisation de l'image -->
-    <div *ngIf="imagePreview" class="image-preview">
-      <img [src]="imagePreview" alt="Aperçu de la recette" />
-      <button type="button" (click)="removeImage()" class="btn-remove">
-        ✕ Supprimer l'image
-      </button>
-    </div>
-
-    <!-- Input file -->
     <input 
       type="file" 
       id="image" 
       (change)="onFileSelected($event)"
       accept="image/*"
+      hidden
     />
-    <small>Formats acceptés: JPG, PNG, GIF (max 5MB)</small>
+    <label for="image" class="file-button">
+      Choisir une image
+    </label>
+    <small>* Formats acceptés: JPG, PNG, GIF (max 5MB)</small>
+    </div>
+    @if(imagePreview){
+        <div class="imagePreview">
+            <img [src]="imagePreview" alt="Aperçu de la recette" class="image"/>
+            <svg (click)="removeImage()" 
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            
+            
+            
+        </div>
+     }
   </div>
 </form>

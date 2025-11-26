@@ -1,10 +1,12 @@
+<div class="ingredient-list">
 <ng-multiselect-dropdown
  [placeholder]="'Ajouter des ingredients'"
  [settings]="dropdownSettings"
  [data]="dropdownList"
  [(ngModel)]="selectedItems"
  (onSelect)="onItemSelect($event)"
- (onSelectAll)="onSelectAll($event)">
+ (onSelectAll)="onSelectAll($event)"
+ class="dropdownList">
 </ng-multiselect-dropdown>
 @for(ingredient of selectedItems; track ingredient.id){
     <div class="ingredient-item">
@@ -20,3 +22,5 @@
       </button>
     </div>
 }
+
+</div>

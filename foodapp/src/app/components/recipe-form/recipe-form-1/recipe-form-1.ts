@@ -4,11 +4,10 @@ import { Store } from "@ngrx/store";
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import * as RecipeFormActions from '../../../store/recipe-form.actions';
 import { selectRecetteData } from '../../../store/recipe-form.selectors';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-form-1',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './recipe-form-1.html',
   styleUrl: './recipe-form-1.scss',
 })
