@@ -1,4 +1,14 @@
 <div (click)="onClick()" class="content">
-    <img [src]="recipe.image" alt="{{ recipe.name }}" />
+    @if(recipe.image){
+        <img 
+            [src]="'http://localhost:8080/recipe/' + recipe.id + '/image'" 
+            [alt]="recipe.name"
+        />
+    }@else {
+        <img 
+            src="assets/logo.png" 
+            [alt]="recipe.name"
+        />
+    }
     <h3>{{ recipe.name }}</h3>
 </div>

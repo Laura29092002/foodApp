@@ -4,7 +4,7 @@ import { Step } from "../step/step.model";
 export class Recipe {
     id: number;
     name: string;
-    image: string;
+    image?: string;
     ingredients?: Ingredient[];
     steps?: Step[];
 

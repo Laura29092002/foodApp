@@ -1,18 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { Observable } from 'rxjs';
-import * as RecipeFormActions from '../../store/recipe-form.actions';
 import * as fromRecipeForm from '../../store/recipe-form.selectors';
-
 import { RecipeForm1 } from "../../components/recipe-form/recipe-form-1/recipe-form-1";
 import { AddIngredientsToRecipe } from "../../components/recipe-form/add-ingredients-to-recipe/add-ingredients-to-recipe";
 import { AddStepsToRecipe } from "../../components/recipe-form/add-steps-to-recipe/add-steps-to-recipe";
-import { Recipe } from '../../models/recipe/recipe.model';
 import { RecipeService } from '../../services/recipe/recipe';
-import { IngredientService } from '../../services/ingredient/ingredient';
 import { StepService } from '../../services/step/step';
 import { Step } from '../../models/step/step.model';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-form',
@@ -22,56 +18,74 @@ import { Router } from '@angular/router';
 })
 export class RecipeForm {
 
+  @ViewChild(RecipeForm1) recipeForm1!: RecipeForm1; // ✅ Pour accéder au fichier image
 
-  constructor(private store: Store, private recipeService : RecipeService, private stepService: StepService, private route: Router) {
-  }
+  constructor(
+    private store: Store, 
+    private recipeService: RecipeService, 
+    private stepService: StepService, 
+    private router: Router
+  ) {}
 
   onSubmit() {
-    
-    // Récupérer toutes les données
-    this.store.select(fromRecipeForm.selectCompleteRecipe).subscribe(recipe => {
-      console.log('Recette complète:', recipe);
+    // Récupérer toutes les données du store
+    this.store.select(fromRecipeForm.selectCompleteRecipe)
+      .pipe(take(1)) // ✅ Prendre une seule valeur et se désabonner automatiquement
+      .subscribe(recipe => {
+        console.log('Recette complète:', recipe);
 
-      if(recipe.recette.name){
-        const newRecipe = new Recipe(0, recipe.recette.name, "");
-        console.log(newRecipe);
-        
-        this.recipeService.addRecipe(newRecipe).subscribe({
-           next: (data) => {
-            console.log("added", data)
-            for(let ing of recipe.ingredients){
-              if(ing.quantity){
-                this.recipeService.addIngredientToRecipe(data.id, ing.id, ing.quantity).subscribe({
-                  next: (ingre) => console.log("added", ingre)
-                })
+        if (!recipe.recette.name) {
+          alert('Le nom de la recette est requis');
+          return;
+        }
+
+        // ✅ Récupérer le fichier image depuis le composant enfant
+        const imageFile = this.recipeForm1?.getImageFile();
+
+        // 1️⃣ Créer la recette avec l'image
+        this.recipeService.addRecipe(recipe.recette.name, imageFile || undefined).subscribe({
+          next: (createdRecipe) => {
+            console.log("Recette créée:", createdRecipe);
+
+            // 2️⃣ Ajouter les ingrédients
+            const ingredientPromises = recipe.ingredients.map(ing => {
+              if (ing.quantity) {
+                return this.recipeService.addIngredientToRecipe(
+                  createdRecipe.id, 
+                  ing.id, 
+                  ing.quantity
+                ).toPromise();
               }
-            }
-            for(let step of recipe.steps){
-              const newStep = new Step(0, step.number, step.description, data.id);
-              this.stepService.addStep(newStep).subscribe({
-                next: (stp) => console.log("added", stp),
-                error: (err) => console.error(err)
-              })
-            }
-            this.route.navigate(['/recipe', data.id]);
+              return Promise.resolve();
+            });
+
+            Promise.all(ingredientPromises).then(() => {
+              console.log("Tous les ingrédients ajoutés");
+
+              // 3️⃣ Ajouter les étapes
+              const stepPromises = recipe.steps.map(step => {
+                const newStep = new Step(0, step.number, step.description, createdRecipe.id);
+                return this.stepService.addStep(newStep).toPromise();
+              });
+
+              Promise.all(stepPromises).then(() => {
+                console.log("Toutes les étapes ajoutées");
+                
+                // ✅ Rediriger vers la page de la recette
+                this.router.navigate(['/recipe', createdRecipe.id]);
+              }).catch(err => {
+                console.error("Erreur lors de l'ajout des étapes:", err);
+              });
+
+            }).catch(err => {
+              console.error("Erreur lors de l'ajout des ingrédients:", err);
+            });
           },
-           error: (err) => console.error(err)
+          error: (err) => {
+            console.error("Erreur lors de la création de la recette:", err);
+            alert("Erreur lors de la création de la recette");
+          }
         });
-
-        
-
-        
-      }
-
-      
-      
-      
-    }).unsubscribe();
-
-    
+      });
   }
-
-  
-
-
 }
