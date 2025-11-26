@@ -1,0 +1,22 @@
+.container{
+    margin: 30px;
+}
+
+.recipes{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    
+}
+
+button{
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: #774b2e;
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: white;
+    cursor: pointer;
+}

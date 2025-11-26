@@ -1,0 +1,26 @@
+<div>
+    <h2>{{recipe.name}}</h2>
+</div>
+<div>
+    <h3>Ingredients</h3>
+    @if(recipe.ingredients && recipe.ingredients.length > 0){
+        @for(ingredient of recipe.ingredients; track ingredient.id){
+            <app-ingredients-list [ingredient]="ingredient"></app-ingredients-list>
+        }
+    } @else {
+        <p>No ingredients available for this recipe.</p>
+    }
+</div>
+<div>
+    <h3>Etapes</h3>
+    @if(recipe.steps && recipe.steps.length > 0){
+        @for(step of recipe.steps; track step.id){
+            <div>
+                <p>{{step.description}}</p>
+            </div>
+        }
+    } @else {
+        <p>No steps available for this recipe.</p>
+    }   
+
+</div>

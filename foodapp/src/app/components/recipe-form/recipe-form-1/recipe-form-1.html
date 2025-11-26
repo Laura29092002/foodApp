@@ -1,0 +1,18 @@
+<form [formGroup]="form">
+    <label>Nom de la recette:
+        <input type="text" id="name" name="name" formControlName="name" required/>
+    </label>
+
+    <label>Image de la recette:
+        <input 
+    type="file" 
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    #fileInput required>
+  
+    @if(imagePreview){
+      <img [src]="imagePreview" alt="Aperçu" style="max-width: 200px;">
+    }
+    </label>
+  
+</form>

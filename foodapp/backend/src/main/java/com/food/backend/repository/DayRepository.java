@@ -1,0 +1,5 @@
+package com.food.backend.repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.food.backend.models.Day;
+
+public interface DayRepository extends JpaRepository<Day, Integer> {}

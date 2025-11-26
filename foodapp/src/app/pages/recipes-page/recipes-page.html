@@ -1,0 +1,8 @@
+<div class="container">
+    <button (click)="addRecipe()">Ajouter une recette</button>
+    <div class="recipes">
+    @for(recipe of recipes; track recipe.id){
+        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+    }
+    </div>
+</div>

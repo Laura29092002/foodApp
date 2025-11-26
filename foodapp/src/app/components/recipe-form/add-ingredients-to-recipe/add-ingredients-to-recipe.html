@@ -1,0 +1,22 @@
+<ng-multiselect-dropdown
+ [placeholder]="'Ajouter des ingredients'"
+ [settings]="dropdownSettings"
+ [data]="dropdownList"
+ [(ngModel)]="selectedItems"
+ (onSelect)="onItemSelect($event)"
+ (onSelectAll)="onSelectAll($event)">
+</ng-multiselect-dropdown>
+@for(ingredient of selectedItems; track ingredient.id){
+    <div class="ingredient-item">
+      <p>{{ingredient.name}}</p>
+      <input 
+        type="number" 
+        [(ngModel)]="quantities[ingredient.id]"
+        (ngModelChange)="onQuantityChange(ingredient.id)"
+        placeholder="Quantité"
+        min="0" />
+      <button type="button" (click)="removeIngredient(ingredient)">
+        ✕ Supprimer
+      </button>
+    </div>
+}
