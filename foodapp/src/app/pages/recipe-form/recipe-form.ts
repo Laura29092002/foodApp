@@ -62,23 +62,22 @@ export class RecipeForm {
             Promise.all(ingredientPromises).then(() => {
               console.log("Tous les ingrédients ajoutés");
 
-              // 3️⃣ Ajouter les étapes
-              const stepPromises = recipe.steps.map(step => {
-                const newStep = new Step(0, step.number, step.description, createdRecipe.id);
-                return this.stepService.addStep(newStep).toPromise();
-              });
-
-              Promise.all(stepPromises).then(() => {
-                console.log("Toutes les étapes ajoutées");
-                
-                // ✅ Rediriger vers la page de la recette
-                this.router.navigate(['/recipe', createdRecipe.id]);
-              }).catch(err => {
-                console.error("Erreur lors de l'ajout des étapes:", err);
-              });
-
             }).catch(err => {
               console.error("Erreur lors de l'ajout des ingrédients:", err);
+            });
+
+            // 3️⃣ Ajouter les étapes
+            const stepPromises = recipe.steps.map(step => {
+              const newStep = new Step(0, step.number, step.description, createdRecipe.id);
+              return this.stepService.addStep(newStep).toPromise();
+            });
+            Promise.all(stepPromises).then(() => {
+              console.log("Toutes les étapes ajoutées");
+              
+              // ✅ Rediriger vers la page de la recette
+              this.router.navigate(['/recipe', createdRecipe.id]);
+            }).catch(err => {
+              console.error("Erreur lors de l'ajout des étapes:", err);
             });
           },
           error: (err) => {

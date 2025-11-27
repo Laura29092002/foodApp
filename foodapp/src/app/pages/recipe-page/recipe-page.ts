@@ -51,7 +51,7 @@ export class RecipePage implements OnInit {
         }),
         tap(({ ingredients, steps }) => {
           this.recipe.ingredients = ingredients;
-          this.recipe.steps = steps;
+          this.recipe.steps = [...steps].sort((a, b) => a.number - b.number);
           this.isLoading = false;
           console.log('Recette chargée:', this.recipe);
         }),

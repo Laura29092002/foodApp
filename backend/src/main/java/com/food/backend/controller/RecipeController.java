@@ -57,8 +57,8 @@ public class RecipeController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Recipe> save(
-            @RequestParam("name") String name,
-            @RequestParam(value = "image", required = false) MultipartFile image) {
+            @RequestParam() String name,
+            @RequestParam(required = false) MultipartFile image) {
         
         Recipe recipe = new Recipe();
         recipe.setName(name);
@@ -76,8 +76,8 @@ public class RecipeController {
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Recipe> updateRecipe(
             @PathVariable Integer id,
-            @RequestParam("name") String name,
-            @RequestParam(value = "image", required = false) MultipartFile image) {
+            @RequestParam() String name,
+            @RequestParam(required = false) MultipartFile image) {
         
         Optional<Recipe> existingRecipe = recipeRepository.findById(id);
         
@@ -152,7 +152,8 @@ public class RecipeController {
     }
 
     @PostMapping("/{id_recipe}/{id_ingredient}/{quantity}")
-    public void save(@PathVariable int id_recipe, @PathVariable int id_ingredient, @PathVariable int quantity) {
+    public ResponseEntity<Void> save(@PathVariable int id_recipe, @PathVariable int id_ingredient, @PathVariable int quantity) {
         recipeRepository.addAllIngredientToRecipe(id_recipe, id_ingredient, quantity);
+        return ResponseEntity.ok().build();
     }
 }

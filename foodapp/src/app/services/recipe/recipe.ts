@@ -26,7 +26,7 @@ export class RecipeService {
   }
 
   addIngredientToRecipe(id_recipe: number, id_ingredient: number, quantity: number){
-    return this.http.post<number>(`${this.apiUrl}/${id_recipe}/${id_ingredient}/${quantity}`, id_recipe);
+    return this.http.post<void>(`${this.apiUrl}/${id_recipe}/${id_ingredient}/${quantity}`, null);
   }
 
   

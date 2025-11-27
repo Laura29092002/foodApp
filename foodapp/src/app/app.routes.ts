@@ -4,6 +4,7 @@ import { RecipesPage } from './pages/recipes-page/recipes-page';
 import { ShoppingPage } from './pages/shopping-page/shopping-page';
 import { RecipePage } from './pages/recipe-page/recipe-page';
 import { RecipeForm } from './pages/recipe-form/recipe-form';
+import { SettingsPage } from './pages/settings-page/settings-page';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: 'create-recipe',
         component: RecipeForm,
+    },
+    {
+        path: 'settings',
+        component: SettingsPage
     }
 ];

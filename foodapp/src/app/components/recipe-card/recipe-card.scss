@@ -1,16 +1,21 @@
 .content{
-    background-color: rgb(255, 219, 77, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 219, 77, 0.4);
     border-radius: 10px;
     padding: 10px;
     text-align: center;
     text-decoration: wrap;
     margin: 10px;
     width: 200px;
-    height: 150px;
+    height: 130px;
+    
     h3{
         color: #795035;
         font-size: 14px;
-        font-weight: 300;
+        font-weight: 400;
     }
     cursor: pointer;
     img{

@@ -1,5 +1,5 @@
 .recette{
-    margin: 30px;
+    margin: 30px 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,5 +14,32 @@
         display: flex;
         flex-direction: row;
         gap: 50px;
+        .ingredient,
+        .step {
+            flex: 1; 
+            min-width: 0; 
+            p{
+                margin-block-end: 50px;
+            }
+        }
+
+
+        .ingredient{
+            text-align: end;
+        }
+    
+        .image {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; 
+
+            img {
+                width: 300px;
+                height: auto;
+                object-fit: cover; 
+            }
+        }
     }
 }
+
