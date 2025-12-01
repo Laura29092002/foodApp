@@ -1,6 +1,7 @@
 package com.food.backend.controller;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.food.backend.models.Ingredient;
 import com.food.backend.repository.IngredientRepository;
 
+
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
     private final IngredientRepository ingredientRepository;
+
 
     public IngredientController(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
@@ -35,12 +38,16 @@ public class IngredientController {
     public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
         return ingredientRepository.save(ingredient);
     }
+
     @PutMapping
     public Ingredient updateIngredient(@RequestBody Ingredient ingredient) {
         return ingredientRepository.save(ingredient);
     }
+
+    @Transactional
     @DeleteMapping("/{id}")
     public void deleteIngredient(@PathVariable int id) {
+        ingredientRepository.deleteByIngredientId(id);
         ingredientRepository.deleteById(id);
     }
 

@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+    <label>Nom de l'ingrédient</label>
+    <input type="text"id="name" 
+      formControlName="name"
+      placeholder="Tomates"/>
+      @if(selectedIcon){
+        <span (click)="changeEmoji()">{{ selectedIcon }}</span>
+      
+      }@if(selectedIcon == "" || isOpen){
+        <emoji-mart 
+        (emojiSelect)="addEmoji($event)"
+        [include]="['foods']"
+        [set]="'google'"
+        [emoji]="'tomato'"
+        title="Choisir un ingrédient">
+      </emoji-mart>
+      }
+    <select formControlName="categoryId" id="categoryId">
+      <option value="">Choisir une catégorie</option>
+      @for(category of categories; track category.id){
+      <option [value]="category.id">{{category.name}}</option>
+      }
+    </select>
+    <button type="button" (click)="addIngredient()">Ajouter</button>
+</form>

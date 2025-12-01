@@ -3,12 +3,12 @@ export class Ingredient {
     name: string;
     quantity?: number;
     image?: string;
-    category_id?: string;
+    categoryId?: string;
 
-    constructor(id: number, name: string, quantity: number, image?: string, category_id?: string) {
+    constructor(id: number, name: string, image?: string, categoryId?: string) {
         this.id = id;
         this.name = name;
         this.image = image;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
     }
 }

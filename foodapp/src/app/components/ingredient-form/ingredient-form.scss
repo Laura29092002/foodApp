@@ -1,0 +1,8 @@
+/* Dans votre component.css */
+::ng-deep .emoji-mart-category-label {
+  display: none !important;
+}
+
+::ng-deep .emoji-mart-anchors {
+  display: none !important;
+}
