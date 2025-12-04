@@ -1,6 +1,6 @@
 @if(isOpen){
     <h3>Ajouter un ingredient</h3>
-    <app-ingredient-form></app-ingredient-form>
+    <app-ingredient-form (add)="reload($event)"></app-ingredient-form>
     <button (click)="addIngredient()">-</button>
 }@else{
     <button (click)="addIngredient()">+</button>
@@ -15,11 +15,29 @@
     </tr>
     @for(ingredient of ingredients; let i = $index; track ingredient.id){
         <tr>
-            <td>{{ingredient.name}}</td>
-            <td>{{ingredient.image}}</td>
-            <td>{{ingredient.categoryId}}</td>
-            <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-utensils-crossed-icon lucide-utensils-crossed"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg></td>
-            <td (click)="deleteIngredient(ingredient.id, i)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cooking-pot-icon lucide-cooking-pot"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg></td>
+            @if(editingId === ingredient.id){
+                <!-- Mode édition -->
+                <td><input type="text" [(ngModel)]="editedIngredient.name" /></td>
+                <td><input type="text" [(ngModel)]="editedIngredient.image" /></td>
+                <td><input type="text" [(ngModel)]="editedIngredient.categoryId" /></td>
+                <td (click)="saveIngredient(i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
+                </td>
+                <td (click)="cancelEdit()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </td>
+            }@else{
+                <!-- Mode affichage -->
+                <td>{{ingredient.name}}</td>
+                <td>{{ingredient.image}}</td>
+                <td>{{ingredient.categoryId}}</td>
+                <td (click)="updateIngredient(ingredient)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-utensils-crossed-icon lucide-utensils-crossed"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg>
+                </td>
+                <td (click)="deleteIngredient(ingredient.id, i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cooking-pot-icon lucide-cooking-pot"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg>
+                </td>
+            }
         </tr>
     }
 </table>

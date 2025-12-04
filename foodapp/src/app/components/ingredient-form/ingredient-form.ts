@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CategoryService } from '../../services/category/category';
 import { Category } from '../../models/category/category.model';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
@@ -13,6 +13,7 @@ import { IngredientService } from '../../services/ingredient/ingredient';
   styleUrl: './ingredient-form.scss',
 })
 export class IngredientForm implements OnInit{
+  @Output() add = new EventEmitter<Ingredient>();
   form: FormGroup;
   categories! : Category[];
   selectedIcon = "";
@@ -57,6 +58,7 @@ export class IngredientForm implements OnInit{
       this.ingredientService.addIngredient(ingredient).subscribe({
         next: (response) => {
           console.log('Ingrédient ajouté avec succès', response);
+          this.add.emit(ingredient);
           this.form.reset();
           this.selectedIcon = '';
         },

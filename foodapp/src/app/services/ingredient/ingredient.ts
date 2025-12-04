@@ -23,8 +23,8 @@ export class IngredientService {
     return this.http.post<Ingredient>(this.apiUrl, ingredient);
   }
 
-  updateIngredient(id: number, updatedIngredient: Ingredient) {
-    return this.http.put<Ingredient>(`${this.apiUrl}/${id}`, updatedIngredient);
+  updateIngredient(updatedIngredient: Ingredient) {
+    return this.http.put<Ingredient>(`${this.apiUrl}`, updatedIngredient);
   }
 
   deleteIngredient(id: number) {
