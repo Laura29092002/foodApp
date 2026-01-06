@@ -1,5 +1,18 @@
 <div class="container">
-    <button (click)="addRecipe()">Ajouter une recette</button>
+    <div class="section">
+        <div class="h2">
+                <img src="https://img.icons8.com/?size=100&id=CrV1obVLC0BA&format=png&color=774b2e" alt="Kiosk on Wheels">
+                <h2>Toutes les recettes</h2>
+            </div>
+        <div class="searchbar">
+            <img src="https://img.icons8.com/?size=100&id=59878&format=png&color=774b2e" alt="search">
+            <input type="text" placeholder="Rechercher une recette...">
+        </div>
+        <button (click)="addRecipe()">
+            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+            Ajouter une recette
+        </button>
+    </div>
     <div class="recipes">
     @for(recipe of recipes; track recipe.id){
         <app-recipe-card [recipe]="recipe"></app-recipe-card>

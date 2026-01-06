@@ -1,22 +1,63 @@
 .container{
     margin: 30px;
+    background-color: #FFF5D6;
+    border-radius: 30px;
+    box-shadow: 0px 4px 5px #5b351b46;
 }
 
 .recipes{
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
     
 }
 
-button{
-    padding: 10px 15px;
+.searchbar{
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    color: #774b2e;
+    background-color: #FFFAEE;
     border-radius: 30px;
-    border: none;
-    background-color: #774b2e;
-    font-family: 'Gluten', cursive;
-    font-weight: 300;
-    color: white;
-    cursor: pointer;
+    width: 360px;
+    img{
+        width: 20px;
+    }
+    input{
+        width: 310px;
+        color: #774b2e;
+        font-family: 'Gluten', cursive;
+        border: none;
+        background-color: #FFFAEE;
+        &::placeholder{
+            color: #774b2e;
+        }
+    }
+    input:focus{
+        outline: none;
+    }
+}
+
+.h2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    img{
+        width: 25px;
+    }
+
+}
+
+.section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 250px;
+    
 }

@@ -5,11 +5,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    text-decoration: wrap;
-    h3{
-        color: #795035;
-        font-weight: 400;
-    }
+    overflow: hidden;
     cursor: pointer;
     margin: 20px 0px;
     background-color: #FFE891;
