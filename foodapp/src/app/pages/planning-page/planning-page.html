@@ -1,14 +1,3 @@
 <div class="planning-page">
-    @for(day of days; track day.id){
-        <div class="day"> 
-        <h2>{{day.name}}</h2>
-        @if(day.recipeLunch){
-            <app-recipe-card [recipe]="day.recipeLunch"></app-recipe-card>
-        }
-        @if(day.recipeDinner){
-            <app-recipe-card [recipe]="day.recipeDinner"></app-recipe-card>
-
-        }
-        </div>
-    }
+    <app-planning></app-planning>
 </div>

@@ -1,23 +1,6 @@
-.content{
-    position: relative;
-    margin: 20px 10px;
-    background-color: #ffdb4d66;
-    border-radius: 10px;
-    img{
-        width: 60%;
-        max-width: 300px;
-    }
-    
-}
-
-.cross{
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    cursor: pointer;
-}
 
 .recipe{
+    width: 130px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,9 +8,15 @@
     text-decoration: wrap;
     h3{
         color: #795035;
-        font-size: 14px;
         font-weight: 400;
     }
     cursor: pointer;
+    margin: 20px 0px;
+    background-color: #FFE891;
+    box-shadow: 0px 4px 5px #5b351b46;
+    border-radius: 30px;
+    img{
+        width: 100px;
+    }
     
 }

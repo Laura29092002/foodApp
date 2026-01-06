@@ -3,7 +3,7 @@
 }
 
 .nav-container{
-    margin: 0 40px;
+    margin: 20px 40px;
 }
 
 .brand {
@@ -20,6 +20,8 @@
 
 nav {
   float: right;
+  background-color: #FFF5D6;
+  border-radius: 10px;
   ul {
       list-style: none;
       margin: 0;
@@ -27,9 +29,12 @@ nav {
     li {
       float: left;
       position: relative;
+      img{
+        width: 20px;
+      }
       a {
         display: block;
-        padding: 10px 20px 0 20px;
+        padding: 0px 20px;
         line-height: 50px;
         color: #5B351B;
         text-decoration: none;

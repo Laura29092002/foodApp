@@ -1,13 +1,25 @@
 
-html, body { height: 100%; }
+html, body { height: 100%; background-color: #FFFAEE;}
 body { margin: 0; font-family: 'Gluten', cursive; overflow-x: hidden; color: #774b2e;}
+h2{ font-size: 24px;}
+h3{ font-size: 16px;}
+p{font-size: 14px;}
 button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     padding: 10px 15px;
     border-radius: 30px;
     border: none;
-    background-color: #774b2e;
+    background-color: #FFE891;
     font-family: 'Gluten', cursive;
-    font-weight: 300;
-    color: white;
+    font-weight: 500;
+    color: #774b2e;
     cursor: pointer;
+    height: 30px;
+    img{
+        width: 20px;
+    }
 }
