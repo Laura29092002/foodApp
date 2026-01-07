@@ -6,7 +6,7 @@
             </div>
         <div class="searchbar">
             <img src="https://img.icons8.com/?size=100&id=59878&format=png&color=774b2e" alt="search">
-            <input type="text" placeholder="Rechercher une recette...">
+            <input type="text" placeholder="Rechercher une recette..." [(ngModel)]="searchTerm">
         </div>
         <button (click)="addRecipe()">
             <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
@@ -14,8 +14,16 @@
         </button>
     </div>
     <div class="recipes">
-    @for(recipe of recipes; track recipe.id){
+    @for(recipe of filteredRecipes(); track recipe.id){
         <app-recipe-card [recipe]="recipe"></app-recipe-card>
+    }
+    </div>
+    <div class="norecipe">
+    @if(filteredRecipes().length == 0){
+        <img 
+            src="assets/default.png" 
+        />
+        <p>Il n'existe pas de recette correspondant à votre recherche.<br> N'hésitez pas à créer la vôtre!</p>
     }
     </div>
 </div>

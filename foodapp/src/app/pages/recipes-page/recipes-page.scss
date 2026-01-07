@@ -61,3 +61,14 @@
     gap: 250px;
     
 }
+
+.norecipe{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    img{
+        width: 100px;
+    }
+}
