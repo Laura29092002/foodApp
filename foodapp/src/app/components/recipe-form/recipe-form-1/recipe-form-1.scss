@@ -1,14 +1,18 @@
 form{
     display: flex;
     flex-direction: column;
-    gap: 16px;
     margin: 16px;
+}
+label{
+    font-size: 16px;
+    font-weight: 500;
 }
 input{
     max-width: 60%;
     margin-left: 50px;
     border-radius: 30px;
-    border-color: rgb(119, 75, 46, 0.3);
+    border: none;
+    background-color: #FFFAEE;
     padding: 10px 30px;
     font-family: 'Gluten', cursive;
     font-weight: 300;
@@ -27,18 +31,30 @@ input::placeholder{
 }
 
 .file-button{
-    margin: 0px 50px;
-    padding: 10px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 220px;
     border-radius: 30px;
     border: none;
-    background-color: #774b2e;
+    background-color: #FFE891;
     font-family: 'Gluten', cursive;
-    font-size: 12px;
-    font-weight: 300;
-    color: white;
+    font-weight: 500;
+    color: #774b2e;
     cursor: pointer;
+    height: 30px;
+    img{
+        width: 20px;
+    }
 }
-
+.selectimg{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
 .form-group{
     max-width: 800px;
     margin: 10px;
@@ -54,10 +70,23 @@ small{
 }
 
 .imagePreview{
-    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    background-color: #FFE891;
+    gap: 20px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 30px;
+    margin-bottom: 30px;
     .image{
-        width: 50%;
-        margin-right: 50px;
+        margin-left: 10px;
+        width: 150px;
+    }
+
+    .cross{
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
     }
     
 }

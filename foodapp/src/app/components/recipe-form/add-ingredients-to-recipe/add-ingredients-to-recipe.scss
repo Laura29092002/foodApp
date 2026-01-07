@@ -1,6 +1,43 @@
 .ingredient-list{
-    margin: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 120px;
     .dropdownList{
-        width: 600px;
+        width: 250px;
     }
+}
+
+.ingredient-item{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.every-ingredient{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+input{
+    width: 50px;
+    border-radius: 30px;
+    border: none;
+    background-color: #FFFAEE;
+    padding: 5px 30px;
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: #774b2e;
+}
+
+input:focus{
+    outline: none;
+    border-color: #774b2e;
+}
+
+input::placeholder{
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: rgb(119, 75, 46,0.5);
 }

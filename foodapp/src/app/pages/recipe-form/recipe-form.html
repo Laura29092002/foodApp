@@ -1,28 +1,41 @@
+<button class="back" (click)="onCancel()">
+    <img src="https://img.icons8.com/?size=100&id=101380&format=png&color=774b2e">
+    Retour
+</button>
+
 <div class="form">
-    <h2>Créer une nouvelle recette</h2>
-    <div>
-        <h3>Étape 1 : Informations de base</h3>
+    <div class="h2">
+        <img src="https://img.icons8.com/?size=100&id=96849&format=png&color=774b2e" alt="Cooking Book">
+        <h2>Ajouter une nouvelle recette</h2>
+    </div>
+    <div class="jaune">
+        <h2>Étape 1 : Informations de base</h2>
         <app-recipe-form-1></app-recipe-form-1>
     </div>
 
-    <div>
-        <h3>Étape 2 : Ingrédients</h3>
+    <div class="jaune">
+        <h2>Étape 2 : Ingrédients</h2>
         <app-add-ingredients-to-recipe></app-add-ingredients-to-recipe>
     </div>
 
-    <div>
-        <h3>Étape 3 : Instructions</h3>
+    <div class="jaune">
+        <h2>Étape 3 : Instructions</h2>
         <app-add-steps-to-recipe></app-add-steps-to-recipe>
     </div>
 
+    <div class="buttons">
+    <button class="cancel" (click)="onCancel()">
+      <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=FFDB4D">
+      Annuler
+    </button>
     
-
-    
-    <button 
+    <button class="submit"
       type="button" 
       (click)="onSubmit()">
-      Enregistrer la recette
+      <img src="https://img.icons8.com/?size=100&id=118849&format=png&color=774b2e" alt="Kawaii Noodle">
+      Ajouter la recette
     </button>
+    </div>
 
 
 

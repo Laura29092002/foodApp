@@ -9,6 +9,7 @@ import { StepService } from '../../services/step/step';
 import { Step } from '../../models/step/step.model';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-recipe-form',
@@ -18,14 +19,19 @@ import { take } from 'rxjs';
 })
 export class RecipeForm {
 
-  @ViewChild(RecipeForm1) recipeForm1!: RecipeForm1; // ✅ Pour accéder au fichier image
+  @ViewChild(RecipeForm1) recipeForm1!: RecipeForm1; // Pour accéder au fichier image
 
   constructor(
     private store: Store, 
     private recipeService: RecipeService, 
     private stepService: StepService, 
-    private router: Router
+    private router: Router,
+    private _location: Location
   ) {}
+
+  onCancel(){
+    this._location.back();
+  }
 
   onSubmit() {
     // Récupérer toutes les données du store

@@ -1,6 +1,32 @@
 form{
-    margin: 16px;
     textarea{
-        width: 600px;
+        width: 60%;
+        border-radius: 30px;
+        border: none;
+        background-color: #FFFAEE;
+        padding: 10px 30px;
+        font-family: 'Gluten', cursive;
+        font-weight: 300;
+        color: #774b2e;
+
+        &::placeholder{
+            font-family: 'Gluten', cursive;
+            font-weight: 300;
+            color: rgb(119, 75, 46,0.5);
+        }
+
+        &:focus{
+            outline: none;
+            border-color: #774b2e;
+
+        }
     }
 }
+
+.steps{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    margin-bottom: 20px;
+}
+
