@@ -22,8 +22,8 @@ export class DayService {
     return this.http.post<Day>(this.apiUrl, day);
   }
 
-  updateDay(id: number, updatedDay: Day) {
-    return this.http.put<Day>(`${this.apiUrl}/${id}`, updatedDay);
+  updateDay(updatedDay: Day) {
+    return this.http.put<Day>(`${this.apiUrl}`, updatedDay);
   }
 
   deleteDay(id: number) {

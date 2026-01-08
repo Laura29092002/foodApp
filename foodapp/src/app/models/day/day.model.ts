@@ -5,13 +5,13 @@ export class Day {
     name: string;
     recipeLunchId?: number;
     recipeDinnerId?: number;
-    recipeLunch?: Recipe;
-    recipeDinner?: Recipe;
+    listOfRecipe?: Recipe[];
 
-    constructor(id: number, name: string, recipeLunchId?: number, recipeDinnerId?: number) {
+    constructor(id: number, name: string, listOfRecipe: Recipe[], recipeLunchId?: number, recipeDinnerId?: number) {
         this.id = id;
         this.name = name;
         this.recipeLunchId = recipeLunchId;
         this.recipeDinnerId = recipeDinnerId;
+        this.listOfRecipe = listOfRecipe;
     }
 }

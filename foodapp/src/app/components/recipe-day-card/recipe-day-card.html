@@ -1,6 +1,4 @@
-
-@if(recipe){
-<div (click)="onClick()" class="recipe">
+<div class="recipe">
     @if(recipe.image){
         <img 
             [src]="'http://localhost:8080/recipe/' + recipe.id + '/image'" 
@@ -13,5 +11,5 @@
         />
     }
     <p>{{ recipe.name }}</p>
+    <button (click)="onClick()" class="button"><img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen"></button>
 </div>
-}
