@@ -34,9 +34,8 @@ export class RecipeForm {
   }
 
   onSubmit() {
-    // Récupérer toutes les données du store
     this.store.select(fromRecipeForm.selectCompleteRecipe)
-      .pipe(take(1)) // Prendre une seule valeur et se désabonner automatiquement
+      .pipe(take(1)) 
       .subscribe(recipe => {
         console.log('Recette complète:', recipe);
 
@@ -45,15 +44,12 @@ export class RecipeForm {
           return;
         }
 
-        // ✅ Récupérer le fichier image depuis le composant enfant
         const imageFile = this.recipeForm1?.getImageFile();
 
-        // 1️⃣ Créer la recette avec l'image
         this.recipeService.addRecipe(recipe.recette.name, imageFile || undefined).subscribe({
           next: (createdRecipe) => {
             console.log("Recette créée:", createdRecipe);
 
-            // 2️⃣ Ajouter les ingrédients
             const ingredientPromises = recipe.ingredients.map(ing => {
               if (ing.quantity) {
                 return this.recipeService.addIngredientToRecipe(
@@ -72,7 +68,6 @@ export class RecipeForm {
               console.error("Erreur lors de l'ajout des ingrédients:", err);
             });
 
-            // 3️⃣ Ajouter les étapes
             const stepPromises = recipe.steps.map(step => {
               const newStep = new Step(0, step.number, step.description, createdRecipe.id);
               return this.stepService.addStep(newStep).toPromise();
@@ -80,7 +75,6 @@ export class RecipeForm {
             Promise.all(stepPromises).then(() => {
               console.log("Toutes les étapes ajoutées");
               
-              // ✅ Rediriger vers la page de la recette
               this.router.navigate(['/recipe', createdRecipe.id]);
             }).catch(err => {
               console.error("Erreur lors de l'ajout des étapes:", err);

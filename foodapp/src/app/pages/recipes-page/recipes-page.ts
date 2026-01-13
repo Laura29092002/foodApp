@@ -33,14 +33,12 @@ export class RecipesPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Charger les recettes
     this.recipeService.getRecipes().subscribe((data) => {
       this.recipes = data;
     }); 
 
     this.root = this.router.url;
     
-    // Vérifier si on est en mode sélection depuis le store
     this.store.select(PlanningSelectors.selectIsSelecting)
       .pipe(takeUntil(this.destroy$))
       .subscribe(isSelecting => {
@@ -48,13 +46,11 @@ export class RecipesPage implements OnInit, OnDestroy {
         this.editionMode = isSelecting;
       });
 
-    // Optionnel : afficher des infos sur le contexte de sélection
     this.store.select(PlanningSelectors.selectSelectionContext)
       .pipe(takeUntil(this.destroy$))
       .subscribe(context => {
         if (context) {
           console.log('Sélection pour:', context);
-          // Vous pourriez afficher "Sélection pour Lundi - Déjeuner" par exemple
         }
       });
   }
@@ -83,18 +79,15 @@ export class RecipesPage implements OnInit, OnDestroy {
 
   addRecipeToPlanning() {
     if (this.selectedRecipe && this.isSelecting) {
-      // Dispatcher l'action pour ajouter la recette au planning
       this.store.dispatch(PlanningActions.setRecipeToDay({ 
         recipe: this.selectedRecipe 
       }));
       
-      // Retourner à la page planning
-      this.router.navigate(['/modify-planning']); // ou '/create-planning' selon le contexte
+      this.router.navigate(['/modify-planning']);
     }
   }
 
   onCancel() {
-    // Annuler la sélection
     this.store.dispatch(PlanningActions.cancelRecipeSelection());
     this._location.back();
   }

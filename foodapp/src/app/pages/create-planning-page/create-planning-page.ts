@@ -1,4 +1,3 @@
-// create-planning-page.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Day } from '../../models/day/day.model';
 import { DayService } from '../../services/day/day';
@@ -46,7 +45,6 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     // Charger seulement si le store est vide
     this.store.dispatch(PlanningActions.loadDaysIfEmpty());
     
-    // S'abonner aux changements avec copie profonde
     this.days$.pipe(takeUntil(this.destroy$)).subscribe(days => {
       // Copie profonde pour permettre le drag & drop
       this.days = this.deepCopyDays(days);
@@ -109,10 +107,8 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
         return dayToUpdate;
       });
 
-      // Dispatcher l'action pour mettre à jour le store
       this.store.dispatch(PlanningActions.modifPlanning({ days: updatedDays }));
-      
-      // Sauvegarder les changements via le service
+
       updatedDays.forEach(day => {
         const dayToSave: Day = {
           id: day.id, 
@@ -134,7 +130,7 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     }
   }
 
-  // Ajouter une recette au déjeuner
+
   addLunchRecipe(dayId: number) {
     this.store.dispatch(PlanningActions.startRecipeSelection({ 
       dayId, 
@@ -143,7 +139,6 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     this.router.navigate(["/recipes-select"]);
   }
 
-  // Ajouter une recette au dîner
   addDinnerRecipe(dayId: number) {
     this.store.dispatch(PlanningActions.startRecipeSelection({ 
       dayId, 
@@ -152,7 +147,7 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     this.router.navigate(["/recipes-select"]);
   }
 
-  // Modifier une recette
+
   modifyRecipe(dayId: number, mealType: 'lunch' | 'dinner') {
     this.store.dispatch(PlanningActions.startRecipeSelection({ 
       dayId, 

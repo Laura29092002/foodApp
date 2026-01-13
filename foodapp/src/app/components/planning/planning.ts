@@ -35,7 +35,7 @@ export class Planning implements OnInit {
           });
   
         });
-        console.log(this.days)
+        //console.log(this.days)
       });
     }
 
