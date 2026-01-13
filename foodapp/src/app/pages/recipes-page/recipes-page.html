@@ -1,10 +1,17 @@
 @if(isSelecting){
+    <button class="back" (click)="onCancel()">
+        <img src="https://img.icons8.com/?size=100&id=101380&format=png&color=774b2e">
+        Retour
+    </button>
+}
+
+@if(isSelecting){
     @if(this.selectedRecipe){
-        <div class="selection-info success">
+        <div class="select-info">
             <p>✓ Vous avez sélectionné : <strong>{{ selectedRecipe.name }}</strong></p>
         </div>
     }@else {
-        <div class="selection-info">
+        <div class="select-info">
             <p>Veuillez sélectionner la recette que vous souhaitez en cliquant sur celle-ci</p>
         </div>
     }
@@ -47,7 +54,7 @@
     </div> 
 </div>
 
-<!-- Boutons d'action en mode sélection -->
+
 @if(isSelecting){
     <div class="action-buttons">
         <button class="cancel-button" (click)="onCancel()">

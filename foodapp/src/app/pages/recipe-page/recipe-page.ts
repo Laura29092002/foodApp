@@ -8,6 +8,7 @@ import { Recipe } from '../../models/recipe/recipe.model';
 import { StepService } from '../../services/step/step';
 import { RecipeService } from '../../services/recipe/recipe';
 import { IngredientsList } from '../../components/ingredients-list/ingredients-list';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-page',
@@ -25,6 +26,9 @@ export class RecipePage implements OnInit {
 
   isLoading = true;
   error: string | null = null;
+
+  constructor(private _location: Location){
+  }
 
   ngOnInit(): void {
     const recipeId = this.route.snapshot.paramMap.get('id');
@@ -64,5 +68,9 @@ export class RecipePage implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
+  }
+
+  onCancel(){
+    this._location.back();
   }
 }
