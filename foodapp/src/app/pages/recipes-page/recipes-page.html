@@ -1,29 +1,65 @@
+@if(isSelecting){
+    @if(this.selectedRecipe){
+        <div class="selection-info success">
+            <p>✓ Vous avez sélectionné : <strong>{{ selectedRecipe.name }}</strong></p>
+        </div>
+    }@else {
+        <div class="selection-info">
+            <p>Veuillez sélectionner la recette que vous souhaitez en cliquant sur celle-ci</p>
+        </div>
+    }
+}
+
 <div class="container">
     <div class="section">
         <div class="h2">
-                <img src="https://img.icons8.com/?size=100&id=CrV1obVLC0BA&format=png&color=774b2e" alt="Kiosk on Wheels">
-                <h2>Toutes les recettes</h2>
-            </div>
+            <img src="https://img.icons8.com/?size=100&id=CrV1obVLC0BA&format=png&color=774b2e" alt="Kiosk on Wheels">
+            <h2>Toutes les recettes</h2>
+        </div>
         <div class="searchbar">
             <img src="https://img.icons8.com/?size=100&id=59878&format=png&color=774b2e" alt="search">
             <input type="text" placeholder="Rechercher une recette..." [(ngModel)]="searchTerm">
         </div>
-        <button (click)="addRecipe()">
-            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-            Ajouter une recette
-        </button>
+        @if(!isSelecting){
+            <button (click)="addRecipe()">
+                <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                Ajouter une recette
+            </button>
+        }
     </div>
+    
     <div class="recipes">
-    @for(recipe of filteredRecipes(); track recipe.id){
-        <app-recipe-card [recipe]="recipe"></app-recipe-card>
-    }
+        @for(recipe of filteredRecipes(); track recipe.id){
+            <app-big-recipe-card 
+                [recipe]="recipe" 
+                [selected]="selectedRecipe?.id === recipe.id" 
+                [editionMode]="editionMode" 
+                (select)="onSelectRecipe($event)">
+            </app-big-recipe-card>
+        }
     </div>
+    
     <div class="norecipe">
-    @if(filteredRecipes().length == 0){
-        <img 
-            src="assets/default.png" 
-        />
-        <p>Il n'existe pas de recette correspondant à votre recherche.<br> N'hésitez pas à créer la vôtre!</p>
-    }
-    </div>
+        @if(filteredRecipes().length == 0){
+            <img src="assets/default.png" />
+            <p>Il n'existe pas de recette correspondant à votre recherche.<br> N'hésitez pas à créer la vôtre!</p>
+        }
+    </div> 
 </div>
+
+<!-- Boutons d'action en mode sélection -->
+@if(isSelecting){
+    <div class="action-buttons">
+        <button class="cancel-button" (click)="onCancel()">
+            <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=FFDB4D" alt="Cancel">
+            Annuler
+        </button>
+        
+        @if(this.selectedRecipe){
+            <button class="add-recipe" (click)="addRecipeToPlanning()">
+                <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                Ajouter la recette au planning
+            </button>
+        }
+    </div>
+}

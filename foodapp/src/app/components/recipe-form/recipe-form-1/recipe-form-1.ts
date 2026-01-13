@@ -14,8 +14,8 @@ import { selectRecetteData } from '../../../store/recipe-form.selectors';
 export class RecipeForm1 implements OnInit, OnDestroy {
 
   form: FormGroup;
-  selectedFile: File | null = null; // ✅ Fichier réel, pas base64
-  imagePreview: string | null = null; // ✅ Pour l'aperçu uniquement
+  selectedFile: File | null = null; // Fichier réel, pas base64
+  imagePreview: string | null = null; // Pour l'aperçu uniquement
   private destroy$ = new Subject<void>();
 
   constructor(private store: Store, private fb: FormBuilder) { 

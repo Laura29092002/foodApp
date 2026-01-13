@@ -39,5 +39,9 @@ export const routes: Routes = [
     {
         path: 'modify-planning',
         component: CreatePlanningPage
+    },
+    {
+        path: 'create-planning',
+        component: CreatePlanningPage
     }
 ];

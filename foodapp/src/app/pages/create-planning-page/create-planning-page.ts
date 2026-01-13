@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+// create-planning-page.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Day } from '../../models/day/day.model';
 import { DayService } from '../../services/day/day';
-import { RecipeService } from '../../services/recipe/recipe';
-
-import { forkJoin } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -15,7 +14,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RecipeDayCard } from "../../components/recipe-day-card/recipe-day-card";
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import * as PlanningSelectors from '../../store/planning-store/planning-store.selectors';
+import * as PlanningActions from '../../store/planning-store/planning-store.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-create-planning-page',
@@ -23,47 +25,46 @@ import {Location} from '@angular/common';
   templateUrl: './create-planning-page.html',
   styleUrl: './create-planning-page.scss',
 })
-export class CreatePlanningPage {
+export class CreatePlanningPage implements OnInit, OnDestroy {
+  days$: Observable<Day[]>;
   days: Day[] = [];
   ismodify: string = "";
-
+  private destroy$ = new Subject<void>();
 
   constructor(
-    private dayService: DayService, 
-    private recipeService: RecipeService,
+    private dayService: DayService,
     private router: Router,
-    private _location: Location
-  ) {}
+    private _location: Location,
+    private store: Store
+  ) {
+    this.days$ = this.store.select(PlanningSelectors.selectDaysList);
+  }
 
   ngOnInit() {
     this.ismodify = this.router.url;
-    console.log(this.ismodify);  
-    if(this.ismodify == "/modify-planning"){
-      this.dayService.getDays().subscribe(data => {
-      data.sort((a, b) => a.id - b.id);
-      data.forEach(day => {
-        day.listOfRecipe = [];
-      });
-      this.days = data;
-
-      data.forEach(day => {
-
-        forkJoin({
-          lunch: this.recipeService.getRecipeById(day.recipeLunchId!),
-          dinner: this.recipeService.getRecipeById(day.recipeDinnerId!)
-        }).subscribe(({ lunch, dinner }) => {
-          day.listOfRecipe = [lunch, dinner];
-        });
-
-      });
-      console.log(this.days)
+    
+    // Charger seulement si le store est vide
+    this.store.dispatch(PlanningActions.loadDaysIfEmpty());
+    
+    // S'abonner aux changements avec copie profonde
+    this.days$.pipe(takeUntil(this.destroy$)).subscribe(days => {
+      // Copie profonde pour permettre le drag & drop
+      this.days = this.deepCopyDays(days);
+      console.log('Days updated from store:', this.days);
     });
-    }else{
-      this.dayService.getDays().subscribe(data => {
-        data.sort((a, b) => a.id - b.id);
-        this.days = data;
-      });
-    }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // Méthode pour créer une copie profonde des jours
+  private deepCopyDays(days: Day[]): Day[] {
+    return days.map(day => ({
+      ...day,
+      listOfRecipe: day.listOfRecipe ? [...day.listOfRecipe] : []
+    }));
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -81,42 +82,89 @@ export class CreatePlanningPage {
         event.currentIndex
       );
     }
+    
+    // Mettre à jour le store
+    this.store.dispatch(PlanningActions.modifPlanning({ days: this.days }));
   }
 
-  onCancel(){
+  onCancel() {
     this._location.back();
   }
-  
 
-  onUpdate(){
-    let isConform : boolean = true;
-    for(let day of this.days){
-      if(day.listOfRecipe!.length != 2){
+  onUpdate() {
+    let isConform: boolean = true;
+    
+    for (let day of this.days) {
+      if (!day.listOfRecipe || day.listOfRecipe.length != 2) {
         isConform = false;
+        break;
       }
     }
-    if(isConform == true){
-      for(let day of this.days){
-        if(day.recipeLunchId! != day.listOfRecipe![0].id || day.recipeDinnerId! != day.listOfRecipe![1].id){
-          day.recipeLunchId = day.listOfRecipe![0].id;
-          day.recipeDinnerId = day.listOfRecipe![1].id;
-          const dayModify : Day = {
-            id: day.id, 
-            name: day.name, 
-            recipeLunchId: day.recipeLunchId, 
-            recipeDinnerId:day.recipeDinnerId};
-          console.log(dayModify);
-          this.dayService.updateDay(day).subscribe((data) =>{
-            console.log(data)
-          });
-        }
-      }
+    
+    if (isConform) {
+      const updatedDays = this.days.map(day => {
+        const dayToUpdate = { ...day };
+        dayToUpdate.recipeLunchId = day.listOfRecipe![0].id;
+        dayToUpdate.recipeDinnerId = day.listOfRecipe![1].id;
+        return dayToUpdate;
+      });
+
+      // Dispatcher l'action pour mettre à jour le store
+      this.store.dispatch(PlanningActions.modifPlanning({ days: updatedDays }));
+      
+      // Sauvegarder les changements via le service
+      updatedDays.forEach(day => {
+        const dayToSave: Day = {
+          id: day.id, 
+          name: day.name, 
+          recipeLunchId: day.recipeLunchId, 
+          recipeDinnerId: day.recipeDinnerId
+        };
+        
+        this.dayService.updateDay(dayToSave).subscribe((data) => {
+          console.log('Day updated:', data);
+        });
+      });
+      
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['']);
       });
-
-    }else{
-      alert('Le nombre de recette par jour est incorrecte, veuillez renseigner 2 recettes par jour');
+    } else {
+      alert('Le nombre de recette par jour est incorrect, veuillez renseigner 2 recettes par jour');
     }
   }
+
+  // Ajouter une recette au déjeuner
+  addLunchRecipe(dayId: number) {
+    this.store.dispatch(PlanningActions.startRecipeSelection({ 
+      dayId, 
+      mealType: 'lunch' 
+    }));
+    this.router.navigate(["/recipes-select"]);
+  }
+
+  // Ajouter une recette au dîner
+  addDinnerRecipe(dayId: number) {
+    this.store.dispatch(PlanningActions.startRecipeSelection({ 
+      dayId, 
+      mealType: 'dinner' 
+    }));
+    this.router.navigate(["/recipes-select"]);
+  }
+
+  // Modifier une recette
+  modifyRecipe(dayId: number, mealType: 'lunch' | 'dinner') {
+    this.store.dispatch(PlanningActions.startRecipeSelection({ 
+      dayId, 
+      mealType 
+    }));
+    this.router.navigate(["/recipes-select"]);
+  }
+
+  removeRecipe(dayId: number, mealType: 'lunch' | 'dinner') {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
+      this.store.dispatch(PlanningActions.removeRecipeFromDay({ dayId, mealType }));
+    }
+  }
+
 }

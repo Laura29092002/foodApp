@@ -36,7 +36,7 @@ export class RecipeForm {
   onSubmit() {
     // Récupérer toutes les données du store
     this.store.select(fromRecipeForm.selectCompleteRecipe)
-      .pipe(take(1)) // ✅ Prendre une seule valeur et se désabonner automatiquement
+      .pipe(take(1)) // Prendre une seule valeur et se désabonner automatiquement
       .subscribe(recipe => {
         console.log('Recette complète:', recipe);
 

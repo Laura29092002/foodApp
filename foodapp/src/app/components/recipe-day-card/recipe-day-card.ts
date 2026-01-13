@@ -10,9 +10,5 @@ import { Router } from '@angular/router';
 export class RecipeDayCard {
   @Input() recipe!: Recipe;
 
-  constructor(private router : Router) { }
-  onClick(){
-    this.router.navigate(["/recipes-select"])
-  }
   
 }

@@ -5,6 +5,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { recipeFormReducer } from './store/recipe-form.reducer';
+import { daysReducer } from './store/planning-store/planning-store.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { PlanningEffects } from './store/planning-store/planning-store.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideStore({ recipeForm: recipeFormReducer })
+    provideStore({ recipeForm: recipeFormReducer , days: daysReducer}),
+    provideEffects([PlanningEffects])
 ]
 };

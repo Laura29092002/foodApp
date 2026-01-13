@@ -19,21 +19,59 @@
                 (cdkDropListDropped)="drop($event)"
                 class="day">
                 <h3>{{day.name}}</h3>
-                <div *ngFor="let recipe of day.listOfRecipe; let i = index" cdkDrag>
-                    <app-recipe-day-card [recipe]="recipe"></app-recipe-day-card>
+                <div class="meal-slot">
+                    @if(day.listOfRecipe && day.listOfRecipe.length > 0){
+                        <div cdkDrag>
+                            <app-recipe-day-card [recipe]="day.listOfRecipe[0]"></app-recipe-day-card>
+                            <div class="buttons">
+                                <button (click)="modifyRecipe(day.id, 'lunch')" title="Modifier">
+                                    <img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
+                                </button>
+                                <button (click)="removeRecipe(day.id, 'lunch')"title="Supprimer">
+                                    <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=774b2e" alt="Delete">
+                                </button>
+                            </div>
+                        </div>
+                    }@else{
+                        <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            <span>Ajouter déjeuner</span>
+                        </button>
+                    }
                 </div>
+                <div class="meal-slot">
+                    @if(day.listOfRecipe && day.listOfRecipe.length > 1){
+                        <div cdkDrag>
+                            <app-recipe-day-card [recipe]="day.listOfRecipe[1]"></app-recipe-day-card>
+                            <div class="buttons">
+                                <button (click)="modifyRecipe(day.id, 'dinner')" title="Modifier">
+                                    <img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
+                                </button>
+                                <button (click)="removeRecipe(day.id, 'dinner')"title="Supprimer">
+                                    <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=774b2e" alt="Delete">
+                                </button>
+                            </div>
+                        </div>
+                    }@else{
+                        <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            <span>Ajouter dîner</span>
+                        </button>
+                    }
+                </div>
+                
 
             </div>
         }
     </div>
 
 <div class="buttons">
-<button class="cancel" (click)="onCancel()">
-      <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=FFDB4D">
-      Annuler
-    </button>
-<button class="submit" (click)="onUpdate()">
-    <img src="https://img.icons8.com/?size=100&id=l9lZ9gsA8vxG&format=png&color=774b2e" alt="save">
-    Enregistrer mes modifications</button>
-</div>
+    <button class="cancel" (click)="onCancel()">
+          <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=FFDB4D">
+          Annuler
+        </button>
+    <button class="submit" (click)="onUpdate()">
+        <img src="https://img.icons8.com/?size=100&id=l9lZ9gsA8vxG&format=png&color=774b2e" alt="save">
+        Enregistrer mes modifications</button>
+    </div>
 </div>
