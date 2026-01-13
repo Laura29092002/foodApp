@@ -55,18 +55,9 @@
 </div>
 
 
-@if(isSelecting){
-    <div class="action-buttons">
-        <button class="cancel-button" (click)="onCancel()">
-            <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=FFDB4D" alt="Cancel">
-            Annuler
-        </button>
-        
-        @if(this.selectedRecipe){
-            <button class="add-recipe" (click)="addRecipeToPlanning()">
-                <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-                Ajouter la recette au planning
-            </button>
-        }
-    </div>
+@if(isSelecting && this.selectedRecipe){
+    <button class="add-recipe" (click)="addRecipeToPlanning()">
+        <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
+        Ajouter la recette au planning
+    </button>
 }

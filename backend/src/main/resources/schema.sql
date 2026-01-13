@@ -24,8 +24,7 @@ CREATE TABLE IF NOT EXISTS step(
 
 CREATE TABLE IF NOT EXISTS category(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    unit VARCHAR(20)
+    name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ingredient(
@@ -33,6 +32,7 @@ CREATE TABLE IF NOT EXISTS ingredient(
     name VARCHAR(50) NOT NULL,
     image VARCHAR(200),
     category_id INTEGER,
+    unit VARCHAR(20),
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
 

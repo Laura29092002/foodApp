@@ -16,16 +16,16 @@ INSERT INTO step (number, description, recipe_id) VALUES
     (2, 'Ensuite les égouter', 1);
 
 INSERT INTO category(name, unit) VALUES
-    ('Lait et produits laitiers', 'g'),
-    ('Viandes, poissons, œufs', ''),
-    ('Féculents', 'g'),
-    ('Fruits et légumes', ''),
-    ('Corps gras', ''),
-    ('Sucre et produits sucrés', 'g'),
-    ('Boissons', 'l');
+    ('Lait et produits laitiers'),
+    ('Viandes, poissons, œufs'),
+    ('Féculents'),
+    ('Fruits et légumes'),
+    ('Corps gras'),
+    ('Sucre et produits sucrés'),
+    ('Boissons');
 
-INSERT INTO ingredient(name, category_id) VALUES
-    ('pâtes', 3);
+INSERT INTO ingredient(name, category_id, unit) VALUES
+    ('pâtes', 3, g);
 
 INSERT INTO recipe_to_ingredient(recipe_id, ingredient_id, quantity) VALUES
     (1,1, 200);*/

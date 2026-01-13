@@ -1,6 +1,11 @@
 package com.food.backend.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "category")
@@ -13,15 +18,12 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "unit")
-    private String unit;
 
     public Category() {
     }
-    public Category(int id, String name, String unit) {
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
-        this.unit = unit;
     }
 
     public int getId() {
@@ -36,13 +38,6 @@ public class Category {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
 }
