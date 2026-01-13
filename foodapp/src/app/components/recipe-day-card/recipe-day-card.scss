@@ -13,8 +13,26 @@
     background-color: #FFE891;
     box-shadow: 0px 4px 5px #5b351b46;
     border-radius: 30px;
+    gap: 10px;
     img{
         width: 50px;
+    }
+    p{
+        width: 100px;
+    }
+
+    .button{
+        padding: 0px;
+        img{
+            width: 20px;
+        }
+    }
+
+    .buttons{
+        width: 100px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
     }
     
 }

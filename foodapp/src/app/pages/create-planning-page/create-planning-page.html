@@ -26,40 +26,24 @@
                 <div class="meal-slot">
                     @if(day.listOfRecipe && day.listOfRecipe.length > 0){
                         <div cdkDrag>
-                            <app-recipe-day-card [recipe]="day.listOfRecipe[0]"></app-recipe-day-card>
-                            <div class="buttons">
-                                <button (click)="modifyRecipe(day.id, 'lunch')" title="Modifier">
-                                    <img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
-                                </button>
-                                <button (click)="removeRecipe(day.id, 'lunch')"title="Supprimer">
-                                    <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=774b2e" alt="Delete">
-                                </button>
-                            </div>
+                            <app-recipe-day-card [recipe]="day.listOfRecipe[0]" [dayId]="day.id" [typeOfMeal]='"lunch"'></app-recipe-day-card>
                         </div>
                     }@else{
                         <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
                             <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-                            <span>Ajouter déjeuner</span>
+                            <span>Ajouter le déjeuner</span>
                         </button>
                     }
                 </div>
                 <div class="meal-slot">
                     @if(day.listOfRecipe && day.listOfRecipe.length > 1){
                         <div cdkDrag>
-                            <app-recipe-day-card [recipe]="day.listOfRecipe[1]"></app-recipe-day-card>
-                            <div class="buttons">
-                                <button (click)="modifyRecipe(day.id, 'dinner')" title="Modifier">
-                                    <img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
-                                </button>
-                                <button (click)="removeRecipe(day.id, 'dinner')"title="Supprimer">
-                                    <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=774b2e" alt="Delete">
-                                </button>
-                            </div>
+                            <app-recipe-day-card [recipe]="day.listOfRecipe[1]" [dayId]="day.id" [typeOfMeal]='"dinner"'></app-recipe-day-card>
                         </div>
                     }@else{
                         <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
                             <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-                            <span>Ajouter dîner</span>
+                            <span>Ajouter le dîner</span>
                         </button>
                     }
                 </div>
