@@ -1,9 +1,39 @@
-.list{
-    margin: 0 auto;
-    ul{
-        li{
-            font-size: 20px;
-            color: #5B351B;
-        }
+
+
+.ing{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #5B351B;
+    background-color: #FFE891;
+    width: 250px;
+    height: 40px;
+    border-radius: 30px;
+    mat-checkbox{
+        margin-left: 30px;
     }
+    
 }
+
+
+/* Méthode 1 : Cibler correctement la checkbox cochée */
+.ing ::ng-deep .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  background-color: #774b2e !important;
+  border-color: #774b2e !important;
+}
+
+/* Pour le checkmark (la coche) */
+.ing ::ng-deep .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__checkmark {
+  color: #FFE891 !important;
+}
+
+/* Changer la couleur de la bordure quand non cochée */
+.ing ::ng-deep .mdc-checkbox__background {
+  border-color: #774b2e !important;
+}
+
+
+
