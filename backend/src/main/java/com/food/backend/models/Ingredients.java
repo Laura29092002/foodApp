@@ -18,10 +18,13 @@ public class Ingredients {
     private String name;
 
     @Column(name = "image")
-    private byte[] image;
+    private String image;
 
     @Column(name = "category_id")
     private int categoryId;
+
+    @Column(name = "unit")
+    private String unit;
 
     private int quantity;
 
@@ -30,11 +33,12 @@ public class Ingredients {
     }
 
 
-    public Ingredients(int id, String name, byte[] image, int categoryId, int quantity) {
+    public Ingredients(int id, String name, String image, int categoryId, String unit, int quantity) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.categoryId = categoryId;
+        this.unit = unit;
         this.quantity = quantity;
     }
 
@@ -52,10 +56,10 @@ public class Ingredients {
         this.name = name;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -65,6 +69,14 @@ public class Ingredients {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
+    public String getUnit() {
+        return unit;
+    }
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
 
     public int getQuantity() {
         return quantity;

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../../models/category/category.model';
+import { Ingredient } from '../../models/ingredient/ingredient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,4 +27,32 @@ export class CategoryService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
   
+  getAllIngredientsByCategoryAndRecipeOfDay(ingredients: Ingredient[][], categories: Category[]): Category[]{
+    const ingredientLists = ingredients.flat();
+    const map = new Map<number, Ingredient>();
+    console.log(ingredientLists)
+    console.log(categories)
+
+    ingredientLists.forEach(ingredient =>{
+      const existing = map.get(ingredient.id);
+
+      if(existing){
+        existing.quantity! += ingredient.quantity!;
+      }else{
+        map.set(ingredient.id, ingredient);
+      }
+    });
+
+    const array = Array.from(map.values());
+    categories.forEach(cat =>{
+      cat.ingredients = [];
+    })
+    array.forEach(ar =>{
+      categories[ar.categoryId!-1].ingredients?.push(ar);
+    })
+
+
+    return categories;
+
+  }
 }

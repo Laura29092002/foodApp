@@ -4,9 +4,9 @@ export class Ingredient {
     unit?: string;
     quantity?: number;
     image?: string;
-    categoryId?: string;
+    categoryId?: number
 
-    constructor(id: number, name: string, image?: string, categoryId?: string, unit?: string) {
+    constructor(id: number, name: string, image?: string, categoryId?: number, unit?: string) {
         this.id = id;
         this.name = name;
         this.unit = unit;

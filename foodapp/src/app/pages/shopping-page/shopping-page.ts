@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { IngredientsList } from '../../components/ingredients-list/ingredients-list';
 import { Category } from '../../models/category/category.model';
 import { CategoryService } from '../../services/category/category';
-import { IngredientService } from '../../services/ingredient/ingredient';
+import { DayService } from '../../services/day/day';
+import { RecipeService } from '../../services/recipe/recipe';
+import { Ingredient } from '../../models/ingredient/ingredient.model';
+import { forkJoin, mergeMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-shopping-page',
@@ -12,18 +16,35 @@ import { IngredientService } from '../../services/ingredient/ingredient';
 })
 export class ShoppingPage implements  OnInit {
   shopping : Category[] = [];
+  ingredients : Ingredient[][] = [];
 
-  constructor(private categoryService: CategoryService, private ingredientService : IngredientService) { }
+  constructor(private categoryService: CategoryService, private dayService: DayService, private recipeService: RecipeService) { }
+ 
   ngOnInit() {
-    this.categoryService.getCategories().subscribe((data) => {
-      data.forEach(category => {
-        this.ingredientService.getIngredientByCategory(category.id).subscribe(ingredients => {
-          category.ingredients = ingredients;
-        });
+    this.dayService.getDays().pipe(
+      // Attend que getDays() termine, puis traite les recettes
+      mergeMap(days => {
+        const requests = days.flatMap(recipe => [
+          this.recipeService.getAllIngredientsByRecipe(recipe.recipeLunchId!),
+          this.recipeService.getAllIngredientsByRecipe(recipe.recipeDinnerId!)
+        ]);
+        
+        // Attend que TOUTES les requêtes d'ingrédients soient terminées
+        return forkJoin(requests);
+      })
+    ).subscribe(allIngredients => {
+      this.ingredients = allIngredients;
+      
+      // Maintenant on peut récupérer les catégories
+      this.categoryService.getCategories().subscribe(categories => {
+        this.shopping = categories;
+        const test = this.categoryService.getAllIngredientsByCategoryAndRecipeOfDay(
+          this.ingredients,
+          this.shopping
+        );
+        console.log(test);
       });
-      this.shopping = data;
-      console.log(this.shopping);
-    }); 
+    });
   }
 
 }
