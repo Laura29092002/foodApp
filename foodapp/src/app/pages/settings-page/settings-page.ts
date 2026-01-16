@@ -3,6 +3,8 @@ import { IngredientService } from '../../services/ingredient/ingredient';
 import { Ingredient } from '../../models/ingredient/ingredient.model';
 import { IngredientForm } from "../../components/ingredient-form/ingredient-form";
 import { FormsModule } from '@angular/forms';
+import { CategoryService } from '../../services/category/category';
+import { Category } from '../../models/category/category.model';
 
 @Component({
   selector: 'app-settings-page',
@@ -11,18 +13,25 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './settings-page.scss',
 })
 export class SettingsPage implements OnInit{
-  ingredients! : Ingredient[];
+  ingredients : Ingredient[] = [];
   isOpen: Boolean = false;
   editingId: number | null = null;
   editedIngredient: any = {};
+  categories: Category[] = [];
 
-  constructor(private ingredientService: IngredientService){
+  constructor(private ingredientService: IngredientService, private categoryService: CategoryService){
   }
 
   ngOnInit(): void {
     this.ingredientService.getIngredients().subscribe(
       data => {
         this.ingredients = data;
+        console.log(this.ingredients)
+      }
+    );
+    this.categoryService.getCategories().subscribe(
+      data => {
+        this.categories = data;
       }
     )
   }

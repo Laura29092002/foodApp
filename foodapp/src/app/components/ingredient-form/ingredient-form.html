@@ -1,10 +1,14 @@
 <form [formGroup]="form">
+  <div class="column">
     <label>Nom de l'ingrédient</label>
     <input type="text"id="name" 
       formControlName="name"
       placeholder="Tomates"/>
+    </div>
+    <div class="column">
+      <label>Icone de l'ingrédient</label>
       @if(selectedIcon){
-        <span (click)="changeEmoji()">{{ selectedIcon }}</span>
+        <span (click)="changeEmoji()" class="icon">{{ selectedIcon }}</span>
       
       }@if(selectedIcon == "" || isOpen){
         <emoji-mart 
@@ -15,11 +19,21 @@
         title="Choisir un ingrédient">
       </emoji-mart>
       }
+      </div>
+      <div class="column">
+      <label>Unité</label>
+    <input type="text" id="unit" formControlName="unit" placeholder="Kg"/>
+    </div>
+    <div class="column">
+      <label>Catégorie</label>
     <select formControlName="categoryId" id="categoryId">
       <option value="">Choisir une catégorie</option>
       @for(category of categories; track category.id){
       <option [value]="category.id">{{category.name}}</option>
       }
     </select>
-    <button type="button" (click)="addIngredient()">Ajouter</button>
+    </div>
+    <button type="button" (click)="addIngredient()">
+      <img src="https://img.icons8.com/?size=100&id=85096&format=png&color=774b2e" alt="add">
+      Ajouter</button>
 </form>

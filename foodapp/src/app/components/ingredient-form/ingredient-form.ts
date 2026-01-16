@@ -21,7 +21,8 @@ export class IngredientForm implements OnInit{
   constructor(private categoryService: CategoryService, private fb:FormBuilder, private ingredientService: IngredientService){
     this.form = this.fb.group({
       name: ['', Validators.required],
-      categoryId: ['',Validators.required]
+      categoryId: ['',Validators.required],
+      unit: ['']
     })
 
   }
@@ -52,6 +53,10 @@ export class IngredientForm implements OnInit{
     const ingredient = new Ingredient(0, this.form.value.name);
     ingredient.categoryId = this.form.value.categoryId;
     ingredient.image = this.selectedIcon;
+
+    if(this.form.value.unit != ""){
+      ingredient.unit = this.form.value.unit;
+    }
     
     console.log(ingredient);
     if(ingredient.name != "" && ingredient.categoryId){

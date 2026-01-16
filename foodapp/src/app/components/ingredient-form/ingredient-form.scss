@@ -1,8 +1,71 @@
-/* Dans votre component.css */
+form{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: #FFF5D6;
+  box-shadow: 0px 4px 5px #5b351b46;
+  align-items: start;
+  justify-content: center;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+
 ::ng-deep .emoji-mart-category-label {
   display: none !important;
 }
 
 ::ng-deep .emoji-mart-anchors {
   display: none !important;
+}
+
+label{
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    border-radius: 30px;
+    border: none;
+    background-color: #FFFAEE;
+    padding: 10px 30px;
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: #774b2e;
+}
+
+input:focus{
+    outline: none;
+    border-color: #774b2e;
+}
+
+input::placeholder{
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: rgb(119, 75, 46,0.5);
+}
+
+select{
+  font-family: 'Gluten', cursive;
+  font-weight: 300;
+  color: #774b2e;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  background-color: #FFFAEE;
+  width: 220px;
+}
+
+select:focus{
+  outline: none;
+}
+
+.icon{
+  cursor: pointer;
 }
