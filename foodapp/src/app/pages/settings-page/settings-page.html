@@ -30,14 +30,30 @@
         <tr>
             @if(editingId === ingredient.id){
                 <td><input type="text" [(ngModel)]="editedIngredient.name" /></td>
-                <td><input type="text" [(ngModel)]="editedIngredient.image" /></td>
+                <td>@if(editedIngredient.image){
+                    <span (click)="changeEmoji()" class="icon">{{ editedIngredient.image }}</span>
+      
+                    }@if(isIcon){
+                      <emoji-mart 
+                      (emojiSelect)="addEmoji($event)"
+                      [include]="['foods']"
+                      [set]="'google'"
+                      [emoji]="'tomato'"
+                      title="Choisir un ingrédient">
+                    </emoji-mart>
+                    }</td>
                 <td><input type="text" [(ngModel)]="editedIngredient.unit"/></td>
-                <td><input type="text" [(ngModel)]="editedIngredient.categoryId" /></td>
-                <td (click)="saveIngredient(i)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
+                <td><select type="number" [(ngModel)]="editedIngredient.categoryId">
+                  <option value="">Choisir une catégorie</option>
+                  @for(category of categories; track category.id){
+                  <option [value]="category.id">{{category.name}}</option>
+                  }
+                </select></td>
+                <td (click)="saveIngredient(i)" class="btn">
+                    <img src="https://img.icons8.com/?size=100&id=7690&format=png&color=774b2e" alt="check" title="Valider"> 
                 </td>
-                <td (click)="cancelEdit()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <td (click)="cancelEdit()" class="btn">
+                    <img src="https://img.icons8.com/?size=100&id=95771&format=png&color=774b2e" alt="cross" title="Suprimer">
                 </td>
             }@else{
                 <td>{{ingredient.name}}</td>

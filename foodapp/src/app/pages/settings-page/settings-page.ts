@@ -5,16 +5,18 @@ import { IngredientForm } from "../../components/ingredient-form/ingredient-form
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../../services/category/category';
 import { Category } from '../../models/category/category.model';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'app-settings-page',
-  imports: [IngredientForm, FormsModule],
+  imports: [IngredientForm, FormsModule, PickerModule],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.scss',
 })
 export class SettingsPage implements OnInit{
   ingredients : Ingredient[] = [];
   isOpen: Boolean = false;
+  isIcon: Boolean = false;
   editingId: number | null = null;
   editedIngredient: any = {};
   categories: Category[] = [];
@@ -59,11 +61,13 @@ export class SettingsPage implements OnInit{
     // Réinitialiser
     this.editingId = null;
     this.editedIngredient = {};
+    this.isIcon = false;
   }
 
   cancelEdit() {
     this.editingId = null;
     this.editedIngredient = {};
+    this.isIcon = false;
   }
 
   reload(newIngredient : Ingredient){
@@ -71,6 +75,20 @@ export class SettingsPage implements OnInit{
     this.ingredients.push(newIngredient);
     console.log(this.ingredients);
 
+  }
+
+  addEmoji(event: any){
+    this.editedIngredient.image = event.emoji.native;
+    console.log(this.editedIngredient.image);
+    this.isIcon = false;
+
+  }
+  changeEmoji(){
+    if(this.isIcon){
+      this.isIcon = false;
+    }else{
+      this.isIcon = true;
+    }
   }
 
   
