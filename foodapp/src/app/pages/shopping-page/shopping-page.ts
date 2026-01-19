@@ -6,21 +6,24 @@ import { DayService } from '../../services/day/day';
 import { RecipeService } from '../../services/recipe/recipe';
 import { Ingredient } from '../../models/ingredient/ingredient.model';
 import { forkJoin, mergeMap } from 'rxjs';
+import { Loader } from "../../components/loader/loader";
 
 
 @Component({
   selector: 'app-shopping-page',
-  imports: [IngredientsList],
+  imports: [IngredientsList, Loader],
   templateUrl: './shopping-page.html',
   styleUrl: './shopping-page.scss',
 })
 export class ShoppingPage implements  OnInit {
   shopping : Category[] = [];
   ingredients : Ingredient[][] = [];
+  isloading : boolean = false;
 
   constructor(private categoryService: CategoryService, private dayService: DayService, private recipeService: RecipeService) { }
  
   ngOnInit() {
+    this.isloading = true;
     this.dayService.getDays().pipe(
       // Attend que getDays() termine, puis traite les recettes
       mergeMap(days => {
@@ -43,6 +46,7 @@ export class ShoppingPage implements  OnInit {
           this.shopping
         );
         console.log(test);
+        this.isloading = false;
       });
     });
   }

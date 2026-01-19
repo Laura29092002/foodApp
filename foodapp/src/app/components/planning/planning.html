@@ -11,7 +11,11 @@
     </div>
     <p class="text">Organisez vos repas de la semaine</p>
     <div class="planning-page">
-        @for(day of days; track day.id){
+        @if(isloading){
+            <app-loader/>
+        }
+        @else {
+            @for(day of days; track day.id){
             <div class="day"> 
             <h3>{{day.name}}</h3>
             
@@ -20,6 +24,8 @@
 
             
             </div>
+        }
+
         }
     </div>
 </div>

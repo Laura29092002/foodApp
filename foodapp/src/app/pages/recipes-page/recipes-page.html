@@ -36,6 +36,9 @@
     </div>
     
     <div class="recipes">
+        @if(isloading){
+            <app-loader/>
+        }
         @for(recipe of filteredRecipes(); track recipe.id){
             <app-big-recipe-card 
                 [recipe]="recipe" 
@@ -47,7 +50,7 @@
     </div>
     
     <div class="norecipe">
-        @if(filteredRecipes().length == 0){
+        @if(filteredRecipes().length == 0 && isloading == false){
             <img src="assets/default.png" />
             <p>Il n'existe pas de recette correspondant à votre recherche.<br> N'hésitez pas à créer la vôtre!</p>
         }

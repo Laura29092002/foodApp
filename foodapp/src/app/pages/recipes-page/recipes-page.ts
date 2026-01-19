@@ -9,10 +9,11 @@ import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import * as PlanningActions from '../../store/planning-store/planning-store.actions';
 import * as PlanningSelectors from '../../store/planning-store/planning-store.selectors';
+import { Loader } from "../../components/loader/loader";
 
 @Component({
   selector: 'app-recipes-page',
-  imports: [FormsModule, BigRecipeCard],
+  imports: [FormsModule, BigRecipeCard, Loader],
   templateUrl: './recipes-page.html',
   styleUrl: './recipes-page.scss',
 })
@@ -23,6 +24,7 @@ export class RecipesPage implements OnInit, OnDestroy {
   root: string = '';
   editionMode: boolean = false;
   isSelecting: boolean = false;
+  isloading: boolean = false;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -33,8 +35,10 @@ export class RecipesPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.isloading = true;
     this.recipeService.getRecipes().subscribe((data) => {
       this.recipes = data;
+      this.isloading = false;
     }); 
 
     this.root = this.router.url;

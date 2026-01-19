@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../../services/category/category';
 import { Category } from '../../models/category/category.model';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { Loader } from "../../components/loader/loader";
 
 @Component({
   selector: 'app-settings-page',
-  imports: [IngredientForm, FormsModule, PickerModule],
+  imports: [IngredientForm, FormsModule, PickerModule, Loader],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.scss',
 })
@@ -20,11 +21,13 @@ export class SettingsPage implements OnInit{
   editingId: number | null = null;
   editedIngredient: any = {};
   categories: Category[] = [];
+  isloading: boolean = false;
 
   constructor(private ingredientService: IngredientService, private categoryService: CategoryService){
   }
 
   ngOnInit(): void {
+    this.isloading = true;
     this.ingredientService.getIngredients().subscribe(
       data => {
         this.ingredients = data;
@@ -34,6 +37,7 @@ export class SettingsPage implements OnInit{
     this.categoryService.getCategories().subscribe(
       data => {
         this.categories = data;
+        this.isloading = false;
       }
     )
   }

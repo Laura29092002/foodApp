@@ -1,4 +1,7 @@
 <div class="shopping-page">
+    @if(isloading){
+        <app-loader/>
+    }
     @for(category of shopping; track category.id){
         @if(category.ingredients && category.ingredients.length > 0){
             <div class="mylist">
