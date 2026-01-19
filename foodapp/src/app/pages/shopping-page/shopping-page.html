@@ -1,15 +1,23 @@
-<div class="shopping-page">
-    @if(isloading){
-        <app-loader/>
-    }
-    @for(category of shopping; track category.id){
-        @if(category.ingredients && category.ingredients.length > 0){
-            <div class="mylist">
-                <h3>{{category.name}}</h3>
-                @for(ingredient of category.ingredients; track ingredient.id){
-                    <app-ingredients-list [ingredient]="ingredient"></app-ingredients-list>
-                }
-            </div>
-    }
-    }
+<div class="center">
+    <div class="h2">
+        <img src="https://img.icons8.com/?size=100&id=Z4owmiVUblRU&format=png&color=774b2e" alt="Egg Basket">
+        <h2>Liste de course de la semaine</h2>
+    </div>
+    <p>Voici votre liste de course directement générée en fonction de votre planning de la semaine.</p>
+
+    <div class="shopping-page">
+        @if(isloading){
+            <app-loader/>
+        }
+        @for(category of shopping; track category.id){
+            @if(category.ingredients && category.ingredients.length > 0){
+                <div class="mylist">
+                    <h3>{{category.name}}</h3>
+                    @for(ingredient of category.ingredients; track ingredient.id){
+                        <app-ingredients-list [ingredient]="ingredient"></app-ingredients-list>
+                    }
+                </div>
+        }
+        }
+    </div>
 </div>

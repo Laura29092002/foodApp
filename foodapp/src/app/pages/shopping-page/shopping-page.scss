@@ -19,3 +19,13 @@
     width: 300px;
 }
 
+.center{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.h2{
+    height: 20px;
+}
