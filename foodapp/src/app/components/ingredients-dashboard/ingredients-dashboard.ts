@@ -42,8 +42,10 @@ export class IngredientsDashboard implements OnInit{
   }
 
   deleteIngredient(ingredientId : number, index : number){
-    this.ingredientService.deleteIngredient(ingredientId).subscribe();
-    this.ingredients.splice(index);
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')) {
+      this.ingredientService.deleteIngredient(ingredientId).subscribe();
+      this.ingredients.splice(index);
+    }
   }
 
   updateIngredient(ingredient: Ingredient) {

@@ -28,14 +28,16 @@ export class RecipesDashboard implements OnInit {
   }
 
   deleteRecipe(idRecipe: number){
-    this.dayService.changeRecipeIdValue(idRecipe).subscribe();
-    this.recipeService.deleteRecipe(idRecipe).subscribe();
-    const index = this.recipes.findIndex(recipe => recipe.id === idRecipe);
-    
-    if (index !== -1) {
-        this.recipes.splice(index, 1);
+    if(confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')){
+      this.dayService.changeRecipeIdValue(idRecipe).subscribe();
+      this.recipeService.deleteRecipe(idRecipe).subscribe();
+      const index = this.recipes.findIndex(recipe => recipe.id === idRecipe);
+      
+      if (index !== -1) {
+          this.recipes.splice(index, 1);
+      }
+      console.log(this.recipes)
     }
-    console.log(this.recipes)
   }
 
 }
