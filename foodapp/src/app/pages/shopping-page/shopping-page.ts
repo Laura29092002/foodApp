@@ -5,7 +5,7 @@ import { CategoryService } from '../../services/category/category';
 import { DayService } from '../../services/day/day';
 import { RecipeService } from '../../services/recipe/recipe';
 import { Ingredient } from '../../models/ingredient/ingredient.model';
-import { forkJoin, mergeMap } from 'rxjs';
+import { forkJoin, mergeMap, of } from 'rxjs';
 import { Loader } from "../../components/loader/loader";
 
 
@@ -27,13 +27,19 @@ export class ShoppingPage implements  OnInit {
     this.dayService.getDays().pipe(
       // Attend que getDays() termine, puis traite les recettes
       mergeMap(days => {
-        const requests = days.flatMap(recipe => [
-          this.recipeService.getAllIngredientsByRecipe(recipe.recipeLunchId!),
-          this.recipeService.getAllIngredientsByRecipe(recipe.recipeDinnerId!)
-        ]);
+        const requests = days.flatMap(recipe => {
+          const reqs = [];
+          if (recipe.recipeLunchId) {
+            reqs.push(this.recipeService.getAllIngredientsByRecipe(recipe.recipeLunchId));
+          }
+          if (recipe.recipeDinnerId) {
+            reqs.push(this.recipeService.getAllIngredientsByRecipe(recipe.recipeDinnerId));
+          }
+          return reqs;
+      });
         
         // Attend que TOUTES les requêtes d'ingrédients soient terminées
-        return forkJoin(requests);
+        return requests.length > 0 ? forkJoin(requests) : of([]);
       })
     ).subscribe(allIngredients => {
       this.ingredients = allIngredients;

@@ -4,8 +4,9 @@ import { DayService } from '../../services/day/day';
 import { RecipeCard } from "../../components/recipe-card/recipe-card";
 import { RecipeService } from '../../services/recipe/recipe';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { Loader } from "../loader/loader";
+import { Recipe } from '../../models/recipe/recipe.model';
 
 @Component({
   selector: 'app-planning',
@@ -29,16 +30,15 @@ export class Planning implements OnInit {
         this.days = data;
   
         data.forEach(day => {
-  
           forkJoin({
-            lunch: this.recipeService.getRecipeById(day.recipeLunchId!),
-            dinner: this.recipeService.getRecipeById(day.recipeDinnerId!)
+            lunch: (day.recipeLunchId? this.recipeService.getRecipeById(day.recipeLunchId) : of(new Recipe(0,'',''))),
+            dinner: (day.recipeDinnerId? this.recipeService.getRecipeById(day.recipeDinnerId) : of(new Recipe(0,'','')))
           }).subscribe(({ lunch, dinner }) => {
             day.listOfRecipe = [lunch, dinner];
           });
   
         });
-        //console.log(this.days)
+        console.log(this.days)
         this.isloading = false;
       });
     }

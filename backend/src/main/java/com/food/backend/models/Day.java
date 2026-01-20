@@ -14,12 +14,12 @@ public class Day {
     private String name;
 
     @Column(name = "recipe_lunch_id")
-    private int recipeLunchId;
+    private Integer recipeLunchId;
 
     @Column(name = "recipe_dinner_id")
-    private int recipeDinnerId;
+    private Integer recipeDinnerId;
 
-    Day(int id, String name, int recipeLunchId, int recipeDinnerId) {
+    Day(int id, String name, Integer recipeLunchId, Integer recipeDinnerId) {
         this.id = id;
         this.name = name;
         this.recipeLunchId = recipeLunchId;
@@ -44,19 +44,19 @@ public class Day {
         this.name = name;
     }
 
-    public int getRecipeLunchId() {
+    public Integer getRecipeLunchId() {
         return recipeLunchId;
     }
 
-    public void setRecipeLunchId(int recipeLunchId) {
+    public void setRecipeLunchId(Integer recipeLunchId) {
         this.recipeLunchId = recipeLunchId;
     }
 
-    public int getRecipeDinnerId() {
+    public Integer getRecipeDinnerId() {
         return recipeDinnerId;
     }
 
-    public void setRecipeDinnerId(int recipeDinnerId) {
+    public void setRecipeDinnerId(Integer recipeDinnerId) {
         this.recipeDinnerId = recipeDinnerId;
     }
 }

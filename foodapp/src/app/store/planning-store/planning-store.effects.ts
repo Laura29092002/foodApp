@@ -9,6 +9,7 @@ import * as PlanningSelectors from './planning-store.selectors';
 import { DayService } from '../../services/day/day';
 import { RecipeService } from '../../services/recipe/recipe';
 import { Day } from '../../models/day/day.model';
+import { Recipe } from '../../models/recipe/recipe.model';
 
 @Injectable()
 export class PlanningEffects {
@@ -45,10 +46,9 @@ export class PlanningEffects {
             }
             
             const daysWithRecipes$ = days.map(day => {
-              if (day.recipeLunchId && day.recipeDinnerId) {
                 return forkJoin({
-                  lunch: this.recipeService.getRecipeById(day.recipeLunchId),
-                  dinner: this.recipeService.getRecipeById(day.recipeDinnerId)
+                  lunch: (day.recipeLunchId? this.recipeService.getRecipeById(day.recipeLunchId) : of(new Recipe(0,'',''))),
+                  dinner: (day.recipeDinnerId? this.recipeService.getRecipeById(day.recipeDinnerId) : of(new Recipe(0,'','')))
                 }).pipe(
                   map(({ lunch, dinner }) => ({
                     ...day,
@@ -59,9 +59,7 @@ export class PlanningEffects {
                     return of({ ...day, listOfRecipe: [] });
                   })
                 );
-              } else {
-                return of({ ...day, listOfRecipe: [] });
-              }
+              
             });
             
             return forkJoin(daysWithRecipes$).pipe(

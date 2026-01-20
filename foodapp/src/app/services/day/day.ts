@@ -26,6 +26,10 @@ export class DayService {
     return this.http.put<Day>(`${this.apiUrl}`, updatedDay);
   }
 
+  changeRecipeIdValue(id: number){
+    return this.http.put<void>(`${this.apiUrl}/${id}`, id);
+  }
+
   deleteDay(id: number) {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

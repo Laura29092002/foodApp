@@ -16,9 +16,6 @@ export class RecipeDayCard {
 
   constructor(private router : Router, private store: Store) { }
 
-  onClick() {
-    this.router.navigate(['/recipe', this.recipe.id]);
-  }
 
   modifyRecipe(dayId: number, mealType: string) {
     if(mealType == 'lunch' || mealType == 'dinner'){

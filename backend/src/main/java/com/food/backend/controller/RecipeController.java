@@ -104,9 +104,7 @@ public class RecipeController {
         return ResponseEntity.ok(updatedRecipe);
     }
 
-    /**
-     * DELETE - Supprimer une recette
-     */
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable Integer id) {
         Optional<Recipe> recipe = recipeRepository.findById(id);
@@ -119,14 +117,13 @@ public class RecipeController {
         if (recipe.get().getImage() != null) {
             fileStorageService.deleteFile(recipe.get().getImage());
         }
-
+        recipeRepository.deleteIngredientsByRecipeId(id);
+        recipeRepository.deleteStepsByRecipeId(id);
         recipeRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * GET - Récupérer l'image d'une recette
-     */
+    
     @GetMapping("/{id}/image")
     public ResponseEntity<Resource> getRecipeImage(@PathVariable Integer id) {
         Optional<Recipe> recipe = recipeRepository.findById(id);

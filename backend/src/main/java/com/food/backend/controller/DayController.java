@@ -43,6 +43,13 @@ public class DayController {
         return dayRepository.save(day);
     }
 
+    @PutMapping("/{id}")
+    public void changeRecipeIdValue(@PathVariable int id) {
+        dayRepository.deleteRecipeDinnerFromDayByRecipeId(id);
+        dayRepository.deleteRecipeLunchFromDayByRecipeId(id);
+    }
+
+
     @DeleteMapping("{id}")
     public void deleteDay(@PathVariable int id) {
         dayRepository.deleteById(id);

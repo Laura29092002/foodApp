@@ -24,7 +24,7 @@
                 class="day">
                 <h3>{{day.name}}</h3>
                 <div class="meal-slot">
-                    @if(day.listOfRecipe && day.listOfRecipe.length > 0){
+                    @if(day.listOfRecipe && day.listOfRecipe[0].id != 0){
                         <div cdkDrag>
                             <app-recipe-day-card [recipe]="day.listOfRecipe[0]" [dayId]="day.id" [typeOfMeal]='"lunch"'></app-recipe-day-card>
                         </div>
@@ -36,7 +36,7 @@
                     }
                 </div>
                 <div class="meal-slot">
-                    @if(day.listOfRecipe && day.listOfRecipe.length > 1){
+                    @if(day.listOfRecipe && day.listOfRecipe[1].id != 0){
                         <div cdkDrag>
                             <app-recipe-day-card [recipe]="day.listOfRecipe[1]" [dayId]="day.id" [typeOfMeal]='"dinner"'></app-recipe-day-card>
                         </div>

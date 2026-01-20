@@ -18,9 +18,12 @@
             @for(day of days; track day.id){
             <div class="day"> 
             <h3>{{day.name}}</h3>
-            
-            <app-recipe-card [recipe]="day.listOfRecipe![0]"></app-recipe-card>
-            <app-recipe-card [recipe]="day.listOfRecipe![1]"></app-recipe-card>
+            @if(day.listOfRecipe![0].id != 0){
+                <app-recipe-card [recipe]="day.listOfRecipe![0]"></app-recipe-card>
+            }
+            @if(day.listOfRecipe![1].id != 0){
+                <app-recipe-card [recipe]="day.listOfRecipe![1]"></app-recipe-card>
+            }
 
             
             </div>

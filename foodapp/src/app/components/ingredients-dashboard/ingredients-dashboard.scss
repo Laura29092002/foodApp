@@ -1,0 +1,87 @@
+table{
+    border-collapse: collapse;
+}
+td{
+    padding: 15px;
+    text-align: center;
+}
+
+th{
+    padding: 10px 30px;
+    background-color: #FFF5D6;
+}
+
+
+.btn{
+    cursor: pointer;
+    img{
+        width: 20px;
+    }
+}
+
+.cancel{
+    padding: 0px 20px;
+}
+
+.table-ing{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.not-unit{
+    font-weight: 300;
+    color: rgb(119, 75, 46,0.5);
+}
+
+input{
+    border-radius: 30px;
+    border: 1px solid rgb(119, 75, 46,0.5);
+    background-color: white;
+    padding: 10px 0px;
+    text-align: center;
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: #774b2e;
+}
+
+input:focus{
+    outline: none;
+    border-color: #774b2e;
+}
+
+input::placeholder{
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: rgb(119, 75, 46,0.5);
+}
+
+select{
+  font-family: 'Gluten', cursive;
+  font-weight: 300;
+  color: #774b2e;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  background-color: white;
+  border: 1px solid rgb(119, 75, 46,0.5);
+  width: 220px;
+}
+
+select:focus{
+  outline: none;
+}
+
+::ng-deep .emoji-mart-category-label {
+  display: none !important;
+}
+
+::ng-deep .emoji-mart-anchors {
+  display: none !important;
+}
+
+
+.icon{
+  cursor: pointer;
+}

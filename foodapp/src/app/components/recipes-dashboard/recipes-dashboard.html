@@ -1,0 +1,36 @@
+<div class="table-ing">
+    <div class="h2">
+        <img src="https://img.icons8.com/?size=100&id=118849&format=png&color=774b2e" alt="Kawaii Noodle"> 
+        <h2>Gestionnaire des recettes</h2>
+    </div>
+    <button (click)="addRecipe()">
+        <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+        Ajouter une recette
+    </button>
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Image</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @for(recipe of recipes; let i = $index; track recipe.id){
+        <tr>
+            <td>{{recipe.name}}</td>
+            @if(recipe.image){
+                <td><img [src]="'http://localhost:8080/recipe/' + recipe.id + '/image'" 
+                [alt]="recipe.name"></td>
+            }
+            @else {
+                <td><img src="assets/default.png" alt="default"></td>
+            }
+            <td  class="btn" title="Modifier">
+                <img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
+            </td>
+            <td (click)="deleteRecipe(recipe.id)"  class="btn" title="Supprimer">
+                <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=774b2e" alt="Delete">
+            </td>
+        </tr>
+    }
+</table>
+</div>
