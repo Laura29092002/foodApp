@@ -43,3 +43,12 @@ CREATE TABLE IF NOT EXISTS recipe_to_ingredient(
     FOREIGN KEY (recipe_id) REFERENCES recipe(id),
     FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
 );
+
+CREATE TABLE IF NOT EXISTS users(
+    id SERIAL PRIMARY KEY,
+    firstname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    mail VARCHAR(200) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    mdp VARCHAR(200) NOT NULL
+);

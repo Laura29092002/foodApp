@@ -1,11 +1,10 @@
 import { Component} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Header } from './components/header/header';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, NgMultiSelectDropDownModule],
+  imports: [NgMultiSelectDropDownModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

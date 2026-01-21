@@ -1,0 +1,8 @@
+<form [formGroup]="form">
+    <label>Mail</label>
+    <input type="text" id="mail" formControlName="mail" placeholder="Entrez votre mail">
+    <label>Mot de passe</label>
+    <input type="text" id="mdp" formControlName="mdp" placeholder="Mot de passe">
+
+    <button type="submit" (click)="login()">Se connecter</button>
+</form>

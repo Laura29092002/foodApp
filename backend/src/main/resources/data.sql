@@ -28,9 +28,14 @@ INSERT INTO ingredient(name, category_id, unit) VALUES
     ('pâtes', 3, g);
 
 INSERT INTO recipe_to_ingredient(recipe_id, ingredient_id, quantity) VALUES
-    (1,1, 200);*/
+    (1,1, 200);
+    
+
+INSERT INTO users(firstname, lastname, mail, role, mdp) VALUES 
+    ('bob', 'bonjour', 'bob@example.com', 'user', '1234'),
+    ('admin', 'admin', 'admin@example.com', 'admin', 'admin');
+   
+    */
 
   
-
-
 
