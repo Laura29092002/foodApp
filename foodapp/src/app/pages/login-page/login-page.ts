@@ -38,6 +38,10 @@ export class LoginPage {
       alert("Veuillez renseigner un mail et un mot de passe valide");
     }
     }
+
+  inscription(){
+    this.router.navigate(['/inscription']);
+  }
     
 
 

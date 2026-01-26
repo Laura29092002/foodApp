@@ -8,6 +8,7 @@ import { SettingsPage } from './pages/settings-page/settings-page';
 import { CreatePlanningPage } from './pages/create-planning-page/create-planning-page';
 import { LoginPage } from './pages/login-page/login-page';
 import { LayoutPage } from './pages/layout-page/layout-page';
+import { InscriptionPage } from './pages/inscription-page/inscription-page';
 
 export const routes: Routes = [
     {
@@ -19,6 +20,11 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginPage
+    },
+
+    {
+        path: 'inscription',
+        component: InscriptionPage
     },
     {
         path: '',

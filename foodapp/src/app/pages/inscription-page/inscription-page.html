@@ -1,0 +1,31 @@
+<form [formGroup]="form">
+    <label>Nom</label>
+    <input type="text" id="lastname" formControlName="lastname" placeholder="Entrer un nom">
+    @if(form.get('lastname')?.invalid && form.get('lastname')?.touched){
+        <p>Le nom est requis.</p>
+    }
+    <label>Prénom</label>
+    <input type="text" id="firstname" formControlName="firstname" placeholder="Entrer un prénom">
+    @if(form.get('firstname')?.invalid && form.get('firstname')?.touched){
+        <p>Le prénom est requis.</p>
+    }
+    <label>Email</label>
+    <input type="text" id="mail" formControlName="mail" placeholder="Entrer un mail">
+    @if(form.get('mail')?.invalid && form.get('mail')?.touched){
+        <p>L'email est requis.</p>
+    }
+    <label>Mot de passe</label>
+    <input type="text" id="mdp" formControlName="mdp"> 
+    @if(form.get('mdp')?.invalid && form.get('mdp')?.touched){
+        <p>Le mot de passe est requis.</p>
+    }
+    <label>Confirmation du mot de passe</label>
+    <input type="text" id="conf" formControlName="conf"> 
+    @if(form.get('conf')?.invalid && form.get('conf')?.touched){
+        <p>Veuillez confirmer votre mot de passe.</p>
+    }
+    @if(form.get('mdp') != form.get('conf') && form.get('conf')?.touched){
+        <p>Veuillez renseigner le même mot de passe dans les deux champs.</p>
+    }
+    <button type="submit" (click)="inscription()" [disabled]="form.invalid">S'incrire</button>
+</form>

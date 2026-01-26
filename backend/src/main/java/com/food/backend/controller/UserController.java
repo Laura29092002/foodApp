@@ -2,6 +2,7 @@ package com.food.backend.controller;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +19,12 @@ import com.food.backend.service.AuthService;
 
 
 
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
     private final UserRepository userRepository;
     private final AuthService authService;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); 
 
     public UserController(UserRepository userRepository, AuthService authService){
         this.userRepository = userRepository;
@@ -42,6 +43,7 @@ public class UserController {
 
     @PostMapping
     public User addUser(@RequestBody User user) {
+        user.setMdp(encoder.encode(user.getMdp()));
         return userRepository.save(user);
     }
 

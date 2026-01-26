@@ -122,8 +122,8 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
         });
       });
       
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['']);
+      this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/home']);
       });
     } else {
       alert('Le nombre de recette par jour est incorrect, veuillez renseigner 2 recettes par jour');

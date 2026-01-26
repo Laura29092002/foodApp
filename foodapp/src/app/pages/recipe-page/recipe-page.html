@@ -10,9 +10,11 @@
         <div class="ingredient">
             <h3>Ingredients</h3>
             @if(recipe.ingredients && recipe.ingredients.length > 0){
+                <div class="list">
                 @for(ingredient of recipe.ingredients; track ingredient.id){
                     <app-ingredients-list [ingredient]="ingredient"></app-ingredients-list>
                 }
+                </div>
             } @else {
                 <p>Il n'y a pas d'ingredients pour cette recette.</p>
             }

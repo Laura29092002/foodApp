@@ -1,8 +1,16 @@
 <form [formGroup]="form">
     <label>Mail</label>
     <input type="text" id="mail" formControlName="mail" placeholder="Entrez votre mail">
+    @if(form.get('mail')?.invalid && form.get('mail')?.touched){
+        <p>L'email est requis.</p>
+    }
     <label>Mot de passe</label>
     <input type="text" id="mdp" formControlName="mdp" placeholder="Mot de passe">
+    @if(form.get('mdp')?.invalid && form.get('mdp')?.touched){
+        <p>Le mot de passe est requis.</p>
+    }
 
     <button type="submit" (click)="login()">Se connecter</button>
 </form>
+
+<button (click)="inscription()">Se creer un compte</button>
