@@ -18,6 +18,7 @@ export class RecipesDashboard implements OnInit {
   ngOnInit(): void {
 
     this.recipeService.getRecipes().subscribe(data =>{
+      data.sort((a, b) => a.id - b.id);
       this.recipes = data;
     })
     

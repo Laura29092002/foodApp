@@ -29,6 +29,7 @@ export class IngredientsDashboard implements OnInit{
     this.isloading = true;
     this.ingredientService.getIngredients().subscribe(
       data => {
+        data.sort((a, b) => a.id - b.id);
         this.ingredients = data;
         console.log(this.ingredients)
       }
@@ -44,7 +45,7 @@ export class IngredientsDashboard implements OnInit{
   deleteIngredient(ingredientId : number, index : number){
     if (confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')) {
       this.ingredientService.deleteIngredient(ingredientId).subscribe();
-      this.ingredients.splice(index);
+      this.ingredients.splice(index, 1);
     }
   }
 

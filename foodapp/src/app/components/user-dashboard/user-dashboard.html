@@ -1,0 +1,38 @@
+<div class="table-ing">
+    <div class="h2">
+        <img src="https://img.icons8.com/?size=100&id=4GLxWBxj9TSR&format=png&color=774b2e" alt="Fast food">
+        <h2>Gestionnaire des ingrédients</h2>
+    </div>
+
+@if(isloading){
+    <app-loader/>
+}
+
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @for(user of users; let i = $index; track user.id){
+        <tr>
+            
+            <td>{{user.lastname}}</td>
+            <td>{{user.firstname}}</td>
+            <td>{{user.mail}}</td>
+            <td>{{user.role}}</td>
+            <td class="btn" title="Changer le rôle">
+                <img (click)="upgradeUser(user, i)" src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
+            </td>
+            <td (click)="deleteUser(user.id, i)" class="btn" title="Supprimer">
+                <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=774b2e" alt="Delete">
+            </td>
+            
+        </tr>
+    }
+</table>
+
+</div>
