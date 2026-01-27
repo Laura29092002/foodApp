@@ -23,4 +23,11 @@ public class AuthService {
         }
         return false;
     }
+
+    public boolean verifyExistingUserByMail(String mail) {
+        Optional<User> user = userRepository.findByMail(mail);
+        return user.isPresent();
+    }
+
+
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UserService } from '../../services/user/user';
 import { User } from '../../models/user/step.model';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-inscription-page',
@@ -14,7 +15,7 @@ export class InscriptionPage {
   form: FormGroup;
   newUser!: User;
 
-  constructor(private fb: FormBuilder, private userService : UserService, private router: Router){
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router){
     this.form = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -24,24 +25,48 @@ export class InscriptionPage {
     })
   }
 
-  inscription(){
-
+  async inscription(){
     if(this.form.invalid){
-      this.form.markAllAsTouched();
+      confirm('Tous les champs ne sont pas remplis.');
       return;
     }
-    if(this.form.get('mdp') != this.form.get('conf')){
-      this.form.markAllAsTouched();
-      return;
-    }
-    console.log(this.form.value);
-    const user = new User(0, this.form.value.firstname, this.form.value.lastname, this.form.value.mail, "user" ,this.form.value.mdp);
-    this.userService.addUser(user).subscribe(data =>{
-      this.newUser = data;
-      console.log(this.newUser);
-      this.router.navigate(['/login']);
-    });
     
+    if(this.form.value.mdp != this.form.value.conf){
+      confirm('Veuillez renseigner le même mot de passe dans les deux champs.');
+      return;
+    }
+
+    try {
+      const isExisting = await firstValueFrom(
+        this.userService.isExistingUser(this.form.value.mail)
+      );
+      
+      if(isExisting){
+        confirm('Utilisateur déjà existant');
+        return;
+      }
+      const user = new User(
+        0, 
+        this.form.value.firstname, 
+        this.form.value.lastname, 
+        this.form.value.mail, 
+        "user",
+        this.form.value.mdp
+      );
+      
+      this.newUser = await firstValueFrom(
+        this.userService.addUser(user)
+      );
+      
+      this.router.navigate(['/login']);
+      
+    } catch (error) {
+      console.error("Erreur lors de l'inscription:", error);
+      confirm("Une erreur est survenue lors de l'inscription.");
+    }
   }
 
+  onCancel(){
+    this.router.navigate(['/']);
+  }
 }

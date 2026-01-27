@@ -55,11 +55,21 @@ public class UserController {
         );
         
         if (isValid) {
-            return userRepository.findByMailUser(loginRequest.getMail());
+            User newUser = userRepository.findByMailUser(loginRequest.getMail());
+            newUser.setMdp("");
+            return newUser;
         } else {
             return new User();
         }
     }
+
+    @PostMapping("/inscription")
+    public Boolean existingUser(@RequestBody String mail) {
+        boolean isExisting = authService.verifyExistingUserByMail(mail);
+        System.out.println(isExisting);
+        return isExisting;
+    }
+    
     
     
     @PutMapping

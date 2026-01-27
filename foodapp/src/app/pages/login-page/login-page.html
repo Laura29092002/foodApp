@@ -1,16 +1,34 @@
-<form [formGroup]="form">
-    <label>Mail</label>
-    <input type="text" id="mail" formControlName="mail" placeholder="Entrez votre mail">
-    @if(form.get('mail')?.invalid && form.get('mail')?.touched){
-        <p>L'email est requis.</p>
-    }
-    <label>Mot de passe</label>
-    <input type="text" id="mdp" formControlName="mdp" placeholder="Mot de passe">
-    @if(form.get('mdp')?.invalid && form.get('mdp')?.touched){
-        <p>Le mot de passe est requis.</p>
-    }
+<div class="contains">
+    <img src="/assets/logo.png" class="img">
+    <div class="header">
+    <div class="h2">
+            <img src="https://img.icons8.com/?size=100&id=4GLxWBxj9TSR&format=png&color=774b2e" alt="Fast food">
+            <h2>Connexion</h2>
+        </div>
 
-    <button type="submit" (click)="login()">Se connecter</button>
-</form>
+    <p>Bienvenue sur Weakly Meals, rentrez vos identifiants pour profiter de nos délicieuses recettes.</p>
+    </div>
 
-<button (click)="inscription()">Se creer un compte</button>
+    <form [formGroup]="form">
+        <div class="input">
+            <label>Mail</label>
+            <input type="text" id="mail" formControlName="mail" placeholder="Entrez votre mail">
+        </div>
+        @if(form.get('mail')?.invalid && form.get('mail')?.touched){
+                <p>L'email est requis.</p>
+            }
+        <div class="input">
+            <label>Mot de passe</label>
+            <input type="password" id="mdp" formControlName="mdp" placeholder="Mot de passe">
+        </div>
+        @if(form.get('mdp')?.invalid && form.get('mdp')?.touched){
+                <p>Le mot de passe est requis.</p>
+            }
+        <div class="buttons">
+            <button (click)="inscription()" class="cancel">Se creer un compte</button>
+            <button type="submit" (click)="login()" class="connexion-button">
+                <img src="https://img.icons8.com/?size=100&id=26211&format=png&color=774b2e" alt="login">
+                Se connecter</button>
+        </div>
+    </form>
+</div>   

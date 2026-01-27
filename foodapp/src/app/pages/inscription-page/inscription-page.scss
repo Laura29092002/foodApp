@@ -1,7 +1,72 @@
-form {
-    margin: 30px;
+.contains{
     display: flex;
     flex-direction: column;
+    gap: 30px;
     align-items: center;
+    justify-content: center;
+    .img{
+        width: 200px;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF5D6;
+    box-shadow: 0px 4px 5px #5b351b46;
     gap: 20px; 
+    border-radius: 30px;
+    padding: 30px;
+    width: 350px;
+    align-items: center;
+}
+
+.input{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+input{
+    border-radius: 30px;
+    border: none;
+    background-color: #FFFAEE;
+    padding: 10px 20px;
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: #774b2e;
+}
+
+input:focus{
+    outline: none;
+    border-color: #774b2e;
+}
+
+input::placeholder{
+    font-family: 'Gluten', cursive;
+    font-weight: 300;
+    color: rgb(119, 75, 46,0.5);
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.connexion-button{
+    padding: 20px;
+}
+
+.h2{
+    height: 10px;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }

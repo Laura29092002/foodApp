@@ -1,11 +1,11 @@
 <section class="navigation">
     <div class="nav-container">
     <div class="brand">
-        <a href="/"><img src="assets/logo.png" alt="FoodApp Logo"/></a>
+        <a href="/home"><img src="assets/logo.png" alt="FoodApp Logo"/></a>
     </div>
     <nav>
         <div class="nav-mobile">
-            <a id="nav-toggle" href="/home"><span></span></a>
+            <a id="nav-toggle" href=""><span></span></a>
         </div>
         <ul class="nav-list">
         <li><a href="/home">
@@ -17,7 +17,15 @@
         <li><a href="/shopping-list">
             <img src="https://img.icons8.com/?size=100&id=Z4owmiVUblRU&format=png&color=774b2e" alt="Egg Basket">
             Liste de course</a></li>
-        <li><a href="/settings"><img src="https://img.icons8.com/?size=100&id=XdKE06gJeYB6&format=png&color=774b2e" alt="Store Setting"></a></li>
+        @if(user?.role == "admin"){
+            <li><a href="/settings">
+                <img src="https://img.icons8.com/?size=100&id=XdKE06gJeYB6&format=png&color=774b2e" alt="Store Setting">
+                Outils</a></li>
+
+        }
+        <li><a>
+            <img src="https://img.icons8.com/?size=100&id=ByfyMSAPJj0W&format=png&color=774b2e" alt="Cook"> 
+            {{user?.firstname}}</a></li>
     </ul>
     </nav>
     </div>

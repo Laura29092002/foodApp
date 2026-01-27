@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { UserService } from '../../services/user/user';
 import { User } from '../../models/user/step.model';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-login-page',
   imports: [ReactiveFormsModule],
@@ -22,13 +21,12 @@ export class LoginPage {
   }
 
   login(){
-    console.log(this.form.value);
     if(this.form.value.mail && this.form.value.mdp){
         this.userService.isUser(this.form.value.mail, this.form.value.mdp).subscribe(data =>{
         this.user = data;
         console.log(this.user);
         if(this.user.mail != null){
-          console.log(this.user);
+          this.userService.login(this.user);
           this.router.navigate(['/home']);
         }else{
           alert("Email ou mot de passe incorecte");

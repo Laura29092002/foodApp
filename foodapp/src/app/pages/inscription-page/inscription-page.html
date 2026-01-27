@@ -1,31 +1,63 @@
-<form [formGroup]="form">
+<div class="contains">
+    <img src="/assets/logo.png" class="img">
+    <div class="header">
+    <div class="h2">
+            <img src="https://img.icons8.com/?size=100&id=4GLxWBxj9TSR&format=png&color=774b2e" alt="Fast food">
+            <h2>Inscription</h2>
+        </div>
+
+    <p>Bienvenue sur Weakly Meals, créez-vous un compte pour profiter de nos délicieuses recettes.</p>
+    </div>
+    <form [formGroup]="form">
+    <div class="input">
     <label>Nom</label>
     <input type="text" id="lastname" formControlName="lastname" placeholder="Entrer un nom">
+    </div>
     @if(form.get('lastname')?.invalid && form.get('lastname')?.touched){
         <p>Le nom est requis.</p>
     }
+    <div class="input">
     <label>Prénom</label>
     <input type="text" id="firstname" formControlName="firstname" placeholder="Entrer un prénom">
+    </div>
     @if(form.get('firstname')?.invalid && form.get('firstname')?.touched){
         <p>Le prénom est requis.</p>
     }
+    <div class="input">
     <label>Email</label>
     <input type="text" id="mail" formControlName="mail" placeholder="Entrer un mail">
+    </div>
     @if(form.get('mail')?.invalid && form.get('mail')?.touched){
         <p>L'email est requis.</p>
     }
+    <div class="input">
     <label>Mot de passe</label>
-    <input type="text" id="mdp" formControlName="mdp"> 
+    <input type="password" id="mdp" formControlName="mdp"> 
+    </div>
     @if(form.get('mdp')?.invalid && form.get('mdp')?.touched){
         <p>Le mot de passe est requis.</p>
     }
-    <label>Confirmation du mot de passe</label>
-    <input type="text" id="conf" formControlName="conf"> 
+    <div class="input">
+    <label>Confirmer</label>
+    <input type="password" id="conf" formControlName="conf"> 
+    </div>
     @if(form.get('conf')?.invalid && form.get('conf')?.touched){
         <p>Veuillez confirmer votre mot de passe.</p>
     }
-    @if(form.get('mdp') != form.get('conf') && form.get('conf')?.touched){
-        <p>Veuillez renseigner le même mot de passe dans les deux champs.</p>
+    @if(
+  form.get('conf')?.value && 
+  form.get('mdp')?.value !== form.get('conf')?.value &&
+  (form.get('conf')?.dirty || form.get('conf')?.touched)
+    ){
+      <p>Veuillez renseigner le même mot de passe dans les deux champs.</p>
     }
-    <button type="submit" (click)="inscription()" [disabled]="form.invalid">S'incrire</button>
+
+    <div class="buttons">
+            <button (click)="onCancel()" class="cancel">Se connecter</button>
+            <button type="submit" (click)="inscription()" class="connexion-button">
+                <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+        S'incrire</button>
+        </div>
 </form>
+
+</div>
