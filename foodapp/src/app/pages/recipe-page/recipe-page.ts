@@ -9,10 +9,11 @@ import { StepService } from '../../services/step/step';
 import { RecipeService } from '../../services/recipe/recipe';
 import { IngredientsList } from '../../components/ingredients-list/ingredients-list';
 import { Location } from '@angular/common';
+import { IngredientComponent } from "../../components/ingredient-component/ingredient-component";
 
 @Component({
   selector: 'app-recipe-page',
-  imports: [IngredientsList],
+  imports: [IngredientsList, IngredientComponent],
   templateUrl: './recipe-page.html',
   styleUrl: './recipe-page.scss',
 })

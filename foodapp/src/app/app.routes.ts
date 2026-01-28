@@ -9,6 +9,7 @@ import { CreatePlanningPage } from './pages/create-planning-page/create-planning
 import { LoginPage } from './pages/login-page/login-page';
 import { LayoutPage } from './pages/layout-page/layout-page';
 import { InscriptionPage } from './pages/inscription-page/inscription-page';
+import { AccountPage } from './pages/account-page/account-page';
 
 export const routes: Routes = [
     {
@@ -61,6 +62,10 @@ export const routes: Routes = [
         {
             path: 'modify-planning',
             component: CreatePlanningPage
+        },
+        {
+            path: 'account',
+            component: AccountPage
         }
 
         ]

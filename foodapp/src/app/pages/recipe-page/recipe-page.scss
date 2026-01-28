@@ -4,12 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    h2{
-        font-size: 30px;
-    }
-    .info{
-        text-align: center;
-    }
+    
     .sous-info{
         display: flex;
         flex-direction: row;
@@ -19,7 +14,7 @@
             flex: 1; 
             min-width: 0; 
             p{
-                margin-block-end: 50px;
+                line-height: 1.5;
             }
         }
 
@@ -31,8 +26,6 @@
         .image {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center; 
 
             img {
                 width: 300px;
@@ -45,7 +38,28 @@
 
 .list{
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: end;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: end;
+    flex-wrap: wrap;
+}
+
+.info{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    h2{
+        font-size: 30px;
+        text-align: center;
+    }
+    
+}
+
+
+
+.back{
+    position: absolute;
+    left: 0;
 }

@@ -1,0 +1,17 @@
+.image{
+    padding: 20px;
+    width: 20px;
+    border-radius: 40px;
+    border: 2px solid #FFE891;
+}
+
+.ing{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100px;
+    p{
+        padding: 0px;
+    }
+}

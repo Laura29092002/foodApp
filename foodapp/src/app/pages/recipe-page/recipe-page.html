@@ -1,18 +1,18 @@
-<button class="back" (click)="onCancel()">
-    <img src="https://img.icons8.com/?size=100&id=101380&format=png&color=774b2e">
-    Retour
-</button>
+<div class="info">
+    <button class="back" (click)="onCancel()">
+        <img src="https://img.icons8.com/?size=100&id=101380&format=png&color=774b2e">
+        Retour
+    </button>
+    <h2>{{recipe.name}}</h2>
+</div>
 <div class="recette">
-    <div class="info">
-        <h2>{{recipe.name}}</h2>
-    </div>
     <div class="sous-info">
         <div class="ingredient">
-            <h3>Ingredients</h3>
+            <h2>Ingredients</h2>
             @if(recipe.ingredients && recipe.ingredients.length > 0){
                 <div class="list">
                 @for(ingredient of recipe.ingredients; track ingredient.id){
-                    <app-ingredients-list [ingredient]="ingredient"></app-ingredients-list>
+                    <app-ingredient-component [ingredient]="ingredient"></app-ingredient-component>
                 }
                 </div>
             } @else {
@@ -33,11 +33,12 @@
             }
         </div>
         <div class="step">
-            <h3>Instructions</h3>
+            <h2>Instructions</h2>
             @if(recipe.steps && recipe.steps.length > 0 && recipe.steps[0].description != ""){
                 @for(step of recipe.steps ;track step.id){
                     <div>
-                        <p>Étape {{step.number}} : {{step.description}}</p>
+                        <h3>Étape {{step.number}} : </h3>
+                        <p>{{step.description}}</p>
                     </div>
                 }
             } @else {

@@ -53,4 +53,9 @@ export class UserService {
   deleteUser(id :number){
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
 }
