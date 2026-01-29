@@ -9,6 +9,8 @@ import { StepService } from '../../services/step/step';
 import { RecipeService } from '../../services/recipe/recipe';
 import { Location } from '@angular/common';
 import { IngredientComponent } from "../../components/ingredient-component/ingredient-component";
+import { UserService } from '../../services/user/user';
+import { User } from '../../models/user/step.model';
 
 @Component({
   selector: 'app-recipe-page',
@@ -23,11 +25,16 @@ export class RecipePage implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   recipe!: Recipe;
-
+  user : User | null = null;
   isLoading = true;
   error: string | null = null;
 
-  constructor(private _location: Location){
+  constructor(private _location: Location, private userService : UserService){
+    this.userService.currentUser.subscribe(
+      data => {
+        this.user = data;
+      }
+    )
   }
 
   ngOnInit(): void {

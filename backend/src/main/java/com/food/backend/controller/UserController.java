@@ -86,6 +86,8 @@ public class UserController {
     
     @PutMapping
     public User updateUser(@RequestBody User user) {
+        User oldUser = getUserById(user.getId());
+        user.setMdp(oldUser.getMdp());
         return userRepository.save(user);
     }
 
