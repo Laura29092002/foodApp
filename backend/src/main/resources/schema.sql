@@ -4,10 +4,23 @@ CREATE TABLE IF NOT EXISTS recipe(
     image VARCHAR(200)
 );
 
+CREATE TABLE IF NOT EXISTS users(
+    id SERIAL PRIMARY KEY,
+    firstname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    mail VARCHAR(200) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    mdp VARCHAR(200) NOT NULL,
+    nb_person INTEGER,
+    regime_id INTEGER,
+    FOREIGN KEY (regime_id) REFERENCES regime(id)
+);
 
 CREATE TABLE IF NOT EXISTS day(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
     recipe_lunch_id INTEGER,
     FOREIGN KEY (recipe_lunch_id) REFERENCES recipe(id),
     recipe_dinner_id INTEGER,
@@ -44,11 +57,16 @@ CREATE TABLE IF NOT EXISTS recipe_to_ingredient(
     FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
 );
 
-CREATE TABLE IF NOT EXISTS users(
+CREATE TABLE IF NOT EXISTS regime(
     id SERIAL PRIMARY KEY,
-    firstname VARCHAR(50) NOT NULL,
-    lastname VARCHAR(50) NOT NULL,
-    mail VARCHAR(200) NOT NULL,
-    role VARCHAR(20) NOT NULL,
-    mdp VARCHAR(200) NOT NULL
+    name VARCHAR(50) NOT NULL
+);
+
+
+
+CREATE TABLE IF NOT EXISTS user_to_ingredient(
+    user_id INTEGER NOT NULL,
+    ingredient_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
 );

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { Loader } from "../loader/loader";
 import { Recipe } from '../../models/recipe/recipe.model';
+import { UserService } from '../../services/user/user';
+import { User } from '../../models/user/step.model';
 
 @Component({
   selector: 'app-planning',
@@ -17,12 +19,16 @@ import { Recipe } from '../../models/recipe/recipe.model';
 export class Planning implements OnInit {
   days: Day[] = [];
   isloading: Boolean = false;
+  user : User | null = null;
 
-  constructor(private dayService :DayService, private recipeService: RecipeService, private router: Router) {}
+  constructor(private dayService :DayService, private recipeService: RecipeService, private router: Router, private userService : UserService) {}
 
   ngOnInit() {
     this.isloading = true;
-      this.dayService.getDays().subscribe(data => {
+    this.userService.currentUser.subscribe(
+      data => {
+        this.user = data;
+        this.dayService.getDaysByUserId(this.user!.id).subscribe(data => {
         data.sort((a, b) => a.id - b.id);
         data.forEach(day => {
           day.listOfRecipe = [];
@@ -41,6 +47,9 @@ export class Planning implements OnInit {
         console.log(this.days)
         this.isloading = false;
       });
+      }
+    )
+    
     }
 
   modifyPlanning(){

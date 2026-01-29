@@ -3,17 +3,11 @@
     Retour
 </button>
 <div class="center">
-    @if(ismodify == "/modify-planning"){
-        <div class="h2 taille">
-            <img src="https://img.icons8.com/?size=100&id=10053&format=png&color=774b2e" alt="Calandar">
-            <h2>Modifier mon planning de la semaine</h2>
-        </div>
-    }@else {
-        <div class="h2 taille">
-            <img src="https://img.icons8.com/?size=100&id=10053&format=png&color=774b2e" alt="Calandar">
-            <h2>Créer mon planning de la semaine</h2>
-        </div>
-    }
+    <div class="h2 taille">
+        <img src="https://img.icons8.com/?size=100&id=10053&format=png&color=774b2e" alt="Calandar">
+        <h2>Modifier mon planning de la semaine</h2>
+    </div>
+    
 
     <p>Vous pouvez réorganiser l'emplacement des recettes en les sélectionnant et déposant à l'endroit souhaité. Vous pouvez également changer les recettes via le bouton crayon.</p>
     <div cdkDropListGroup class="planning">
@@ -23,11 +17,14 @@
                 (cdkDropListDropped)="drop($event)"
                 class="day">
                 <h3>{{day.name}}</h3>
-                <div class="meal-slot">
-                    @if(day.listOfRecipe && day.listOfRecipe[0].id != 0){
+                
+                    <div class="meal-slot">
+                    @if(day.listOfRecipe && day.listOfRecipe.length > 0 && day.listOfRecipe[0]){
+                        @if(day.listOfRecipe[0].id != 0){
                         <div cdkDrag>
                             <app-recipe-day-card [recipe]="day.listOfRecipe[0]" [dayId]="day.id" [typeOfMeal]='"lunch"'></app-recipe-day-card>
                         </div>
+                    }
                     }@else{
                         <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
                             <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
@@ -36,17 +33,22 @@
                     }
                 </div>
                 <div class="meal-slot">
-                    @if(day.listOfRecipe && day.listOfRecipe[1].id != 0){
+                    @if(day.listOfRecipe && day.listOfRecipe.length > 0 && day.listOfRecipe[1]){
+                        @if(day.listOfRecipe[1].id != 0){
                         <div cdkDrag>
                             <app-recipe-day-card [recipe]="day.listOfRecipe[1]" [dayId]="day.id" [typeOfMeal]='"dinner"'></app-recipe-day-card>
                         </div>
-                    }@else{
+                    }
+                    }
+                    
+                    @else{
                         <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
                             <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
                             <span>Ajouter le dîner</span>
                         </button>
                     }
                 </div>
+                
                 
 
             </div>

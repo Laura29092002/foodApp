@@ -1,15 +1,17 @@
 /*INSERT INTO recipe(name) VALUES
     ('pâtes');
+INSERT INTO users(firstname, lastname, mail, role, mdp) VALUES 
+    ('bob', 'bonjour', 'bob@example.com', 'user', '1234'),
+    ('admin', 'admin', 'admin@example.com', 'admin', 'admin');
 
-
-INSERT INTO day (name, recipe_lunch_id, recipe_dinner_id) VALUES
-    ('lundi', 1, 1),
-    ('mardi', 1, 1),
-    ('mercredi', 1, 1),
-    ('jeudi', 1, 1),
-    ('vendredi', 1, 1),
-    ('samedi', 1, 1),
-    ('dimanche', 1, 1);
+INSERT INTO day (name, user_id, recipe_lunch_id, recipe_dinner_id) VALUES
+    ('lundi',1, 1, 1),
+    ('mardi',1, 1, 1),
+    ('mercredi',1, 1, 1),
+    ('jeudi',1, 1, 1),
+    ('vendredi',1, 1, 1),
+    ('samedi',1, 1, 1),
+    ('dimanche',1, 1, 1);
 
 INSERT INTO step (number, description, recipe_id) VALUES
     (1, 'Faire cuir les pâtes', 1),
@@ -31,11 +33,12 @@ INSERT INTO recipe_to_ingredient(recipe_id, ingredient_id, quantity) VALUES
     (1,1, 200);
     
 
-INSERT INTO users(firstname, lastname, mail, role, mdp) VALUES 
-    ('bob', 'bonjour', 'bob@example.com', 'user', '1234'),
-    ('admin', 'admin', 'admin@example.com', 'admin', 'admin');
+INSERT INTO regime(name) VALUES
+    ('végétarien'),
+    ('vegan'),
+    ('Sans gluten'),
+    ('Sans lactose');
    
     */
 
-  
 

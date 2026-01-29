@@ -7,6 +7,8 @@ import { RecipeService } from '../../services/recipe/recipe';
 import { Ingredient } from '../../models/ingredient/ingredient.model';
 import { forkJoin, mergeMap, of } from 'rxjs';
 import { Loader } from "../../components/loader/loader";
+import { UserService } from '../../services/user/user';
+import { User } from '../../models/user/step.model';
 
 
 @Component({
@@ -19,13 +21,19 @@ export class ShoppingPage implements  OnInit {
   shopping : Category[] = [];
   ingredients : Ingredient[][] = [];
   isloading : boolean = false;
+  user : User | null = null;
 
-  constructor(private categoryService: CategoryService, private dayService: DayService, private recipeService: RecipeService) { }
+  constructor(private categoryService: CategoryService, private dayService: DayService, private recipeService: RecipeService, private userService: UserService) { }
  
   ngOnInit() {
     this.isloading = true;
-    this.dayService.getDays().pipe(
-      // Attend que getDays() termine, puis traite les recettes
+    this.userService.currentUser.subscribe(
+      data => {
+        this.user = data
+      }
+    )
+    this.dayService.getDaysByUserId(this.user!.id).pipe(
+      // Attend que getDaysByUserId() termine, puis traite les recettes
       mergeMap(days => {
         const requests = days.flatMap(recipe => {
           const reqs = [];

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.food.backend.models.Day;
 import com.food.backend.repository.DayRepository;
+
 @RestController
 @RequestMapping("/day")
 public class DayController {
@@ -32,6 +33,12 @@ public class DayController {
     public Day getByID(@PathVariable int id) {
         return dayRepository.findById(id).orElse(null);
     }
+
+    @GetMapping("userId/{userId}")
+    public List<Day> getByUserId(@PathVariable int userId) {
+        return dayRepository.findByUserId(userId);
+    }
+    
 
     @PostMapping
     public Day addDay(@RequestBody Day day) {

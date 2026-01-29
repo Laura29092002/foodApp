@@ -27,7 +27,6 @@ import { Store } from '@ngrx/store';
 export class CreatePlanningPage implements OnInit, OnDestroy {
   days$: Observable<Day[]>;
   days: Day[] = [];
-  ismodify: string = "";
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -40,7 +39,6 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.ismodify = this.router.url;
     
     // Charger seulement si le store est vide
     this.store.dispatch(PlanningActions.loadDaysIfEmpty());
@@ -113,6 +111,7 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
         const dayToSave: Day = {
           id: day.id, 
           name: day.name, 
+          userId: day.userId,
           recipeLunchId: day.recipeLunchId, 
           recipeDinnerId: day.recipeDinnerId
         };

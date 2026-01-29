@@ -14,6 +14,10 @@ export class DayService {
     return this.http.get<Day[]>(this.apiUrl);
   }
 
+  getDaysByUserId(id: number) {
+    return this.http.get<Day[]>(`${this.apiUrl}/userId/${id}`);
+  }
+
   getDayById(id: number) {
     return this.http.get<Day>(`${this.apiUrl}/${id}`);
   }
