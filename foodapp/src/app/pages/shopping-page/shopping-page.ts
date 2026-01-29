@@ -9,6 +9,7 @@ import { forkJoin, mergeMap, of } from 'rxjs';
 import { Loader } from "../../components/loader/loader";
 import { UserService } from '../../services/user/user';
 import { User } from '../../models/user/step.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,8 +23,9 @@ export class ShoppingPage implements  OnInit {
   ingredients : Ingredient[][] = [];
   isloading : boolean = false;
   user : User | null = null;
+  isShopping : number = 0;
 
-  constructor(private categoryService: CategoryService, private dayService: DayService, private recipeService: RecipeService, private userService: UserService) { }
+  constructor(private categoryService: CategoryService, private dayService: DayService, private recipeService: RecipeService, private userService: UserService, private router: Router) { }
  
   ngOnInit() {
     this.isloading = true;
@@ -59,10 +61,19 @@ export class ShoppingPage implements  OnInit {
           this.ingredients,
           this.shopping
         );
-        console.log(test);
+        console.log(this.shopping);
+        this.shopping.forEach(sh => {
+          if(sh.ingredients?.length == 0){
+            this.isShopping += 1;
+          }
+        });
         this.isloading = false;
       });
     });
+  }
+
+  addPlanning(){
+    this.router.navigate(['/modify-planning']);
   }
 
 }

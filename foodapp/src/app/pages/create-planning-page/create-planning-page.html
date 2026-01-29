@@ -25,6 +25,12 @@
                             <app-recipe-day-card [recipe]="day.listOfRecipe[0]" [dayId]="day.id" [typeOfMeal]='"lunch"'></app-recipe-day-card>
                         </div>
                     }
+                    @else{
+                        <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            <span>Ajouter le déjeuner</span>
+                        </button>
+                    }
                     }@else{
                         <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
                             <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
@@ -35,18 +41,23 @@
                 <div class="meal-slot">
                     @if(day.listOfRecipe && day.listOfRecipe.length > 0 && day.listOfRecipe[1]){
                         @if(day.listOfRecipe[1].id != 0){
-                        <div cdkDrag>
-                            <app-recipe-day-card [recipe]="day.listOfRecipe[1]" [dayId]="day.id" [typeOfMeal]='"dinner"'></app-recipe-day-card>
-                        </div>
-                    }
-                    }
-                    
-                    @else{
+                            <div cdkDrag>
+                                <app-recipe-day-card [recipe]="day.listOfRecipe[1]" [dayId]="day.id" [typeOfMeal]='"dinner"'></app-recipe-day-card>
+                            </div>
+                        }@else{
                         <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
                             <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
                             <span>Ajouter le dîner</span>
                         </button>
                     }
+                    }@else{
+                        <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            <span>Ajouter le dîner</span>
+                        </button>
+                    }
+                    
+                    
                 </div>
                 
                 

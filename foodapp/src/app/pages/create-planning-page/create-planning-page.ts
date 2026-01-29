@@ -90,18 +90,22 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   onUpdate() {
     let isConform: boolean = true;
     
-    for (let day of this.days) {
-      if (!day.listOfRecipe || day.listOfRecipe.length != 2) {
-        isConform = false;
-        break;
-      }
-    }
+    //for (let day of this.days) {
+    //  if (!day.listOfRecipe || day.listOfRecipe.length != 2) {
+    //    isConform = false;
+    //    break;
+    //  }
+    //}
     
     if (isConform) {
       const updatedDays = this.days.map(day => {
         const dayToUpdate = { ...day };
-        dayToUpdate.recipeLunchId = day.listOfRecipe![0].id;
-        dayToUpdate.recipeDinnerId = day.listOfRecipe![1].id;
+        if(dayToUpdate.recipeLunchId){
+          dayToUpdate.recipeLunchId = day.listOfRecipe![0].id;
+        }
+        if(dayToUpdate.recipeDinnerId){
+          dayToUpdate.recipeDinnerId = day.listOfRecipe![1].id;
+        }
         return dayToUpdate;
       });
 
