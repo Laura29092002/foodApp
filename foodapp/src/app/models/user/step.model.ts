@@ -5,6 +5,8 @@ export class User {
     mail: string;
     role: string;
     mdp: string;
+    nbPerson? : number;
+    regimeId?: number;
 
     constructor(id: number, firstname: string, lastname: string, mail: string, role: string, mdp: string) {
         this.id = id;

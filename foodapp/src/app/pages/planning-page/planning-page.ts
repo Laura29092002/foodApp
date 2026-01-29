@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Planning } from "../../components/planning/planning";
 
 @Component({
@@ -8,5 +8,4 @@ import { Planning } from "../../components/planning/planning";
   styleUrl: './planning-page.scss',
 })
 export class PlanningPage {
-
 }

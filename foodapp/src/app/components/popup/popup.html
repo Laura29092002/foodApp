@@ -1,0 +1,19 @@
+<div class="popup-overlay">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <h2>Préférence alimentaire</h2>
+    <p>Nous voulons mieux vous connaitre!</p>
+    <form [formGroup]="form">
+        <label>Nombre de personne</label>
+        <input type="number" [defaultValue]="0" formControlName="nbPerson" id="nbPerson">
+        <label>Régime alimentaire</label>
+        <select formControlName="regimeId" id="regimeId">
+            <option value="">Choisir une catégorie</option>
+            @for(regime of regimes;track regime.id){
+                <option value="{{regime.id}}">{{regime.name}}</option>
+            }
+        </select>
+        <button type="submit" (click)="submit()">Enregistrer</button>
+    </form>
+    <button (click)="close()">Fermer</button>
+  </div>
+</div>

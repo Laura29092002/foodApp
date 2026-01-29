@@ -38,6 +38,8 @@ export class UserService {
     this.currentUserSubject.next(user);
   }
 
+  
+
   isUser(mail: string, mdp: string){
     return this.http.post<User>(`${this.apiUrl}/login`, {mail, mdp});
   }
@@ -47,6 +49,7 @@ export class UserService {
   }
 
   updateUser(user: User){
+    this.login(user);
     return this.http.put<User>(this.apiUrl, user);
   }
 

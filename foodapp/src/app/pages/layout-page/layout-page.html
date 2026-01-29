@@ -1,2 +1,5 @@
 <app-header/>
+@if(isPopup){
+    <app-popup (closePopup)="close($event)"/>
+}
 <router-outlet/>
