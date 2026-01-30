@@ -6,6 +6,18 @@
     margin-bottom: 30px;
 }
 
+.containerPreference{
+    margin: 0px 150px;
+    background-color: #FFF5D6;
+    border-radius: 30px;
+    box-shadow: 0px 4px 5px #5b351b46;
+    margin-bottom: 30px;
+    height: 250px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+
 .recipes{
     display: flex;
     flex-direction: row;
@@ -13,7 +25,13 @@
     gap: 40px;
     flex-wrap: wrap;
     margin-bottom: 30px;
-    
+}
+
+.recipesPreference{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin: 0px 30px;
 }
 
 .searchbar{
@@ -53,6 +71,10 @@
     gap: 200px;
     margin-bottom: 20px;
     
+}
+
+.left{
+    margin-left: 30px;
 }
 
 .norecipe{

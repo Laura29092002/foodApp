@@ -16,7 +16,7 @@ export class RegimeService {
   }
 
   getRegimeById(id: number) {
-    return this.http.get<Regime[]>(`${this.apiUrl}/${id}`);
+    return this.http.get<Regime>(`${this.apiUrl}/${id}`);
   }
 
 }

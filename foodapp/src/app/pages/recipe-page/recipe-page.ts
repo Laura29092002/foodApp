@@ -45,7 +45,6 @@ export class RecipePage implements OnInit {
       this.isLoading = false;
       return;
     }
-
     this.loadRecipeData(Number(recipeId));
   }
 

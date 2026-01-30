@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class RecipeService {
   private recipes: Recipe[] = [];
+  private recipesPreference : Recipe[] = [];
+  private size : number = 0;
   private apiUrl = 'http://localhost:8080/recipe';
 
   constructor(private http: HttpClient) { }
@@ -61,6 +63,56 @@ export class RecipeService {
 
   getRecipeImageUrl(id: number): string {
     return `${this.apiUrl}/${id}/image`;
+  }
+
+  getCategoryByPreference(regimeId : number) : number{
+    switch(regimeId){
+      case 1: //vegetarian
+        return 2;
+      case 2: //vegan
+        return 1;
+      case 3: //without gluten
+        return 3;
+      case 4: //without milk
+        return 1; 
+      default: 
+        return 0;
+    }
+
+  }
+
+  getRecipeByPreference(regimeId : number) : Recipe[]{
+    this.recipes = [];
+    this.recipesPreference = [];
+    const categoryByPreference = this.getCategoryByPreference(regimeId);
+
+    this.getRecipes().subscribe(
+      data => {
+        this.recipes = data;
+        this.recipes.forEach(recipe => {
+            this.getAllIngredientsByRecipe(recipe.id).subscribe(
+              ing => {
+                recipe.ingredients = ing;
+                recipe.ingredients.forEach(ig => {
+                  if(ig.categoryId == categoryByPreference){
+                    this.size +=1;
+                  }
+                });
+                if( this.size == 0){
+                  this.recipesPreference.push(recipe);
+                }
+                this.size = 0;
+              }
+            )
+        });
+        console.log(this.recipesPreference);
+        return this.recipesPreference;
+        
+      }
+    )
+
+    return this.recipesPreference;
+
   }
 
   
