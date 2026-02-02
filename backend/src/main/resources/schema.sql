@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS ingredient(
 );
 
 CREATE TABLE IF NOT EXISTS recipe_to_ingredient(
-    quantity INTEGER NOT NULL,
+    quantity NUMERIC(5,2) NOT NULL,
     recipe_id INTEGER NOT NULL,
     ingredient_id INTEGER NOT NULL,
     FOREIGN KEY (recipe_id) REFERENCES recipe(id),

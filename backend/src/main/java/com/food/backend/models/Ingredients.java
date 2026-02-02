@@ -1,5 +1,7 @@
 package com.food.backend.models;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,14 +28,14 @@ public class Ingredients {
     @Column(name = "unit")
     private String unit;
 
-    private int quantity;
+    private BigDecimal quantity;
 
 
     public Ingredients() {
     }
 
 
-    public Ingredients(int id, String name, String image, int categoryId, String unit, int quantity) {
+    public Ingredients(int id, String name, String image, int categoryId, String unit, BigDecimal quantity) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -78,11 +80,11 @@ public class Ingredients {
     }
 
 
-    public int getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 }

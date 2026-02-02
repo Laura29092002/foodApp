@@ -1,6 +1,7 @@
 package com.food.backend.controller;
 
 
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -149,7 +150,7 @@ public class RecipeController {
     }
 
     @PostMapping("/{id_recipe}/{id_ingredient}/{quantity}")
-    public ResponseEntity<Void> save(@PathVariable int id_recipe, @PathVariable int id_ingredient, @PathVariable int quantity) {
+    public ResponseEntity<Void> save(@PathVariable int id_recipe, @PathVariable int id_ingredient, @PathVariable BigDecimal quantity) {
         recipeRepository.addAllIngredientToRecipe(id_recipe, id_ingredient, quantity);
         return ResponseEntity.ok().build();
     }
