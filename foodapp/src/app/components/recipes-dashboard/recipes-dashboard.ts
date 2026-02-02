@@ -28,6 +28,10 @@ export class RecipesDashboard implements OnInit {
     this.router.navigate(['/create-recipe']);
   }
 
+  modifyRecipe(id : number){
+    this.router.navigate(['/modify-recipe', id]);
+  }
+
   deleteRecipe(idRecipe: number){
     if(confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')){
       this.dayService.changeRecipeIdValue(idRecipe).subscribe();

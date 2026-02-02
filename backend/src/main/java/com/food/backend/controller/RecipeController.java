@@ -26,6 +26,7 @@ import com.food.backend.models.FileStorageService;
 import com.food.backend.models.Ingredients;
 import com.food.backend.models.Recipe;
 import com.food.backend.repository.RecipeRepository;
+
 @RestController
 @RequestMapping("/recipe")
 public class RecipeController {
@@ -123,6 +124,13 @@ public class RecipeController {
         recipeRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/deleteIngredient/{id}")
+    public ResponseEntity<Void> getMethodName(@PathVariable Integer id) {
+        recipeRepository.deleteIngredientsByRecipeId(id);
+        return ResponseEntity.noContent().build();
+    }
+    
 
     
     @GetMapping("/{id}/image")

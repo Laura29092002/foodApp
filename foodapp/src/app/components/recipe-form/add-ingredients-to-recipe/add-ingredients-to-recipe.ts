@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Ingredient } from '../../../models/ingredient/ingredient.model';
 import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { IngredientService } from '../../../services/ingredient/ingredient';
@@ -7,6 +7,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectIngredientsData } from '../../../store/recipe-form.selectors';
 import * as RecipeFormActions from '../../../store/recipe-form.actions';
+import { ActivatedRoute } from '@angular/router';
+import { RecipeService } from '../../../services/recipe/recipe';
 
 @Component({
   selector: 'app-add-ingredients-to-recipe',
@@ -15,19 +17,33 @@ import * as RecipeFormActions from '../../../store/recipe-form.actions';
   styleUrl: './add-ingredients-to-recipe.scss',
 })
 export class AddIngredientsToRecipe implements OnInit, OnDestroy{
+  @Input() recipeId : number | null = null;
   quantities: { [key: number]: number } = {};
   dropdownList: Ingredient[] = [];
   selectedItems: Ingredient[] = [];
   dropdownSettings: IDropdownSettings = {};
   private destroy$ = new Subject<void>();
   
-  constructor(private ingredientService: IngredientService, private store: Store) { }
+  constructor(private ingredientService: IngredientService, private store: Store, private route : ActivatedRoute, private recipeService : RecipeService) { }
   
   ngOnInit() {
     this.ingredientService.getIngredients().subscribe(data => {
       this.dropdownList = data;
     });
-    this.selectedItems = [];
+    if(this.recipeId){
+      this.recipeService.getAllIngredientsByRecipe(this.recipeId).subscribe(
+        data => {
+          this.selectedItems = data;
+          this.quantities = {};
+          this.selectedItems.forEach(ing => {
+            this.quantities[ing.id] = ing.quantity || 0;
+          })
+          this.updateStore();
+        }
+      )
+    }else{
+      this.selectedItems = [];
+    }
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -50,7 +66,8 @@ export class AddIngredientsToRecipe implements OnInit, OnDestroy{
         this.quantities = {};
         ingredient.forEach(ing => {
           this.quantities[ing.id] = ing.quantity || 0;
-        })
+        });
+        
       }
     }
     )

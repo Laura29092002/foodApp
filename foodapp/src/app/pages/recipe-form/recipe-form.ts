@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from "@ngrx/store";
 import * as fromRecipeForm from '../../store/recipe-form.selectors';
 import { RecipeForm1 } from "../../components/recipe-form/recipe-form-1/recipe-form-1";
@@ -7,7 +7,7 @@ import { AddStepsToRecipe } from "../../components/recipe-form/add-steps-to-reci
 import { RecipeService } from '../../services/recipe/recipe';
 import { StepService } from '../../services/step/step';
 import { Step } from '../../models/step/step.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import {Location} from '@angular/common';
 
@@ -17,17 +17,22 @@ import {Location} from '@angular/common';
   templateUrl: './recipe-form.html',
   styleUrl: './recipe-form.scss',
 })
-export class RecipeForm {
+export class RecipeForm implements OnInit{
 
   @ViewChild(RecipeForm1) recipeForm1!: RecipeForm1; // Pour accéder au fichier image
-
+  recipeId : number |null = null;
   constructor(
     private store: Store, 
     private recipeService: RecipeService, 
     private stepService: StepService, 
     private router: Router,
-    private _location: Location
+    private _location: Location,
+    private route : ActivatedRoute,
   ) {}
+
+  ngOnInit(): void {
+    this.recipeId = Number(this.route.snapshot.paramMap.get('id'));
+  }
 
   onCancel(){
     this._location.back();
@@ -46,7 +51,44 @@ export class RecipeForm {
 
         const imageFile = this.recipeForm1?.getImageFile();
 
-        this.recipeService.addRecipe(recipe.recette.name, imageFile || undefined).subscribe({
+        if(this.recipeId){
+          this.recipeService.updateRecipe(this.recipeId, recipe.recette.name, imageFile || undefined).subscribe();
+          this.recipeService.deleteIngredientsByRecipeId(this.recipeId).subscribe();
+
+          const ingredientPromises = recipe.ingredients.map(ing => {
+              if (ing.quantity) {
+                return this.recipeService.addIngredientToRecipe(
+                  this.recipeId!, 
+                  ing.id, 
+                  ing.quantity
+                ).toPromise();
+              }
+              console.log("Ingredieneeet",ing);
+              return Promise.resolve();
+            });
+
+            Promise.all(ingredientPromises).then(() => {
+              console.log("Tous les ingrédients ajoutés");
+
+            }).catch(err => {
+              console.error("Erreur lors de l'ajout des ingrédients:", err);
+            });
+
+            const stepPromises = recipe.steps.map(step => {
+              const newStep = new Step(step.id, step.number, step.description, this.recipeId!);
+              return this.stepService.updateStep(newStep).toPromise();
+            });
+            Promise.all(stepPromises).then(() => {
+              console.log("Toutes les étapes ajoutées");
+              
+              //this.router.navigate(['/recipe', createdRecipe.id]);
+            }).catch(err => {
+              console.error("Erreur lors de l'ajout des étapes:", err);
+            });
+
+
+        }else{
+          this.recipeService.addRecipe(recipe.recette.name, imageFile || undefined).subscribe({
           next: (createdRecipe) => {
             console.log("Recette créée:", createdRecipe);
 
@@ -85,6 +127,9 @@ export class RecipeForm {
             alert("Erreur lors de la création de la recette");
           }
         });
+
+        }
+        
       });
   }
 }

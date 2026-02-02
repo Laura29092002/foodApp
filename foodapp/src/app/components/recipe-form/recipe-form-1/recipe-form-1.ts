@@ -1,9 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import { Store } from "@ngrx/store";
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import * as RecipeFormActions from '../../../store/recipe-form.actions';
 import { selectRecetteData } from '../../../store/recipe-form.selectors';
+import { RecipeService } from '../../../services/recipe/recipe';
+import { Ingredient } from '../../../models/ingredient/ingredient.model';
+import { IngredientService } from '../../../services/ingredient/ingredient';
 
 @Component({
   selector: 'app-recipe-form-1',
@@ -12,19 +15,32 @@ import { selectRecetteData } from '../../../store/recipe-form.selectors';
   styleUrl: './recipe-form-1.scss',
 })
 export class RecipeForm1 implements OnInit, OnDestroy {
-
+  @Input() recipeId : number | null = null;
   form: FormGroup;
   selectedFile: File | null = null; // Fichier réel, pas base64
   imagePreview: string | null = null; // Pour l'aperçu uniquement
   private destroy$ = new Subject<void>();
 
-  constructor(private store: Store, private fb: FormBuilder) { 
+  constructor(private store: Store, private fb: FormBuilder, private recipeService : RecipeService, private ingredientService : IngredientService) { 
     this.form = this.fb.group({
       name: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
+    if(this.recipeId){
+      this.recipeService.getRecipeById(this.recipeId).subscribe(
+        data => {
+          this.form.patchValue({
+            name: data.name,
+          });
+          if(data.image){
+            this.imagePreview = 'http://localhost:8080/recipe/' + data.id + '/image'
+          }
+          
+        }
+      )
+    }
     // Charger les données existantes depuis le store
     this.store.select(selectRecetteData).pipe(
       takeUntil(this.destroy$)

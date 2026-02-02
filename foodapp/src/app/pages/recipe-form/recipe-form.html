@@ -6,22 +6,22 @@
 <div class="form">
     <div class="h2">
         <img src="https://img.icons8.com/?size=100&id=96849&format=png&color=774b2e" alt="Cooking Book">
-        <h2>Ajouter une nouvelle recette</h2>
+        <h2>{{recipeId ? 'Modifier la recette' : 'Ajouter une nouvelle recette'}}</h2>
     </div>
     <div class="jaune">
         <h2>Étape 1 : Informations de base</h2>
-        <app-recipe-form-1></app-recipe-form-1>
+        <app-recipe-form-1 [recipeId]="recipeId"></app-recipe-form-1>
     </div>
 
     <div class="jaune">
         <h2>Étape 2 : Ingrédients</h2>
         <p>Quantité pour 1 personne</p>
-        <app-add-ingredients-to-recipe></app-add-ingredients-to-recipe>
+        <app-add-ingredients-to-recipe [recipeId]="recipeId"></app-add-ingredients-to-recipe>
     </div>
 
     <div class="jaune">
         <h2>Étape 3 : Instructions</h2>
-        <app-add-steps-to-recipe></app-add-steps-to-recipe>
+        <app-add-steps-to-recipe [recipeId]="recipeId"></app-add-steps-to-recipe>
     </div>
 
     <div class="buttons">
@@ -34,7 +34,7 @@
       type="button" 
       (click)="onSubmit()">
       <img src="https://img.icons8.com/?size=100&id=118849&format=png&color=774b2e" alt="Kawaii Noodle">
-      Ajouter la recette
+      {{recipeId ? 'Modifier la recette' : 'Ajouter la recette'}}
     </button>
     </div>
 

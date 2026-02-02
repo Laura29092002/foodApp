@@ -57,6 +57,10 @@ export class RecipeService {
     return this.http.put<Recipe>(`${this.apiUrl}/${id}`, formData);
   }
 
+  deleteIngredientsByRecipeId(id : number){
+    return this.http.delete<void>(`${this.apiUrl}/deleteIngredient/${id}`)
+  }
+
   deleteRecipe(id: number) {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

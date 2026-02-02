@@ -23,8 +23,8 @@ export class StepService {
     return this.http.post<Step>(this.apiUrl, step);
   }
 
-  updateStep(id: number, updatedStep: Step) {
-    return this.http.put<Step>(`${this.apiUrl}/${id}`, updatedStep);
+  updateStep(updatedStep: Step) {
+    return this.http.put<Step>(this.apiUrl, updatedStep);
   }
 
   deleteStep(id: number) {

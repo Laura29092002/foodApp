@@ -56,6 +56,10 @@ export const routes: Routes = [
             component: RecipeForm,
         },
         {
+            path: 'modify-recipe/:id',
+            component: RecipeForm,
+        },
+        {
             path: 'settings',
             component: SettingsPage
         },
