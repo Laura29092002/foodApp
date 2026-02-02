@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Recipe } from '../../models/recipe/recipe.model';
 import { Ingredient } from '../../models/ingredient/ingredient.model';
-import { Observable } from 'rxjs';
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -85,39 +85,39 @@ export class RecipeService {
 
   }
 
-  getRecipeByPreference(regimeId : number) : Recipe[]{
-    this.recipes = [];
-    this.recipesPreference = [];
-    const categoryByPreference = this.getCategoryByPreference(regimeId);
+  getRecipeByPreference(regimeId: number): Observable<Recipe[]> {
+  const categoryByPreference = this.getCategoryByPreference(regimeId);
 
-    this.getRecipes().subscribe(
-      data => {
-        this.recipes = data;
-        this.recipes.forEach(recipe => {
-            this.getAllIngredientsByRecipe(recipe.id).subscribe(
-              ing => {
-                recipe.ingredients = ing;
-                recipe.ingredients.forEach(ig => {
-                  if(ig.categoryId == categoryByPreference){
-                    this.size +=1;
-                  }
-                });
-                if( this.size == 0){
-                  this.recipesPreference.push(recipe);
-                }
-                this.size = 0;
-              }
-            )
-        });
-        console.log(this.recipesPreference);
-        return this.recipesPreference;
-        
-      }
-    )
-
-    return this.recipesPreference;
-
-  }
+  return this.getRecipes().pipe(
+    switchMap(recipes => {
+      // Créer un tableau d'observables pour tous les ingrédients
+      const recipeObservables = recipes.map(recipe => 
+        this.getAllIngredientsByRecipe(recipe.id).pipe(
+          map(ingredients => {
+            recipe.ingredients = ingredients;
+            
+            // Compter les ingrédients de la catégorie
+            const matchingCount = ingredients.filter(
+              ig => ig.categoryId === categoryByPreference
+            ).length;
+            
+            // Retourner la recette avec un flag
+            return { recipe, hasNoMatch: matchingCount === 0 };
+          })
+        )
+      );
+      
+      // Attendre que tous les observables se terminent
+      return forkJoin(recipeObservables);
+    }),
+    map(results => {
+      // Filtrer seulement les recettes sans match
+      return results
+        .filter(r => r.hasNoMatch)
+        .map(r => r.recipe);
+    })
+  );
+}
 
   
 }

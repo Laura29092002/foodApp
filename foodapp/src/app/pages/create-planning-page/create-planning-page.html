@@ -10,6 +10,7 @@
     
 
     <p>Vous pouvez réorganiser l'emplacement des recettes en les sélectionnant et déposant à l'endroit souhaité. Vous pouvez également changer les recettes via le bouton crayon.</p>
+    <button (click)="generate()">Générer votre planning</button>
     <div cdkDropListGroup class="planning">
         @for(day of days; track day.id;){
             <div cdkDropList

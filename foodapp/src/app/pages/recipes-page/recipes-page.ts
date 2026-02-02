@@ -48,7 +48,9 @@ export class RecipesPage implements OnInit, OnDestroy {
       data =>{
         this.user = data;
         if(this.user?.regimeId){
-          this.preferenceRecipes = this.recipeService.getRecipeByPreference(this.user.regimeId);
+          this.recipeService.getRecipeByPreference(this.user.regimeId).subscribe(
+            data => { this.preferenceRecipes = data}
+          );
           this.regimeService.getRegimeById(this.user.regimeId).subscribe(
             rg => {
               this.regime = rg.name;

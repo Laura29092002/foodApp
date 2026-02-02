@@ -17,6 +17,10 @@ import { Location } from '@angular/common';
 import * as PlanningSelectors from '../../store/planning-store/planning-store.selectors';
 import * as PlanningActions from '../../store/planning-store/planning-store.actions';
 import { Store } from '@ngrx/store';
+import { User } from '../../models/user/step.model';
+import { UserService } from '../../services/user/user';
+import { RecipeService } from '../../services/recipe/recipe';
+import { Recipe } from '../../models/recipe/recipe.model';
 
 @Component({
   selector: 'app-create-planning-page',
@@ -28,17 +32,23 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   days$: Observable<Day[]>;
   days: Day[] = [];
   private destroy$ = new Subject<void>();
+  user : User | null = null;
+  preferenceRecipe: Recipe[] = [];
 
   constructor(
     private dayService: DayService,
     private router: Router,
     private _location: Location,
-    private store: Store
+    private store: Store,
+    private userService : UserService,
+    private recipeService : RecipeService
   ) {
     this.days$ = this.store.select(PlanningSelectors.selectDaysList);
   }
 
   ngOnInit() {
+
+    this.userService.currentUser.subscribe(data =>{ this.user = data});
     
     // Charger seulement si le store est vide
     this.store.dispatch(PlanningActions.loadDaysIfEmpty());
@@ -88,16 +98,6 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-    let isConform: boolean = true;
-    
-    //for (let day of this.days) {
-    //  if (!day.listOfRecipe || day.listOfRecipe.length != 2) {
-    //    isConform = false;
-    //    break;
-    //  }
-    //}
-    
-    if (isConform) {
       const updatedDays = this.days.map(day => {
         const dayToUpdate = { ...day };
         if(dayToUpdate.recipeLunchId){
@@ -128,9 +128,7 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
       this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/home']);
       });
-    } else {
-      alert('Le nombre de recette par jour est incorrect, veuillez renseigner 2 recettes par jour');
-    }
+   
   }
 
 
@@ -163,6 +161,54 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
       this.store.dispatch(PlanningActions.removeRecipeFromDay({ dayId, mealType }));
     }
+  }
+
+  generate(){
+    if(this.user?.regimeId){
+      this.recipeService.getRecipeByPreference(this.user.regimeId).subscribe(
+        data => {
+          this.preferenceRecipe = data;
+          console.log(this.preferenceRecipe);
+          this.modifyByGenerate();
+        }
+
+      );
+      
+
+    }else{
+      console.log("User:" ,this.user);
+      this.recipeService.getRecipes().subscribe(
+        data =>{
+          this.preferenceRecipe = data;
+          this.modifyByGenerate();
+        }
+      )
+    }
+  }
+
+  modifyByGenerate(){
+    let i = 0;
+    this.days.map(day=>{
+      console.log(this.preferenceRecipe[i])
+      if(this.preferenceRecipe[i]){
+        day.recipeLunchId = this.preferenceRecipe[i].id
+        day.listOfRecipe![0] = this.preferenceRecipe[i]
+      }else{
+        day.recipeLunchId = undefined
+        day.listOfRecipe![0] = new Recipe(0,"","")
+      }
+      i++;
+      if(this.preferenceRecipe[i]){
+        day.recipeDinnerId = this.preferenceRecipe[i].id
+        day.listOfRecipe![1] = this.preferenceRecipe[i]
+      }else{
+        day.recipeDinnerId = undefined
+        day.listOfRecipe![1] = new Recipe(0,"","")
+      }
+      i++;
+    })
+  
+    console.log(this.days);
   }
 
 }
