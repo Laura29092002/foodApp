@@ -1,10 +1,13 @@
 <div class="popup-overlay">
   <div class="popup-content" (click)="$event.stopPropagation()">
     <h2>Préférence alimentaire</h2>
-    <p>Nous voulons mieux vous connaitre!</p>
+    <h3>Nous voulons mieux vous connaitre!</h3>
     <form [formGroup]="form">
+      <div class="section">
         <label>Nombre de personne</label>
-        <input type="number" [defaultValue]="0" formControlName="nbPerson" id="nbPerson">
+        <input type="number" formControlName="nbPerson" id="nbPerson">
+      </div>
+      <div class="section">
         <label>Régime alimentaire</label>
         <select formControlName="regimeId" id="regimeId">
             <option value="">Choisir une catégorie</option>
@@ -12,8 +15,18 @@
                 <option value="{{regime.id}}">{{regime.name}}</option>
             }
         </select>
-        <button type="submit" (click)="submit()">Enregistrer</button>
+      </div>
     </form>
-    <button (click)="close()">Fermer</button>
+    
+    <div class="buttons">
+        <button class="cancel" (click)="close()">
+              <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=FFDB4D">
+              Fermer
+            </button>
+        <button class="submit" (click)="submit()">
+            <img src="https://img.icons8.com/?size=100&id=l9lZ9gsA8vxG&format=png&color=774b2e" alt="save">
+            Enregistrer</button>
+    </div>
+    
   </div>
 </div>

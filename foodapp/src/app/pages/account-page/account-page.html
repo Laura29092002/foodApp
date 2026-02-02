@@ -1,9 +1,41 @@
-<p>{{user?.lastname}} {{user?.firstname}}</p>
-<p>{{user?.mail}}</p>
-@if(user?.nbPerson){
-    <p>Nombre de personne: {{user?.nbPerson}}</p>
+@if(isEditing){
+    <app-popup (closePopup)="modify($event)"/>
 }
-@if(user?.regimeId){
-    <p>Préférence alimentaire: {{user?.regimeId}}</p>
-}
-<button (click)="deconnexion()">Se déconnecter</button>
+
+<div class="account">
+    <h2>{{user?.firstname}}</h2>
+    <div class="info">
+        <button (click)="modify(true)">
+            <img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
+            Modifier</button>
+        <button (click)="deconnexion()">
+            <img src="https://img.icons8.com/?size=100&id=26211&format=png&color=774b2e" alt="login">
+            Se déconnecter</button>
+    </div>
+    <div class="info">
+        <div class="jaune">
+            <h3>Coordonnées</h3>
+            <p>Nom : {{user?.lastname}}</p>
+            <p>Prénom : {{user?.firstname}}</p>
+            <p>Email : {{user?.mail}}</p>
+        </div>
+        <div class="jaune">
+            <h3>Informations personnelles</h3>
+                @if(user?.nbPerson){
+                    <div class="row">
+                        <p>Nombre de personne:</p>
+                        @for (item of counter(user?.nbPerson); track $index) {
+                            <img src="https://img.icons8.com/?size=100&id=cq3pLu7Gy4SK&format=png&color=774b2e" alt="person">
+                        }
+                    </div>
+                }@else {
+                    <p>Nombre de personne: Inconnu</p>
+                }
+                @if(user?.regimeId){
+                    <p>Préférence alimentaire: {{regimeName}}</p>
+                }@else {
+                    <p>Préférence alimentaire: Inconnu</p>
+                }
+        </div>
+    </div>
+</div>

@@ -20,9 +20,17 @@
             <h3>{{day.name}}</h3>
             @if(day.listOfRecipe![0] && day.listOfRecipe![0].id !=0){
                 <app-recipe-card [recipe]="day.listOfRecipe![0]"></app-recipe-card>
+            }@else{
+                <div class="vide">
+                    <p>Pas de recette</p>
+                </div>
             }
             @if(day.listOfRecipe![1] && day.listOfRecipe![1].id !=0){
                 <app-recipe-card [recipe]="day.listOfRecipe![1]"></app-recipe-card>
+            }@else{
+                <div class="vide">
+                    <p>Pas de recette</p>
+                </div>
             }
 
             

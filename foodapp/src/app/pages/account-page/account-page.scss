@@ -1,0 +1,33 @@
+.account{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    img{
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.info{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    
+}
+
+.jaune{
+    background-color: #FFF5D6;
+    padding: 20px;
+    border-radius: 30px;
+}
