@@ -21,6 +21,7 @@ export class RecipeForm implements OnInit{
 
   @ViewChild(RecipeForm1) recipeForm1!: RecipeForm1; // Pour accéder au fichier image
   recipeId : number |null = null;
+  oldSteps : Step[] = [];
   constructor(
     private store: Store, 
     private recipeService: RecipeService, 
@@ -73,6 +74,18 @@ export class RecipeForm implements OnInit{
             }).catch(err => {
               console.error("Erreur lors de l'ajout des ingrédients:", err);
             });
+            this.stepService.getStepByRecipe(this.recipeId).subscribe(
+              data =>{
+                this.oldSteps = data;
+                const difference = this.oldSteps.filter(
+                  (objet) => !recipe.steps.some((item) => item.id === objet.id),
+                );
+                difference.map(deleteStep => {
+                  this.stepService.deleteStep(deleteStep.id).subscribe();
+                })
+
+              }
+            )
 
             const stepPromises = recipe.steps.map(step => {
               const newStep = new Step(step.id, step.number, step.description, this.recipeId!);
@@ -81,7 +94,7 @@ export class RecipeForm implements OnInit{
             Promise.all(stepPromises).then(() => {
               console.log("Toutes les étapes ajoutées");
               
-              //this.router.navigate(['/recipe', createdRecipe.id]);
+              this.router.navigate(['/recipe', this.recipeId]);
             }).catch(err => {
               console.error("Erreur lors de l'ajout des étapes:", err);
             });

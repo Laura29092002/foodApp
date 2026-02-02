@@ -63,13 +63,14 @@ export class AddStepsToRecipe implements OnInit, OnDestroy{
   }
 
   removeTextarea(index: number) {
+    console.log(index);
     if (this.textareaFields.length > 1) {
       this.textareaFields.splice(index, 1);
       this.textareaFields.forEach((step,i) => {
         step.number = i + 1
       })
       
-      
+      console.log(this.textareaFields)
       this.updateStore();
     }
   }
