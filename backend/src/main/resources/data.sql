@@ -37,7 +37,8 @@ INSERT INTO regime(name) VALUES
     ('végétarien'),
     ('vegan'),
     ('Sans gluten'),
-    ('Sans lactose');
+    ('Sans lactose'),
+    ('Pas de préférence');
    
     */
 

@@ -19,7 +19,7 @@ export class Popup implements OnInit{
 
   constructor(private regimeService : RegimeService, private fb: FormBuilder, private userService : UserService){
     this.form = this.fb.group({
-      nbPerson: [ this.user?.nbPerson || 0, Validators.required],
+      nbPerson: [ this.user?.nbPerson || 1, Validators.required],
       regimeId: [this.user?.regimeId ||''],
     })
 
@@ -35,8 +35,8 @@ export class Popup implements OnInit{
       data => {
         this.user = data;
         this.form.patchValue({
-          nbPerson:  this.user?.nbPerson || 0,
-          regimeId: this.user?.regimeId ||'',
+          nbPerson:  this.user?.nbPerson || 1,
+          regimeId: this.user?.regimeId || 5,
         })
       }
     )

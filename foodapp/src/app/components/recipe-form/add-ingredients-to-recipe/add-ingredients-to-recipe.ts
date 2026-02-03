@@ -21,7 +21,16 @@ export class AddIngredientsToRecipe implements OnInit, OnDestroy{
   quantities: { [key: number]: number } = {};
   dropdownList: Ingredient[] = [];
   selectedItems: Ingredient[] = [];
-  dropdownSettings: IDropdownSettings = {};
+  dropdownSettings: IDropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'name',
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    itemsShowLimit: 10,
+    allowSearchFilter: true,
+    defaultOpen: false
+  };
   private destroy$ = new Subject<void>();
   
   constructor(private ingredientService: IngredientService, private store: Store, private route : ActivatedRoute, private recipeService : RecipeService) { }
@@ -44,15 +53,6 @@ export class AddIngredientsToRecipe implements OnInit, OnDestroy{
     }else{
       this.selectedItems = [];
     }
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'id',
-      textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 10,
-      allowSearchFilter: true
-    };
 
     this.store.select(selectIngredientsData).pipe(takeUntil(this.destroy$)).subscribe(ingredient =>
     {
@@ -92,17 +92,13 @@ export class AddIngredientsToRecipe implements OnInit, OnDestroy{
       });
     }
 
-    onQuantityChange(ingredientId : number){
-      this.updateStore();
-    }
-
     removeIngredient(ingredient: Ingredient){
       this.selectedItems = this.selectedItems.filter(item => item.id !== ingredient.id);
       delete this.quantities[ingredient.id];
       this.updateStore();
     }
 
-    private updateStore(){
+    updateStore(){
       const ingredientWithQuantities: Ingredient[] = this.selectedItems.map(item =>
         ({
           id: item.id,

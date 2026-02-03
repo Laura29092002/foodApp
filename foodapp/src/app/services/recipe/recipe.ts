@@ -90,28 +90,22 @@ export class RecipeService {
 
   return this.getRecipes().pipe(
     switchMap(recipes => {
-      // Créer un tableau d'observables pour tous les ingrédients
       const recipeObservables = recipes.map(recipe => 
         this.getAllIngredientsByRecipe(recipe.id).pipe(
           map(ingredients => {
             recipe.ingredients = ingredients;
-            
-            // Compter les ingrédients de la catégorie
             const matchingCount = ingredients.filter(
               ig => ig.categoryId === categoryByPreference
             ).length;
             
-            // Retourner la recette avec un flag
             return { recipe, hasNoMatch: matchingCount === 0 };
           })
         )
       );
       
-      // Attendre que tous les observables se terminent
       return forkJoin(recipeObservables);
     }),
     map(results => {
-      // Filtrer seulement les recettes sans match
       return results
         .filter(r => r.hasNoMatch)
         .map(r => r.recipe);

@@ -94,7 +94,9 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this._location.back();
+    if(confirm("Etes-vous sûr de vouloir annuler? Vos changements ne seront pas sauvegardés.")){
+      this._location.back();
+    }
   }
 
   onUpdate() {
@@ -164,7 +166,7 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   }
 
   generate(){
-    if(this.user?.regimeId){
+    if(this.user?.regimeId && this.user.regimeId!=5){
       this.recipeService.getRecipeByPreference(this.user.regimeId).subscribe(
         data => {
           this.preferenceRecipe = data;

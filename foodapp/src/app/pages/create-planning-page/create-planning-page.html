@@ -10,7 +10,9 @@
     
 
     <p>Vous pouvez réorganiser l'emplacement des recettes en les sélectionnant et déposant à l'endroit souhaité. Vous pouvez également changer les recettes via le bouton crayon.</p>
-    <button (click)="generate()">Générer votre planning</button>
+    <button (click)="generate()" class="cancel">
+        <img src="https://img.icons8.com/?size=100&id=54312&format=png&color=FFDB4D" alt="Reload">
+        Générer votre planning</button>
     <div cdkDropListGroup class="planning">
         @for(day of days; track day.id;){
             <div cdkDropList
@@ -19,7 +21,7 @@
                 class="day">
                 <h3>{{day.name}}</h3>
                 
-                    <div class="meal-slot">
+                    
                     @if(day.listOfRecipe && day.listOfRecipe.length > 0 && day.listOfRecipe[0]){
                         @if(day.listOfRecipe[0].id != 0){
                         <div cdkDrag>
@@ -28,18 +30,16 @@
                     }
                     @else{
                         <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-                            <span>Ajouter le déjeuner</span>
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
                         </button>
                     }
                     }@else{
                         <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-                            <span>Ajouter le déjeuner</span>
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
                         </button>
                     }
-                </div>
-                <div class="meal-slot">
+               
+                
                     @if(day.listOfRecipe && day.listOfRecipe.length > 0 && day.listOfRecipe[1]){
                         @if(day.listOfRecipe[1].id != 0){
                             <div cdkDrag>
@@ -47,19 +47,17 @@
                             </div>
                         }@else{
                         <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-                            <span>Ajouter le dîner</span>
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
                         </button>
                     }
                     }@else{
                         <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
-                            <span>Ajouter le dîner</span>
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
                         </button>
                     }
                     
                     
-                </div>
+                
                 
                 
 

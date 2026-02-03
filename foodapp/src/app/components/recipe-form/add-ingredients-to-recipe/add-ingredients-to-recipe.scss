@@ -41,3 +41,21 @@ input::placeholder{
     font-weight: 300;
     color: rgb(119, 75, 46,0.5);
 }
+
+
+::ng-deep .dropdownList .selected-item {
+  background: #774b2e !important;
+  border: none !important;
+}
+
+::ng-deep .multiselect-item-checkbox input[type=checkbox] + div:before {
+  border: 2px solid #774b2e !important;
+  color: #774b2e !important;
+  width: 18px !important; 
+  height: 18px !important;
+}
+
+::ng-deep .multiselect-item-checkbox input[type=checkbox]:checked + div::before {
+  color: #774b2e !important;
+  background: #774b2e !important;
+}

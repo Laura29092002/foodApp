@@ -10,7 +10,6 @@
       <div class="section">
         <label>Régime alimentaire</label>
         <select formControlName="regimeId" id="regimeId">
-            <option value="">Choisir une catégorie</option>
             @for(regime of regimes;track regime.id){
                 <option value="{{regime.id}}">{{regime.name}}</option>
             }

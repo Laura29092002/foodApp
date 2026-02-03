@@ -4,6 +4,7 @@ package com.food.backend.controller;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,7 @@ public class RecipeController {
     @GetMapping
     public ResponseEntity<List<Recipe>> getAllRecipes() {
         List<Recipe> recipes = recipeRepository.findAll();
+        Collections.shuffle(recipes);
         return ResponseEntity.ok(recipes);
     }
     @GetMapping("/{id}")

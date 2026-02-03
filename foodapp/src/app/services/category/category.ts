@@ -30,8 +30,6 @@ export class CategoryService {
   getAllIngredientsByCategoryAndRecipeOfDay(ingredients: Ingredient[][], categories: Category[]): Category[]{
     const ingredientLists = ingredients.flat();
     const map = new Map<number, Ingredient>();
-    console.log(ingredientLists)
-    console.log(categories)
 
     ingredientLists.forEach(ingredient =>{
       const existing = map.get(ingredient.id);

@@ -1,28 +1,31 @@
 <div class="ingredient-list">
-<ng-multiselect-dropdown
- [placeholder]="'Ajouter des ingredients'"
- [settings]="dropdownSettings"
- [data]="dropdownList"
- [(ngModel)]="selectedItems"
- (onSelect)="onItemSelect($event)"
- (onSelectAll)="onSelectAll($event)"
- class="dropdownList">
-</ng-multiselect-dropdown>
-<div class="every-ingredient">
-@for(ingredient of selectedItems; track ingredient.id){
-    <div class="ingredient-item">
-      <p>{{ingredient.name}}</p>
-      <input 
-        type="number" 
-        [(ngModel)]="quantities[ingredient.id]"
-        (ngModelChange)="onQuantityChange(ingredient.id)"
-        placeholder="Quantité"
-        min="0" />
-      <button type="button" (click)="removeIngredient(ingredient)">
-        <img src="https://img.icons8.com/?size=100&id=68064&format=png&color=774b2e">
-        Supprimer
-      </button>
-    </div>
-}
-</div>
+  @if(dropdownList.length > 0){
+    <ng-multiselect-dropdown
+     [placeholder]="'Ajouter des ingredients'"
+     [settings]="dropdownSettings"
+     [data]="dropdownList"
+     [(ngModel)]="selectedItems"
+     (onSelect)="onItemSelect($event)"
+     (onSelectAll)="onSelectAll($event)"
+     class="dropdownList">
+    </ng-multiselect-dropdown>
+  }
+
+  <div class="every-ingredient">
+  @for(ingredient of selectedItems; track ingredient.id){
+      <div class="ingredient-item">
+        <p>{{ingredient.name}}</p>
+        <input 
+          type="number" 
+          [(ngModel)]="quantities[ingredient.id]"
+          (ngModelChange)="updateStore()"
+          placeholder="Quantité"
+          min="0" />
+        <button type="button" (click)="removeIngredient(ingredient)">
+          <img src="https://img.icons8.com/?size=100&id=68064&format=png&color=774b2e">
+          Supprimer
+        </button>
+      </div>
+  }
+  </div>
 </div>

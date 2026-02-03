@@ -19,17 +19,11 @@ import { User } from '../../models/user/step.model';
   styleUrl: './recipe-page.scss',
 })
 export class RecipePage implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private readonly stepService = inject(StepService);
-  private readonly recipeService = inject(RecipeService);
-  private readonly destroyRef = inject(DestroyRef);
-
-  recipe!: Recipe;
+  recipe: Recipe = new Recipe(0,"","");
   user : User | null = null;
   isLoading = true;
-  error: string | null = null;
 
-  constructor(private _location: Location, private userService : UserService){
+  constructor(private _location: Location, private userService : UserService, private route: ActivatedRoute,private recipeService : RecipeService, private stepService : StepService, private destroyRef: DestroyRef){
     this.userService.currentUser.subscribe(
       data => {
         this.user = data;
@@ -41,7 +35,7 @@ export class RecipePage implements OnInit {
     const recipeId = this.route.snapshot.paramMap.get('id');
     
     if (!recipeId) {
-      this.error = 'ID de recette invalide';
+      console.error('Pas recipeId valide');
       this.isLoading = false;
       return;
     }
@@ -63,11 +57,10 @@ export class RecipePage implements OnInit {
           this.recipe.ingredients = ingredients;
           this.recipe.steps = [...steps].sort((a, b) => a.number - b.number);
           this.isLoading = false;
-          console.log('Recette chargée:', this.recipe);
+          //console.log('Recette chargée:', this.recipe);
         }),
         catchError(err => {
           console.error('Erreur lors du chargement de la recette:', err);
-          this.error = 'Impossible de charger la recette';
           this.isLoading = false;
           return of(null);
         }),
