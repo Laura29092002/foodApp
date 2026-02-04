@@ -10,6 +10,7 @@ import { UserService } from '../../services/user/user';
 })
 export class Header implements OnInit {
   user : User |null = null;
+  isOpenMenu : boolean = false;
 
   constructor(private userService : UserService){
   }
@@ -20,6 +21,14 @@ export class Header implements OnInit {
         this.user = data;
       }
     )
+  }
+
+  toggleMenu(){
+    this.isOpenMenu = !this.isOpenMenu;
+  }
+
+  closeMenu(){
+    this.isOpenMenu = false;
   }
 
 }

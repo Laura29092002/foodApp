@@ -12,11 +12,7 @@ import { InscriptionPage } from './pages/inscription-page/inscription-page';
 import { AccountPage } from './pages/account-page/account-page';
 
 export const routes: Routes = [
-    {
-        path:'',
-        redirectTo: 'login',
-        pathMatch: 'full'
-    },
+    
 
     {
         path: 'login',

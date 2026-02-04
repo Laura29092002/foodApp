@@ -4,29 +4,34 @@
         <a href="/home"><img src="assets/logo.png" alt="FoodApp Logo"/></a>
     </div>
     <nav>
-        <div class="nav-mobile">
-            <a id="nav-toggle" href=""><span></span></a>
-        </div>
-        <ul class="nav-list">
-        <li><a href="/home">
+        <button (click)="toggleMenu()" [class.active]="isOpenMenu" class="burger-btn">
+           <img src="https://img.icons8.com/?size=100&id=95244&format=png&color=774b2e">
+        </button>
+        <ul class="nav-menu" [class.active]="isOpenMenu">
+        <li><a href="/home" (click)="closeMenu()">
             <img src="https://img.icons8.com/?size=100&id=10053&format=png&color=774b2e" alt="Calandar">
             Planning</a></li>
-        <li><a href="/recipes">
+        <li><a href="/recipes" (click)="closeMenu()">
             <img src="https://img.icons8.com/?size=100&id=118849&format=png&color=774b2e" alt="Kawaii Noodle"> 
             Recettes</a></li>
-        <li><a href="/shopping-list">
+        <li><a href="/shopping-list" (click)="closeMenu()">
             <img src="https://img.icons8.com/?size=100&id=Z4owmiVUblRU&format=png&color=774b2e" alt="Egg Basket">
             Liste de course</a></li>
         @if(user?.role == "admin"){
-            <li><a href="/settings">
+            <li><a href="/settings" (click)="closeMenu()">
                 <img src="https://img.icons8.com/?size=100&id=XdKE06gJeYB6&format=png&color=774b2e" alt="Store Setting">
                 Outils</a></li>
 
         }
-        <li><a href="/account">
+        <li><a href="/account" (click)="closeMenu()">
             <img src="https://img.icons8.com/?size=100&id=ByfyMSAPJj0W&format=png&color=774b2e" alt="Cook"> 
             {{user?.firstname}}</a></li>
     </ul>
     </nav>
+    <div class="title">
+        <h2>Weakly Meals</h2>
+        <a href="/home"><img src="assets/logo.png" alt="FoodApp Logo"/></a>
+    </div>
+    
     </div>
 </section>
