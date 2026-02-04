@@ -17,8 +17,7 @@ form {
     gap: 20px; 
     border-radius: 30px;
     padding: 30px;
-    width: 350px;
-    align-items: center;
+    margin: 0px 30px;
 }
 
 .input{
@@ -26,6 +25,7 @@ form {
     flex-direction: row;
     gap: 20px;
     align-items: center;
+    justify-content: space-between;
 }
 
 input{
@@ -52,6 +52,7 @@ input::placeholder{
 .buttons{
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 20px;
 }
 
@@ -69,4 +70,6 @@ input::placeholder{
     gap: 10px;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    margin: 0px 30px;
 }

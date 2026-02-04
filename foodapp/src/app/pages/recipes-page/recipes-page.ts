@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { BigRecipeCard } from "../../components/big-recipe-card/big-recipe-card";
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, fromEvent, Subject, takeUntil } from 'rxjs';
 import * as PlanningActions from '../../store/planning-store/planning-store.actions';
 import * as PlanningSelectors from '../../store/planning-store/planning-store.selectors';
 import { Loader } from "../../components/loader/loader";
@@ -26,11 +26,12 @@ export class RecipesPage implements OnInit, OnDestroy {
   user: User | null = null;
   searchTerm: string = '';
   selectedRecipe?: Recipe;
-  root: string = '';
   editionMode: boolean = false;
   isSelecting: boolean = false;
   isloading: boolean = false;
   regime : string = '';
+  itemsPerPage : number = 4;
+  currentPage : number = 0;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -44,6 +45,14 @@ export class RecipesPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isloading = true;
+
+    this.updateItemsPerPage();
+
+    fromEvent(window, 'resize')
+    .pipe(debounceTime(200)) 
+    .subscribe(() => {
+      this.updateItemsPerPage();
+    });
     this.userService.currentUser.subscribe(
       data =>{
         this.user = data;
@@ -59,12 +68,12 @@ export class RecipesPage implements OnInit, OnDestroy {
         }
       }
     );
+  
     this.recipeService.getRecipes().subscribe((data) => {
       this.recipes = data;
       this.isloading = false;
     }); 
 
-    this.root = this.router.url;
     
     this.store.select(PlanningSelectors.selectIsSelecting)
       .pipe(takeUntil(this.destroy$))
@@ -80,6 +89,37 @@ export class RecipesPage implements OnInit, OnDestroy {
           console.log('Sélection pour:', context);
         }
       });
+  }
+
+  updateItemsPerPage(){
+    const sizeScreen = window.innerWidth;
+    if(sizeScreen <870){
+      this.itemsPerPage = 1;
+    }
+    else if(sizeScreen < 1200){
+      this.itemsPerPage = 2;
+    }else if(sizeScreen < 1500){
+      this.itemsPerPage = 3;
+    }else{
+      this.itemsPerPage = 4;
+    }
+  }
+
+  get paginatedItems() {
+    const start = this.currentPage * this.itemsPerPage;
+    return this.preferenceRecipes.slice(start, start + this.itemsPerPage);
+  }
+
+  nextPage() {
+    if ((this.currentPage + 1) * this.itemsPerPage < this.preferenceRecipes.length) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
   }
 
   ngOnDestroy() {

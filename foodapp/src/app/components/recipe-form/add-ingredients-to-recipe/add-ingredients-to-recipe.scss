@@ -1,15 +1,18 @@
 .ingredient-list{
     display: flex;
     flex-direction: row;
-    gap: 120px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
     .dropdownList{
-        width: 250px;
+        max-width: 250px;
     }
 }
 
 .ingredient-item{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 30px;
 }
 
@@ -43,6 +46,11 @@ input::placeholder{
 }
 
 
+
+::ng-deep .dropdownList{
+    width: 90%;
+}
+
 ::ng-deep .dropdownList .selected-item {
   background: #774b2e !important;
   border: none !important;
@@ -58,4 +66,12 @@ input::placeholder{
 ::ng-deep .multiselect-item-checkbox input[type=checkbox]:checked + div::before {
   color: #774b2e !important;
   background: #774b2e !important;
+}
+
+@media screen and (max-width: 750px){
+    button{
+    p{
+        display: none;
+    }
+}
 }

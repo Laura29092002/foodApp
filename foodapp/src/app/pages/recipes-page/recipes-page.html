@@ -24,12 +24,15 @@
         <h2>Suggestion : {{regime}}</h2>
     </div>
     
-    
+    <div class="carroussel">
+    <button (click)="previousPage()" class="btn-arrow">
+            <img src="https://img.icons8.com/?size=100&id=99985&format=png&color=774b2e" alt="back to">
+        </button>
     <div class="recipesPreference">
         @if(isloading){
             <app-loader/>
         }
-        @for(recipe of preferenceRecipes; track recipe.id){
+        @for(recipe of paginatedItems; track recipe.id){
             <app-big-recipe-card 
                 [recipe]="recipe" 
                 [selected]="selectedRecipe?.id === recipe.id" 
@@ -37,6 +40,10 @@
                 (select)="onSelectRecipe($event)">
             </app-big-recipe-card>
         }
+    </div>
+    <button (click)="nextPage()" class="btn-arrow">
+        <img src="https://img.icons8.com/?size=100&id=98971&format=png&color=774b2e" alt="next Page">
+    </button>
     </div>
     
 </div>

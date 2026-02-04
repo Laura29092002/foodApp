@@ -1,6 +1,8 @@
 form{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 20px;
     margin: 16px;
 }
 label{
@@ -9,7 +11,6 @@ label{
 }
 input{
     max-width: 60%;
-    margin-left: 50px;
     border-radius: 30px;
     border: none;
     background-color: #FFFAEE;
@@ -36,7 +37,7 @@ input::placeholder{
     justify-content: center;
     align-items: center;
     gap: 5px;
-    width: 220px;
+    padding:  0px 20px;
     border-radius: 30px;
     border: none;
     background-color: #FFE891;
@@ -49,16 +50,14 @@ input::placeholder{
         width: 20px;
     }
 }
-.selectimg{
+.selecting{
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     gap: 20px;
 }
-.form-group{
-    max-width: 800px;
-    margin: 10px;
-}
+
 .form-group.image{
     display: flex;
     flex-direction: column;
