@@ -121,7 +121,9 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
           recipeLunchId: day.recipeLunchId, 
           recipeDinnerId: day.recipeDinnerId
         };
-        
+        if(dayToSave.recipeLunchId == 0){
+          dayToSave.recipeLunchId = undefined;
+        }
         this.dayService.updateDay(dayToSave).subscribe((data) => {
           console.log('Day updated:', data);
         });
@@ -159,11 +161,7 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     this.router.navigate(["/recipes-select"]);
   }
 
-  removeRecipe(dayId: number, mealType: 'lunch' | 'dinner') {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
-      this.store.dispatch(PlanningActions.removeRecipeFromDay({ dayId, mealType }));
-    }
-  }
+  
 
   generate(){
     if(this.user?.regimeId && this.user.regimeId!=5){
@@ -211,6 +209,7 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     })
   
     console.log(this.days);
+    this.store.dispatch(PlanningActions.modifPlanning({ days: this.days }));
   }
 
 }

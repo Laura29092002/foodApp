@@ -24,7 +24,6 @@ export class LoginPage {
     if(this.form.value.mail && this.form.value.mdp){
         this.userService.isUser(this.form.value.mail, this.form.value.mdp).subscribe(data =>{
         this.user = data;
-        console.log(this.user);
         if(this.user.mail != null){
           this.userService.login(this.user);
           this.router.navigate(['/home']);

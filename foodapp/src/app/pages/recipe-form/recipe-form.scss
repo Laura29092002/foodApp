@@ -22,10 +22,6 @@
     }
 }
 
-.submit{
-    padding: 20px 20px;
-    font-size: 18px;
-}
 
 .cancel{
     
@@ -39,13 +35,16 @@
     margin-bottom: 30px;
 }
 
-@media screen and (max-width: 750px) {
-    .buttons{
-        gap: 20px;
-    }
 
-    .submit{
-        font-size: 14px;
+@media screen and (max-width:750px) {
+    .buttons{
+        position: fixed;
+        justify-content: center;
+        gap: 20px;
+        bottom: -30px;
+        background-color: #FFFAEE;
+        padding: 20px;
+        width: 100%;
     }
 
     .cancel{
@@ -53,6 +52,11 @@
         font-size: 14px;
     }
 
+    .jaune{
+        width: 70%;
+    }
 
-    
+    .end{
+        margin-bottom: 100px;
+    }
 }

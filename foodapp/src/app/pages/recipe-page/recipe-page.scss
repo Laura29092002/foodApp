@@ -1,39 +1,18 @@
-.recette{
-    margin: 30px 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+h2{
+    text-align: center;
+    margin: 20px;
+}
+
+h3{
+    font-size: 20px;
+}
+
+.recipe{
+    display: grid;
+    margin: 0px 40px;
+    gap: 30px;
     
-    .sous-info{
-        display: flex;
-        flex-direction: row;
-        gap: 50px;
-        .ingredient,
-        .step {
-            flex: 1; 
-            min-width: 0; 
-            p{
-                line-height: 1.5;
-            }
-        }
-
-
-        .ingredient{
-            text-align: end;
-        }
     
-        .image {
-            display: flex;
-            flex-direction: column;
-
-            img {
-                width: 300px;
-                height: auto;
-                object-fit: cover; 
-            }
-        }
-    }
 }
 
 .list{
@@ -44,22 +23,79 @@
     flex-wrap: wrap;
 }
 
-.info{
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    h2{
-        font-size: 30px;
-        text-align: center;
+.ingredient{
+    text-align: end;
+}
+
+.step{
+    p{
+        line-height: 1.5;
     }
-    
+}
+
+h4{
+    font-weight: 600;
+    margin: 0px;
+    height: 10px;
 }
 
 
+.image{
+    display: flex;
+    justify-content: center;
+    img{
+        width: 300px;
+        height: 300px;
+    }
+}
 
-.back{
-    position: absolute;
-    left: 0;
+@media screen and (max-width: 768px) {
+    .recipe {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "image"
+            "ingredient"
+            "step";
+    }
+    
+    .image {
+        grid-area: image;
+    }
+    
+    .ingredient {
+        grid-area: ingredient;
+        text-align: start;
+    }
+    
+    .step {
+        grid-area: step;
+    }
+
+    .list{
+        justify-content: start;
+    }
+
+    h2{
+        font-size: 20px;
+    }
+}
+
+
+@media (min-width: 769px) {
+    .recipe {
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-areas: "ingredient image step";
+    }
+    
+    .image {
+        grid-area: image;
+    }
+    
+    .ingredient {
+        grid-area: ingredient;
+    }
+    
+    .step {
+        grid-area: step;
+    }
 }

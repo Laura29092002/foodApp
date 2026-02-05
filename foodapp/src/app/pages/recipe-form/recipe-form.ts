@@ -71,8 +71,6 @@ export class RecipeForm implements OnInit{
             Promise.all(ingredientPromises).then(() => {
               console.log("Tous les ingrédients ajoutés");
 
-            }).catch(err => {
-              console.error("Erreur lors de l'ajout des ingrédients:", err);
             });
             this.stepService.getStepByRecipe(this.recipeId).subscribe(
               data =>{
@@ -95,8 +93,6 @@ export class RecipeForm implements OnInit{
               console.log("Toutes les étapes ajoutées");
               
               this.router.navigate(['/recipe', this.recipeId]);
-            }).catch(err => {
-              console.error("Erreur lors de l'ajout des étapes:", err);
             });
 
 

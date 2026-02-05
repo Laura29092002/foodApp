@@ -1,7 +1,7 @@
 .planning{
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -9,15 +9,18 @@
     background-color: #FFF5D6;
     box-shadow: 0px 4px 5px #5b351b46;
     border-radius: 30px;
-    padding: 10px;
-    margin: 0px 10%;
+    padding: 20px;
+    margin: 0px 5%;
 }
 
 .day{
-    width: 180px;
     display: flex;
     flex-direction: column;
+    gap: 30px;
     align-items: center;
+    h3{
+        margin: 0px;
+    }
 }
 
 .center{
@@ -27,10 +30,6 @@
     align-items: center;
     text-align: center;
     margin: 0px 5%;
-}
-
-.submit{
-    padding: 20px 20px;
 }
 
 
@@ -46,10 +45,38 @@
 }
 
 .add-btn{
-    padding: 30px 20px;
-    margin: 15px 0px;
-    background-color: #774b2eb9;
+    width: 220px;
+    height: 50px;
+    background-color: #FFF5D6;
+    
+    border: 2px dashed rgb(119, 75, 46,0.5);
     img{
         width: 30px;
+    }
+}
+
+
+@media screen and (max-width:750px) {
+    .buttons{
+        position: fixed;
+        justify-content: center;
+        gap: 70px;
+        bottom: -30px;
+        background-color: #FFFAEE;
+        padding: 20px;
+        width: 100%;
+    }
+
+    .planning{
+        margin-bottom: 100px;
+    }
+    .text{
+        line-height: 1.2;
+        font-size: 12px;
+    }
+
+    .add-btn{
+        width: 270px;
+        height: 60px;
     }
 }

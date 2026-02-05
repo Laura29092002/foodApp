@@ -12,6 +12,7 @@
 }
 
 h3{
+  font-weight: 500;
   margin-bottom: 30px;
 }
 
@@ -23,10 +24,6 @@ h3{
   width: 90%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-}
-
-.submit{
-    padding: 20px 20px;
 }
 
 
@@ -80,4 +77,10 @@ input{
 input:focus{
     outline: none;
     border-color: #774b2e;
+}
+
+@media screen and (max-width: 750px) {
+  .popup-content{
+    max-width: 300px;
+  }
 }

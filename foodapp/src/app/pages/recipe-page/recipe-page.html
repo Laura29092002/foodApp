@@ -1,57 +1,56 @@
-<div class="info">
-    <button class="back" (click)="onCancel()">
-        <img src="https://img.icons8.com/?size=100&id=101380&format=png&color=774b2e">
-        Retour
-    </button>
-    <h2>{{recipe.name}}</h2>
-</div>
-<div class="recette">
-    <div class="sous-info">
-        <div class="ingredient">
-            <h2>Ingredients</h2>
-            @if(user?.nbPerson){
-                <p>Pour {{user?.nbPerson}} personnes: </p>
-            }@else {
-                <p>Pour 1 personne:</p>
-            }
-            
-            @if(recipe.ingredients && recipe.ingredients.length > 0){
-                <div class="list">
-                @for(ingredient of recipe.ingredients; track ingredient.id){
-                    <app-ingredient-component [ingredient]="ingredient"></app-ingredient-component>
-                }
-                </div>
-            } @else {
-                <p>Il n'y a pas d'ingredients pour cette recette.</p>
-            }
-        </div>
-        <div class="image">
-            @if(recipe.image){
-                <img 
-                    [src]="'http://localhost:8080/recipe/' + recipe.id + '/image'" 
-                    [alt]="recipe.name"
-                />
-            }@else {
-                <img 
-                    src="assets/default.png" 
-                    [alt]="recipe.name"
-                />
-            }
-        </div>
-        <div class="step">
-            <h2>Instructions</h2>
-            @if(recipe.steps && recipe.steps.length > 0 && recipe.steps[0].description != ""){
-                @for(step of recipe.steps ;track step.id){
-                    <div>
-                        <h3>Étape {{step.number}} : </h3>
-                        <p>{{step.description}}</p>
-                    </div>
-                }
-            } @else {
-                <p>Il n'y a pas d'instructions pour cette recette.</p>
-            }   
 
-        </div>
+<button class="back" (click)="onCancel()">
+    <img src="https://img.icons8.com/?size=100&id=101380&format=png&color=774b2e">
+    <p>Retour</p>
+</button>
+<h2>{{recipe.name}}</h2>
+
+
+<div class="recipe">
+    <div class="image">
+        @if(recipe.image){
+            <img 
+                [src]="'http://localhost:8080/recipe/' + recipe.id + '/image'" 
+                [alt]="recipe.name"
+            />
+        }@else {
+            <img 
+                src="assets/default.png" 
+                [alt]="recipe.name"
+            />
+        }
+    </div>
+    <div class="ingredient">
+        <h3>Ingredients</h3>
+        @if(user?.nbPerson){
+            <p>Pour {{user?.nbPerson}} personnes: </p>
+        }@else {
+            <p>Pour 1 personne:</p>
+        }
+        
+        @if(recipe.ingredients && recipe.ingredients.length > 0){
+            <div class="list">
+            @for(ingredient of recipe.ingredients; track ingredient.id){
+                <app-ingredient-component [ingredient]="ingredient"></app-ingredient-component>
+            }
+            </div>
+        } @else {
+            <p>Il n'y a pas d'ingredients pour cette recette.</p>
+        }
     </div>
     
+    <div class="step">
+        <h3>Instructions</h3>
+        @if(recipe.steps && recipe.steps.length > 0 && recipe.steps[0].description != ""){
+            @for(step of recipe.steps ;track step.id){
+                <div>
+                    <h4>Étape {{step.number}} : </h4>
+                    <p>{{step.description}}</p>
+                </div>
+            }
+        } @else {
+            <p>Il n'y a pas d'instructions pour cette recette.</p>
+        }   
+    </div>
 </div>
+

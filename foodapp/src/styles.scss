@@ -3,7 +3,7 @@
 
 html, body {background-color: #FFFAEE;}
 body { margin: 0; font-family: 'Gluten', cursive; overflow-x: hidden; color: #774b2e;}
-h2{ font-size: 24px;}
+h2{ font-size: 20px;}
 h3{ font-size: 16px;}
 p{font-size: 14px;}
 button{
@@ -12,7 +12,7 @@ button{
     justify-content: center;
     align-items: center;
     gap: 5px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 30px;
     border: none;
     background-color: #FFE891;
@@ -22,9 +22,11 @@ button{
     cursor: pointer;
     height: 30px;
     img{
-        width: 20px;
+        width: 16px;
     }
 }
+
+
 .back{
     background-color: #FFFAEE;
     img{
@@ -43,6 +45,7 @@ button{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 5px;
     img{
         width: 20px;
@@ -51,9 +54,8 @@ button{
 }
 
 .cancel{
-    padding: 20px 20px;
-    background-color: #774b2e;
-    color: #FFDB4D;
+    background-color: #774b2eca;
+    color: #ffe57f;
 }
 
 body::-webkit-scrollbar {
@@ -74,6 +76,22 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 @media screen and (max-width: 750px){
-    h2{ font-size: 20px;}
+    h2{ font-size: 18px;}
     h3{ font-size: 14px;}
+
+    
+
+    .cancel{
+        padding: 16px 16px;
+        font-size: 12px;
+        img{
+            width: 15px;
+        }
+    }
+
+    button{
+        padding: 16px 16px;
+        font-size: 14px;
+    }
+    
 }

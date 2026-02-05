@@ -35,3 +35,10 @@ p{
     margin: 20px;
     text-align: center;
 }
+
+@media screen and (max-width: 750px) {
+    .text{
+        line-height: 1.2;
+        font-size: 12px;
+    }
+}

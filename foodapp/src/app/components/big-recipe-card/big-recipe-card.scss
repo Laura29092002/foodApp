@@ -14,9 +14,21 @@
     img{
         width: 100px;
     }
+    p{
+        margin: 10px 20px;
+    }
     
 }
 
 .recipe.selected {
   background-color: #FFDB4D; 
+}
+
+@media screen and (max-width: 750px) {
+    .recipe{
+        img{
+            width: 110px;
+        }
+        
+    }
 }

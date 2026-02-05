@@ -9,9 +9,9 @@
     </div>
     
 
-    <p>Vous pouvez réorganiser l'emplacement des recettes en les sélectionnant et déposant à l'endroit souhaité. Vous pouvez également changer les recettes via le bouton crayon.</p>
+    <p class="text">Vous pouvez réorganiser l'emplacement des recettes en les sélectionnant et déposant à l'endroit souhaité. Vous pouvez également changer les recettes via le bouton crayon.</p>
     <button (click)="generate()" class="cancel">
-        <img src="https://img.icons8.com/?size=100&id=54312&format=png&color=FFDB4D" alt="Reload">
+        <img src="https://img.icons8.com/?size=100&id=54312&format=png&color=ffe57f" alt="Reload">
         Générer votre planning</button>
     <div cdkDropListGroup class="planning">
         @for(day of days; track day.id;){
@@ -30,12 +30,14 @@
                     }
                     @else{
                         <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            Ajouter une recette
                         </button>
                     }
                     }@else{
                         <button (click)="addLunchRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            Ajouter une recette
                         </button>
                     }
                
@@ -47,12 +49,14 @@
                             </div>
                         }@else{
                         <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            Ajouter une recette
                         </button>
                     }
                     }@else{
                         <button (click)="addDinnerRecipe(day.id)" class="add-btn" title="Ajouter une recette">
-                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=FFDB4D" alt="Add">
+                            <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+                            Ajouter une recette
                         </button>
                     }
                     
@@ -67,11 +71,11 @@
 
 <div class="buttons">
     <button class="cancel" (click)="onCancel()">
-          <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=FFDB4D">
+          <img src="https://img.icons8.com/?size=100&id=83143&format=png&color=ffe57f">
           Annuler
         </button>
-    <button class="submit" (click)="onUpdate()">
+    <button (click)="onUpdate()">
         <img src="https://img.icons8.com/?size=100&id=l9lZ9gsA8vxG&format=png&color=774b2e" alt="save">
-        Enregistrer mes modifications</button>
+        Enregistrer</button>
     </div>
 </div>

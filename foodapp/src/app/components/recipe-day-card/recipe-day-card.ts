@@ -27,11 +27,22 @@ export class RecipeDayCard {
       this.router.navigate(["/recipes-select"]);
     }
   
+
   removeRecipe(dayId: number, mealType: string) {
-    if(mealType == 'lunch' || mealType == 'dinner'){
-      if (confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
+      if(mealType == 'lunch'){
+        this.store.dispatch(PlanningActions.startRecipeSelection({ 
+          dayId, 
+          mealType: 'lunch' 
+        }));
+        this.store.dispatch(PlanningActions.setRecipeToDay({ 
+          recipe: new Recipe(0, "", "")
+        }));
+      }
+      else if (mealType == 'dinner'){
         this.store.dispatch(PlanningActions.removeRecipeFromDay({ dayId, mealType }));
       }
+      
     }
   }
 }

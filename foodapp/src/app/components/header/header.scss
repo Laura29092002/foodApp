@@ -19,7 +19,6 @@
 
 nav {
   float: right;
-  background-color: #FFF5D6;
   border-radius: 10px;
   ul {
       list-style: none;
@@ -64,7 +63,6 @@ nav {
 .burger-btn {
   display: none;
   background-color: #FFFAEE;
-  position: fixed;
   float: left;
   cursor: pointer;
   padding: 0;
@@ -78,7 +76,7 @@ nav {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .brand {
     display: none;
     
@@ -116,7 +114,6 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #FFF5D6;
     padding: 0px 10px;
     border-radius: 10px;
     float: right;

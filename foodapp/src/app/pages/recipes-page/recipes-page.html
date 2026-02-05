@@ -16,6 +16,8 @@
         </div>
     }
 }
+
+<div class="all">
 @if(regime && regime!="Pas de préférence"){
     <div class="containerPreference">
     
@@ -61,8 +63,8 @@
             <input type="text" placeholder="Rechercher une recette..." [(ngModel)]="searchTerm">
         </div>
         @if(!isSelecting){
-            <button (click)="addRecipe()">
-                <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=774b2e" alt="Add">
+            <button class="cancel" (click)="addRecipe()">
+                <img src="https://img.icons8.com/?size=100&id=60953&format=png&color=ffe57f" alt="Add">
                 Ajouter une recette
             </button>
         }
@@ -88,6 +90,8 @@
             <p>Il n'existe pas de recette correspondant à votre recherche.<br> N'hésitez pas à créer la vôtre!</p>
         }
     </div> 
+</div>
+
 </div>
 
 

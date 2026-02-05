@@ -4,13 +4,13 @@
         <h2>Liste de course de la semaine</h2>
     </div>
     @if(isShopping == 7){
-        <p>Votre liste de course est vide, remplissez votre planning!</p>
+        <p class="text">Votre liste de course est vide, remplissez votre planning!</p>
         <button (click)="addPlanning()">
             <img src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
             Créer mon planning
         </button>
     }@else {
-        <p>Voici votre liste de course directement générée en fonction de votre planning de la semaine.</p>
+        <p class="text">Voici votre liste de course directement générée en fonction de votre planning de la semaine.</p>
     }
     
 

@@ -1,5 +1,12 @@
+.all{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
 .container{
-    margin: 0px 5%;
+    margin: 0px 8%;
     background-color: #FFF5D6;
     border-radius: 30px;
     box-shadow: 0px 4px 5px #5b351b46;
@@ -7,7 +14,7 @@
 }
 
 .containerPreference{
-    margin: 0px 10%;
+    margin: 0px 12%;
     background-color: #FFF5D6;
     border-radius: 30px;
     box-shadow: 0px 4px 5px #5b351b46;
@@ -76,6 +83,7 @@
 .left{
     padding-top: 15px;
     margin-left: 30px;
+    justify-content: start;
 }
 
 .norecipe{
@@ -102,6 +110,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px;
 }
 
 .btn-arrow{
@@ -130,7 +139,24 @@
     .recipesPreference{
     
     margin: 0px 10px;
-    
 }
+}
+
+@media screen and (max-width: 750px) {
+    .searchbar{
+        width: 250px;
+    }
+    .left{
+        margin: 0px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .container{
+        margin: 0px 10%;
+    }
+    .containerPreference{
+        margin: 0px 15%;
+    }
 }
 

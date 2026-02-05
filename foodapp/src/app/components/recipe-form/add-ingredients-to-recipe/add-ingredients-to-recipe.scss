@@ -14,14 +14,13 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 30px;
+    justify-content: right;
 }
 
 .every-ingredient{
     display: flex;
     flex-direction: column;
     gap: 30px;
-    justify-content: center;
-    align-items: center;
 }
 input{
     width: 50px;

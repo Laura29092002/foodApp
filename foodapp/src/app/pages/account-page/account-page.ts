@@ -4,10 +4,11 @@ import { User } from '../../models/user/step.model';
 import { Router } from '@angular/router';
 import { RegimeService } from '../../services/regime/regime';
 import { Popup } from "../../components/popup/popup";
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-account-page',
-  imports: [Popup],
+  imports: [Popup, UpperCasePipe],
   templateUrl: './account-page.html',
   styleUrl: './account-page.scss',
 })
