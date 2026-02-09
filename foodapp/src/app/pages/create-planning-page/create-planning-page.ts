@@ -186,6 +186,23 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     }
   }
 
+  deleteAll(){
+    if(confirm("Êtes-vous sùr de vouloir supprimer tous les recettes du planning?")){
+      this.days.map(day=>{
+        const dayId = day.id;
+        if(day.listOfRecipe![0] ){
+          const mealType : "lunch" | "dinner" = "lunch"
+          this.store.dispatch(PlanningActions.removeRecipeFromDay({dayId, mealType}));
+        }
+        if(day.listOfRecipe![1]){
+          const mealType : "lunch" | "dinner" = "dinner"
+          this.store.dispatch(PlanningActions.removeRecipeFromDay({dayId, mealType}));
+        }
+      })
+    }
+
+  }
+
   modifyByGenerate(){
     let i = 0;
     this.days.map(day=>{

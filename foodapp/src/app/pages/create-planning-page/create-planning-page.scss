@@ -57,7 +57,11 @@
 
 
 @media screen and (max-width:750px) {
+
     .buttons{
+        gap: 20px;
+    }
+    .bottom{
         position: fixed;
         justify-content: center;
         gap: 70px;
