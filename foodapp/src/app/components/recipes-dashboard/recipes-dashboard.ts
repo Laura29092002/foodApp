@@ -3,6 +3,8 @@ import { RecipeService } from '../../services/recipe/recipe';
 import { Recipe } from '../../models/recipe/recipe.model';
 import { Router } from '@angular/router';
 import { DayService } from '../../services/day/day';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmBox } from '../confirm-box/confirm-box';
 
 @Component({
   selector: 'app-recipes-dashboard',
@@ -13,7 +15,7 @@ import { DayService } from '../../services/day/day';
 export class RecipesDashboard implements OnInit {
   recipes : Recipe[] = [];
 
-  constructor(private recipeService: RecipeService, private dayService: DayService, private router: Router){}
+  constructor(private recipeService: RecipeService, private dayService: DayService, private router: Router, private dialog : MatDialog){}
 
   ngOnInit(): void {
 
@@ -33,16 +35,23 @@ export class RecipesDashboard implements OnInit {
   }
 
   deleteRecipe(idRecipe: number){
-    if(confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')){
-      this.dayService.changeRecipeIdValue(idRecipe).subscribe();
-      this.recipeService.deleteRecipe(idRecipe).subscribe();
-      const index = this.recipes.findIndex(recipe => recipe.id === idRecipe);
-      
-      if (index !== -1) {
-          this.recipes.splice(index, 1);
+    const dialogRef = this.dialog.open(ConfirmBox, {
+      width: '350px',
+      data: {message: 'Êtes-vous sûr de vouloir supprimer cette recette ?'}
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.dayService.changeRecipeIdValue(idRecipe).subscribe();
+        this.recipeService.deleteRecipe(idRecipe).subscribe();
+        const index = this.recipes.findIndex(recipe => recipe.id === idRecipe);
+        
+        if (index !== -1) {
+            this.recipes.splice(index, 1);
+        }
+        console.log(this.recipes)
       }
-      console.log(this.recipes)
-    }
+    })
   }
 
 }

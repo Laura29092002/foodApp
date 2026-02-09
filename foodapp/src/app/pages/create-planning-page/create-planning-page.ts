@@ -21,6 +21,8 @@ import { User } from '../../models/user/step.model';
 import { UserService } from '../../services/user/user';
 import { RecipeService } from '../../services/recipe/recipe';
 import { Recipe } from '../../models/recipe/recipe.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmBox } from '../../components/confirm-box/confirm-box';
 
 @Component({
   selector: 'app-create-planning-page',
@@ -41,7 +43,8 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
     private _location: Location,
     private store: Store,
     private userService : UserService,
-    private recipeService : RecipeService
+    private recipeService : RecipeService,
+    private dialog : MatDialog
   ) {
     this.days$ = this.store.select(PlanningSelectors.selectDaysList);
   }
@@ -94,9 +97,17 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    if(confirm("Etes-vous sûr de vouloir annuler? Vos changements ne seront pas sauvegardés.")){
-      this._location.back();
-    }
+    const dialogRef = this.dialog.open(ConfirmBox, {
+      width: '350px',
+      data: {message: 'Etes-vous sûr de vouloir annuler? Vos changements ne seront pas sauvegardés.'}
+    });
+
+    dialogRef.afterClosed().subscribe( result =>{
+      if(result){
+        this._location.back();
+      }
+    })
+
   }
 
   onUpdate() {
@@ -187,19 +198,26 @@ export class CreatePlanningPage implements OnInit, OnDestroy {
   }
 
   deleteAll(){
-    if(confirm("Êtes-vous sùr de vouloir supprimer tous les recettes du planning?")){
-      this.days.map(day=>{
-        const dayId = day.id;
-        if(day.listOfRecipe![0] ){
-          const mealType : "lunch" | "dinner" = "lunch"
-          this.store.dispatch(PlanningActions.removeRecipeFromDay({dayId, mealType}));
-        }
-        if(day.listOfRecipe![1]){
-          const mealType : "lunch" | "dinner" = "dinner"
-          this.store.dispatch(PlanningActions.removeRecipeFromDay({dayId, mealType}));
-        }
-      })
-    }
+    const dialogRef = this.dialog.open(ConfirmBox, {
+      width: '350px',
+      data: {message: "Êtes-vous sùr de vouloir supprimer tous les recettes du planning?"}
+    });
+
+    dialogRef.afterClosed().subscribe( result =>{
+      if(result){
+        this.days.map(day=>{
+          const dayId = day.id;
+          if(day.listOfRecipe![0] ){
+            const mealType : "lunch" | "dinner" = "lunch"
+            this.store.dispatch(PlanningActions.removeRecipeFromDay({dayId, mealType}));
+          }
+          if(day.listOfRecipe![1]){
+            const mealType : "lunch" | "dinner" = "dinner"
+            this.store.dispatch(PlanningActions.removeRecipeFromDay({dayId, mealType}));
+          }
+        })
+      }
+    })
 
   }
 

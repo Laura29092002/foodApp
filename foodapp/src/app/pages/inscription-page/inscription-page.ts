@@ -4,6 +4,8 @@ import { UserService } from '../../services/user/user';
 import { User } from '../../models/user/step.model';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertBox } from '../../components/alert-box/alert-box';
 
 @Component({
   selector: 'app-inscription-page',
@@ -15,7 +17,7 @@ export class InscriptionPage {
   form: FormGroup;
   newUser!: User;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router){
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private dialog: MatDialog){
     this.form = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -27,12 +29,18 @@ export class InscriptionPage {
 
   async inscription(){
     if(this.form.invalid){
-      confirm('Tous les champs ne sont pas remplis.');
+      const dialogRef = this.dialog.open(AlertBox,{
+        width : '350px',
+        data : { message : 'Tous les champs ne sont pas remplis.'}
+      });
       return;
     }
     
     if(this.form.value.mdp != this.form.value.conf){
-      confirm('Veuillez renseigner le même mot de passe dans les deux champs.');
+      const dialogRef = this.dialog.open(AlertBox,{
+        width : '350px',
+        data : { message : 'Veuillez renseigner le même mot de passe dans les deux champs.'}
+      });
       return;
     }
 
@@ -42,7 +50,10 @@ export class InscriptionPage {
       );
       
       if(isExisting){
-        confirm('Utilisateur déjà existant');
+        const dialogRef = this.dialog.open(AlertBox,{
+          width : '350px',
+          data : { message : 'Utilisateur déjà existant.'}
+        });
         return;
       }
       const user = new User(
@@ -62,7 +73,10 @@ export class InscriptionPage {
       
     } catch (error) {
       console.error("Erreur lors de l'inscription:", error);
-      confirm("Une erreur est survenue lors de l'inscription.");
+      const dialogRef = this.dialog.open(AlertBox,{
+        width : '350px',
+        data : { message : "Une erreur est survenue lors de l'inscription."}
+      });
     }
   }
 

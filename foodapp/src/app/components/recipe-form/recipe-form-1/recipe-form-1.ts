@@ -7,6 +7,8 @@ import { selectRecetteData } from '../../../store/recipe-form.selectors';
 import { RecipeService } from '../../../services/recipe/recipe';
 import { Ingredient } from '../../../models/ingredient/ingredient.model';
 import { IngredientService } from '../../../services/ingredient/ingredient';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertBox } from '../../alert-box/alert-box';
 
 @Component({
   selector: 'app-recipe-form-1',
@@ -21,7 +23,7 @@ export class RecipeForm1 implements OnInit, OnDestroy {
   imagePreview: string | null = null; // Pour l'aperçu uniquement
   private destroy$ = new Subject<void>();
 
-  constructor(private store: Store, private fb: FormBuilder, private recipeService : RecipeService, private ingredientService : IngredientService) { 
+  constructor(private store: Store, private fb: FormBuilder, private recipeService : RecipeService, private ingredientService : IngredientService, private dialog: MatDialog) { 
     this.form = this.fb.group({
       name: ['', Validators.required]
     });
@@ -81,13 +83,19 @@ export class RecipeForm1 implements OnInit, OnDestroy {
 
       // Vérifier que c'est une image
       if (!file.type.startsWith('image/')) {
-        alert('Veuillez sélectionner une image');
+        const dialogRef = this.dialog.open(AlertBox,{
+          width : '350px',
+          data : { message : 'Veuillez sélectionner une image.'}
+        });
         return;
       }
 
       // Vérifier la taille (5MB max)
       if (file.size > 5 * 1024 * 1024) {
-        alert('L\'image ne doit pas dépasser 5MB');
+        const dialogRef = this.dialog.open(AlertBox,{
+          width : '350px',
+          data : { message : 'L\'image ne doit pas dépasser 5MB.'}
+        });
         return;
       }
 

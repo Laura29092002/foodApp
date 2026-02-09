@@ -7,6 +7,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { FormsModule } from '@angular/forms';
 import { Loader } from "../loader/loader";
 import { IngredientForm } from "../ingredient-form/ingredient-form";
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmBox } from '../confirm-box/confirm-box';
 @Component({
   selector: 'app-ingredients-dashboard',
   imports: [PickerModule, FormsModule, Loader, IngredientForm],
@@ -22,7 +24,7 @@ export class IngredientsDashboard implements OnInit{
   categories: Category[] = [];
   isloading: boolean = false;
 
-  constructor(private ingredientService: IngredientService, private categoryService: CategoryService){
+  constructor(private ingredientService: IngredientService, private categoryService: CategoryService, private dialog : MatDialog){
   }
 
   ngOnInit(): void {
@@ -43,10 +45,18 @@ export class IngredientsDashboard implements OnInit{
   }
 
   deleteIngredient(ingredientId : number, index : number){
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet ingrédient ?')) {
-      this.ingredientService.deleteIngredient(ingredientId).subscribe();
-      this.ingredients.splice(index, 1);
-    }
+    const dialogRef = this.dialog.open(ConfirmBox, {
+      width: '350px',
+      data: {message: 'Êtes-vous sûr de vouloir supprimer cet ingrédient ?'}
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        console.log(true);
+        this.ingredientService.deleteIngredient(ingredientId).subscribe();
+        this.ingredients.splice(index, 1);
+      } 
+    })
   }
 
   updateIngredient(ingredient: Ingredient) {

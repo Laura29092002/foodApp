@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { UserService } from '../../services/user/user';
 import { User } from '../../models/user/step.model';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertBox } from '../../components/alert-box/alert-box';
 @Component({
   selector: 'app-login-page',
   imports: [ReactiveFormsModule],
@@ -13,7 +15,7 @@ export class LoginPage {
   form: FormGroup;
   user!: User;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router){
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private dialog : MatDialog){
     this.form = this.fb.group({
       mail: ['', Validators.required],
       mdp: ['', Validators.required]
@@ -28,11 +30,17 @@ export class LoginPage {
           this.userService.login(this.user);
           this.router.navigate(['/home']);
         }else{
-          alert("Email ou mot de passe incorecte");
+          const dialogRef = this.dialog.open(AlertBox,{
+            width : '350px',
+            data : { message : 'Email ou mot de passe incorecte.'}
+          });
         }
       });
     }else{
-      alert("Veuillez renseigner un mail et un mot de passe valide");
+      const dialogRef = this.dialog.open(AlertBox,{
+        width : '350px',
+        data : { message : 'Veuillez renseigner un mail et un mot de passe valide'}
+      });
     }
     }
 

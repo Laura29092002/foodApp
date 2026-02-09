@@ -3,6 +3,8 @@ import { Recipe } from '../../models/recipe/recipe.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as PlanningActions from '../../store/planning-store/planning-store.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmBox } from '../confirm-box/confirm-box';
 @Component({
   selector: 'app-recipe-day-card',
   imports: [],
@@ -14,7 +16,7 @@ export class RecipeDayCard {
   @Input() dayId!: number;
   @Input() typeOfMeal!: string;
 
-  constructor(private router : Router, private store: Store) { }
+  constructor(private router : Router, private store: Store, private dialog: MatDialog) { }
 
 
   modifyRecipe(dayId: number, mealType: string) {
@@ -29,20 +31,28 @@ export class RecipeDayCard {
   
 
   removeRecipe(dayId: number, mealType: string) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
-      if(mealType == 'lunch'){
-        this.store.dispatch(PlanningActions.startRecipeSelection({ 
-          dayId, 
-          mealType: 'lunch' 
-        }));
-        this.store.dispatch(PlanningActions.setRecipeToDay({ 
-          recipe: new Recipe(0, "", "")
-        }));
+    const dialogRef = this.dialog.open(ConfirmBox, {
+      width: '350px',
+      data: {message: 'Êtes-vous sûr de vouloir supprimer cette recette ?'}
+    });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result){
+          if(mealType == 'lunch'){
+            this.store.dispatch(PlanningActions.startRecipeSelection({ 
+              dayId, 
+              mealType: 'lunch' 
+            }));
+            this.store.dispatch(PlanningActions.setRecipeToDay({ 
+              recipe: new Recipe(0, "", "")
+            }));
+          }
+          else if (mealType == 'dinner'){
+            this.store.dispatch(PlanningActions.removeRecipeFromDay({ dayId, mealType }));
+          }
+
+        }
       }
-      else if (mealType == 'dinner'){
-        this.store.dispatch(PlanningActions.removeRecipeFromDay({ dayId, mealType }));
-      }
-      
-    }
+    )
   }
 }

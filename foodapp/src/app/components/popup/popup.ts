@@ -4,6 +4,8 @@ import { Regime } from '../../models/regime/regime.models';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { UserService } from '../../services/user/user';
 import { User } from '../../models/user/step.model';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertBox } from '../alert-box/alert-box';
 
 @Component({
   selector: 'app-popup',
@@ -17,7 +19,7 @@ export class Popup implements OnInit{
   form: FormGroup;
   user : User | null = null;
 
-  constructor(private regimeService : RegimeService, private fb: FormBuilder, private userService : UserService){
+  constructor(private regimeService : RegimeService, private fb: FormBuilder, private userService : UserService, private dialog: MatDialog){
     this.form = this.fb.group({
       nbPerson: [ this.user?.nbPerson || 1, Validators.required],
       regimeId: [this.user?.regimeId ||''],
@@ -52,7 +54,10 @@ export class Popup implements OnInit{
       }
       this.userService.updateUser(this.user!).subscribe();
     }else{
-      alert('Veillez renseigner le nombre de personne');
+      const dialogRef = this.dialog.open(AlertBox,{
+        width : '350px',
+        data : { message : 'Veillez renseigner le nombre de personne.'}
+      });
     }
     
   }

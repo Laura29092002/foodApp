@@ -10,6 +10,8 @@ import { Step } from '../../models/step/step.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import {Location} from '@angular/common';
+import { AlertBox } from '../../components/alert-box/alert-box';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-recipe-form',
@@ -29,6 +31,7 @@ export class RecipeForm implements OnInit{
     private router: Router,
     private _location: Location,
     private route : ActivatedRoute,
+    private dialog : MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +49,10 @@ export class RecipeForm implements OnInit{
         console.log('Recette complète:', recipe);
 
         if (!recipe.recette.name) {
-          alert('Le nom de la recette est requis');
+          const dialogRef = this.dialog.open(AlertBox,{
+            width : '350px',
+            data : { message : 'Le nom de la recette est requis.'}
+          });
           return;
         }
 
@@ -133,7 +139,10 @@ export class RecipeForm implements OnInit{
           },
           error: (err) => {
             console.error("Erreur lors de la création de la recette:", err);
-            alert("Erreur lors de la création de la recette");
+            const dialogRef = this.dialog.open(AlertBox,{
+              width : '350px',
+              data : { message : 'Erreur lors de la création de la recette.'}
+            });
           }
         });
 
