@@ -70,11 +70,9 @@ export class RecipeService {
   }
 
   getCategoryByPreference(regimeId : number) : number{
-    switch(regimeId){
+    switch(Number(regimeId)){
       case 1: //vegetarian
         return 2;
-      case 2: //vegan
-        return 1;
       case 3: //without gluten
         return 3;
       case 4: //without milk
@@ -94,10 +92,17 @@ export class RecipeService {
         this.getAllIngredientsByRecipe(recipe.id).pipe(
           map(ingredients => {
             recipe.ingredients = ingredients;
-            const matchingCount = ingredients.filter(
-              ig => ig.categoryId === categoryByPreference
-            ).length;
+            let matchingCount: number;
             
+            if(regimeId == 2){
+              matchingCount = ingredients.filter(
+                ig => ig.categoryId === 1 || ig.categoryId === 2
+              ).length;
+            } else {
+              matchingCount = ingredients.filter(
+                ig => ig.categoryId === categoryByPreference
+              ).length;
+            }
             return { recipe, hasNoMatch: matchingCount === 0 };
           })
         )
