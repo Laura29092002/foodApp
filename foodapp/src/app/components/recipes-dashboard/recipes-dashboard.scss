@@ -33,3 +33,9 @@ th{
     align-items: center;
     gap: 30px;
 }
+
+@media screen and (max-width: 705px) {
+    .none{
+        display: none;
+    }
+}

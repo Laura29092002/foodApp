@@ -10,9 +10,9 @@
 
 <table>
     <tr>
-        <th>Nom</th>
+        <th class="none">Nom</th>
         <th>Prénom</th>
-        <th>Email</th>
+        <th class="none">Email</th>
         <th>Rôle</th>
         <th></th>
         <th></th>
@@ -20,9 +20,9 @@
     @for(user of users; let i = $index; track user.id){
         <tr>
             
-            <td>{{user.lastname}}</td>
+            <td class="none">{{user.lastname}}</td>
             <td>{{user.firstname}}</td>
-            <td>{{user.mail}}</td>
+            <td class="none">{{user.mail}}</td>
             <td>{{user.role}}</td>
             <td class="btn" title="Changer le rôle">
                 <img (click)="upgradeUser(user, i)" src="https://img.icons8.com/?size=100&id=59729&format=png&color=774b2e" alt="Ball Point Pen">
