@@ -58,6 +58,14 @@ button{
     color: #ffe57f;
 }
 
+.btn-arrow{
+    background-color: #FFF5D6;
+    padding: 0px;
+    img{
+        width: 30px;
+    }
+}
+
 body::-webkit-scrollbar {
   width: 14px; 
 }

@@ -1,0 +1,40 @@
+<div class="container" (click)="onClick()">
+    <div class="recipe">
+        @if(recipe.image){
+                <img 
+                    [src]="'http://localhost:8080/recipe/' + recipe.id + '/image'" 
+                    [alt]="recipe.name"
+                />
+        }@else {
+            <img 
+                src="assets/default.png" 
+                [alt]="recipe.name"
+            />
+        }
+        <h3>{{recipe.name}}</h3>
+    </div>
+
+    <ul class="ingredient">
+            @if(recipe.ingredients && recipe.ingredients.length > 0){
+                <div class="list">
+                @for(ingredient of recipe.ingredients; track ingredient.id){
+                    <li>{{ingredient.quantity}} {{ingredient.unit}} {{ingredient.name}}</li>
+                }
+                </div>
+            } @else {
+                <li>Il n'y a pas d'ingredients pour cette recette.</li>
+            }
+        </ul>
+
+        <!--<div class="step" >
+            @if(recipe.steps && recipe.steps.length > 0 && recipe.steps[0].description != ""){
+                @for(step of recipe.steps ;track step.id){
+                    <p>Étape {{step.number}} : {{step.description}}</p>
+                    
+                }
+            } @else {
+                <p>Il n'y a pas d'instructions pour cette recette.</p>
+            }   
+        </div>-->
+
+</div>

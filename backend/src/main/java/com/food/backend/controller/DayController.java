@@ -1,6 +1,9 @@
 package com.food.backend.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.food.backend.models.Day;
 import com.food.backend.repository.DayRepository;
+
 
 @RestController
 @RequestMapping("/day")
@@ -61,4 +65,16 @@ public class DayController {
     public void deleteDay(@PathVariable int id) {
         dayRepository.deleteById(id);
     }
+
+    @GetMapping("/currentDate/{userId}")
+    public Day getCurrentDate(@PathVariable int userId) {
+
+        LocalDateTime current = LocalDateTime.now();
+        String name = current.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRENCH);
+
+        System.out.println(name);
+        return dayRepository.findCurrentDate(name, userId);
+
+    }
+    
 }

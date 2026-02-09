@@ -27,4 +27,7 @@ public interface DayRepository extends JpaRepository<Day, Integer> {
     @Transactional
     @Query(value = "DELETE FROM day WHERE user_id = :id", nativeQuery = true)
     void deleteByUserId(@Param("id") Integer id);
+
+    @Query("SELECT d FROM Day d WHERE d.name = :name AND d.userId = :userId")
+    public Day findCurrentDate(@Param("name") String name, @Param("userId") int userId);
 }

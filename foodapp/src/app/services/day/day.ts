@@ -22,6 +22,10 @@ export class DayService {
     return this.http.get<Day>(`${this.apiUrl}/${id}`);
   }
 
+  getCurrentDay(userId : number){
+    return this.http.get<Day>(`${this.apiUrl}/currentDate/${userId}`);
+  }
+
   addDay(day: Day) {
     return this.http.post<Day>(this.apiUrl, day);
   }

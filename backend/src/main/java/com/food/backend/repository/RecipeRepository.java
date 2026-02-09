@@ -32,5 +32,4 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     @Transactional
     @Query(value = "DELETE FROM step WHERE recipe_id = :id", nativeQuery = true)
     void deleteStepsByRecipeId(@Param("id") Integer id);
-
 }

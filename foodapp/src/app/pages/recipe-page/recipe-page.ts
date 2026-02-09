@@ -7,14 +7,14 @@ import { catchError, tap } from 'rxjs/operators';
 import { Recipe } from '../../models/recipe/recipe.model';
 import { StepService } from '../../services/step/step';
 import { RecipeService } from '../../services/recipe/recipe';
-import { Location } from '@angular/common';
+import { Location, UpperCasePipe } from '@angular/common';
 import { IngredientComponent } from "../../components/ingredient-component/ingredient-component";
 import { UserService } from '../../services/user/user';
 import { User } from '../../models/user/step.model';
 
 @Component({
   selector: 'app-recipe-page',
-  imports: [IngredientComponent],
+  imports: [IngredientComponent, UpperCasePipe],
   templateUrl: './recipe-page.html',
   styleUrl: './recipe-page.scss',
 })

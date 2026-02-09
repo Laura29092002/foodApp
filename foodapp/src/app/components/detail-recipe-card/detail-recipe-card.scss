@@ -1,0 +1,54 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FFE891;
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 30px;
+    height: 160px;
+    overflow: hidden;
+    gap: 10px;
+    img{
+        width: 120px;
+        height: 120px;
+        border-radius: 360px;
+    }
+}
+
+.recipe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    h3{
+        margin: 0px;
+    }
+}
+
+.recipe,.ingredient{
+    width: 150px;
+    
+}
+
+.ingredient{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 14px;
+}
+.step{
+    width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+
+    .ingredient{
+        display: none;
+    }
+    
+}
