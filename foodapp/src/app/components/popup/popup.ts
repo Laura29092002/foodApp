@@ -53,6 +53,7 @@ export class Popup implements OnInit{
         this.user!.regimeId = this.form.value.regimeId;
       }
       this.userService.updateUser(this.user!).subscribe();
+      this.userService.login(this.user!);
     }else{
       const dialogRef = this.dialog.open(AlertBox,{
         width : '350px',

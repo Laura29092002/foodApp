@@ -49,7 +49,6 @@ export class UserService {
   }
 
   updateUser(user: User){
-    this.login(user);
     return this.http.put<User>(this.apiUrl, user);
   }
 
